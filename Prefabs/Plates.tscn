@@ -10,6 +10,6 @@ platesPivot = NodePath("PlatesPivot")
 [node name="PlatesPivot" type="Node2D" parent="."]
 
 [node name="Icon" type="Sprite2D" parent="PlatesPivot"]
-position = Vector2(0, -63.9999)
-scale = Vector2(0.365, 1)
+position = Vector2(0, -15)
+scale = Vector2(0.0965625, 0.234376)
 texture = ExtResource("1_4tn0m")
