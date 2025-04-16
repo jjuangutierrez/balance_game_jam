@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://o6o7byy03lnt"]
+
+[ext_resource type="Texture2D" uid="uid://deopu3tlwhwt2" path="res://icon.svg" id="1_4tn0m"]
+[ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Plates.cs" id="1_6ynlc"]
+
+[node name="Plates" type="Node2D" node_paths=PackedStringArray("platesPivot")]
+script = ExtResource("1_6ynlc")
+platesPivot = NodePath("PlatesPivot")
+
+[node name="PlatesPivot" type="Node2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="PlatesPivot"]
+position = Vector2(0, -63.9999)
+scale = Vector2(0.365, 1)
+texture = ExtResource("1_4tn0m")

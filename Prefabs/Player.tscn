@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://h5uybdncsqui"]
+
+[ext_resource type="Script" uid="uid://15ltbjoapuon" path="res://Code/PlayerController.cs" id="1_x3d5u"]
+[ext_resource type="Texture2D" uid="uid://deopu3tlwhwt2" path="res://icon.svg" id="2_b43ah"]
+[ext_resource type="PackedScene" uid="uid://o6o7byy03lnt" path="res://Prefabs/Plates.tscn" id="2_shmu5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dohe"]
+size = Vector2(126, 128)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_x3d5u")
+moveSpeed = 10.0
+
+[node name="Plates" parent="." instance=ExtResource("2_shmu5")]
+position = Vector2(556, 203)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(559, 290)
+texture = ExtResource("2_b43ah")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(559, 290)
+shape = SubResource("RectangleShape2D_4dohe")
