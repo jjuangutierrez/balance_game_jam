@@ -9,10 +9,10 @@ size = Vector2(126, 128)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_x3d5u")
-moveSpeed = 10.0
 
 [node name="Plates" parent="." instance=ExtResource("2_shmu5")]
 position = Vector2(556, 203)
+difficultyFactor = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(559, 290)
