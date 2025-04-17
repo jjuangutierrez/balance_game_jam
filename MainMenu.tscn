@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7uk0801xiwkp"]
+
+[ext_resource type="Shader" uid="uid://baffvbi2a6vg5" path="res://Shaders/ScrollBackground.gdshader" id="1_h7a2f"]
+[ext_resource type="Script" uid="uid://bml6qy77unlor" path="res://Code/UI/MainMenu.cs" id="1_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://b4r10vtu5b5he" path="res://Art/UI/main_menu_background.png" id="2_qoqlk"]
+[ext_resource type="Shader" uid="uid://bru0vwxijwvv3" path="res://Shaders/SpiralShader.gdshader" id="4_iwfq2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r1g0"]
+shader = ExtResource("1_h7a2f")
+shader_parameter/speed = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i26rj"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.764252, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjwba"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqjrg"]
+shader = ExtResource("4_iwfq2")
+shader_parameter/progress = 0.0
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton", "_spiralRect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qoqlk")
+playButton = NodePath("Button")
+_spiralRect = NodePath("CanvasLayer/ColorRect")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_7r1g0")
+offset_right = 480.0
+offset_bottom = 270.0
+texture = ExtResource("2_qoqlk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0.905882)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -12.5
+offset_right = 17.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_i26rj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
+text = "Play"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_cqjrg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 public partial class PlayerController : CharacterBody2D
 {
@@ -35,6 +36,17 @@ public partial class PlayerController : CharacterBody2D
       _lastDirection = "right";
       animationPlayer.Play("player_run_right");
     }
+    else if (InputDirection.Y != 0)
+    {
+      if (_lastDirection == "left")
+      {
+        animationPlayer.Play("player_run_left");
+      }
+      else
+      {
+        animationPlayer.Play("player_run_right");
+      }
+    }
     else
     {
       if (_lastDirection == "left")
@@ -44,7 +56,6 @@ public partial class PlayerController : CharacterBody2D
       else
       {
         animationPlayer.Play("player_idle_right");
-
       }
     }
 

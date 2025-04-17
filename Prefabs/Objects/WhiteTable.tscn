@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://csnmod882rtvc"]
+
+[ext_resource type="Texture2D" uid="uid://b0j7rpbnrj8kx" path="res://Art/Objects/white_table.png" id="1_b4ppx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gan1"]
+size = Vector2(68, 10)
+
+[node name="WhiteTable" type="StaticBody2D"]
+
+[node name="SpriteTable" type="Sprite2D" parent="."]
+texture = ExtResource("1_b4ppx")
+hframes = 2
+frame = 1
+
+[node name="LeftChairTable" type="Sprite2D" parent="."]
+position = Vector2(-30, 0)
+texture = ExtResource("1_b4ppx")
+hframes = 2
+
+[node name="RightChairTable2" type="Sprite2D" parent="."]
+position = Vector2(30, 0)
+texture = ExtResource("1_b4ppx")
+flip_h = true
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_6gan1")
