@@ -1,28 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://o6o7byy03lnt"]
 
 [ext_resource type="Texture2D" uid="uid://deopu3tlwhwt2" path="res://icon.svg" id="1_4tn0m"]
-[ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Plates.cs" id="1_6ynlc"]
-[ext_resource type="Shader" uid="uid://b2sadybvf1wu6" path="res://Shaders/Silhouette.gdshader" id="3_4n0dv"]
+[ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Plates/Plates.cs" id="1_6ynlc"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2kjl"]
-shader = ExtResource("3_4n0dv")
-shader_parameter/silhouette_color = Color(0, 0, 0, 0.5)
-shader_parameter/color_tolerance = 0.01
-
-[node name="Plates" type="Node2D" node_paths=PackedStringArray("platesPivot")]
+[node name="Plates" type="Node2D" node_paths=PackedStringArray("plateSprites", "platesPivot")]
 script = ExtResource("1_6ynlc")
+plateSprites = [NodePath("Icon"), NodePath("Icon")]
 platesPivot = NodePath("PlatesPivot")
 
+[node name="Icon" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.254902)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_4tn0m")
+offset = Vector2(0, -65)
+
 [node name="PlatesPivot" type="Node2D" parent="."]
-
-[node name="Icon" type="Sprite2D" parent="PlatesPivot"]
-position = Vector2(0, -15)
-scale = Vector2(0.0965625, 0.234376)
-texture = ExtResource("1_4tn0m")
-
-[node name="Silhouette" type="Sprite2D" parent="PlatesPivot"]
-z_index = 100
-material = SubResource("ShaderMaterial_o2kjl")
-position = Vector2(0, -15)
-scale = Vector2(0.0965625, 0.234376)
-texture = ExtResource("1_4tn0m")
