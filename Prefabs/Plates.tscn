@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://o6o7byy03lnt"]
+[gd_scene load_steps=3 format=3 uid="uid://o6o7byy03lnt"]
 
 [ext_resource type="Texture2D" uid="uid://deopu3tlwhwt2" path="res://icon.svg" id="1_4tn0m"]
 [ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Plates/Plates.cs" id="1_6ynlc"]
 
 [node name="Plates" type="Node2D" node_paths=PackedStringArray("plateSprites", "platesPivot")]
 script = ExtResource("1_6ynlc")
-plateSprites = [NodePath("Icon"), NodePath("Icon")]
+plateSprites = [NodePath("Icon")]
 platesPivot = NodePath("PlatesPivot")
 
 [node name="Icon" type="Sprite2D" parent="."]

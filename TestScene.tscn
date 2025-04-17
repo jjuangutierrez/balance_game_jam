@@ -1,9 +1,7 @@
-[gd_scene load_steps=27 format=4 uid="uid://cfn8rvipdqweb"]
+[gd_scene load_steps=25 format=4 uid="uid://cfn8rvipdqweb"]
 
 [ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
 [ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
-[ext_resource type="PackedScene" uid="uid://csnmod882rtvc" path="res://Prefabs/Objects/WhiteTable.tscn" id="3_wicfy"]
-[ext_resource type="PackedScene" uid="uid://5xotbf6lslxg" path="res://Prefabs/Objects/RedTable.tscn" id="4_go42g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wicfy"]
 texture = ExtResource("2_cguwc")
@@ -357,42 +355,3 @@ shape = SubResource("RectangleShape2D_c8rvf")
 [node name="CollisionShape2D15" type="CollisionShape2D" parent="MapCollsisions"]
 position = Vector2(304, 592)
 shape = SubResource("RectangleShape2D_sr5jl")
-
-[node name="Tables" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="WhiteTable" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(137, 506)
-
-[node name="WhiteTable2" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(248, 354)
-
-[node name="WhiteTable3" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(248, 457)
-
-[node name="WhiteTable4" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(480, 509)
-
-[node name="WhiteTable5" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(416, 580)
-
-[node name="WhiteTable6" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(568, 580)
-
-[node name="WhiteTable7" parent="Tables" instance=ExtResource("3_wicfy")]
-position = Vector2(389, 382)
-
-[node name="RedTable" parent="Tables" instance=ExtResource("4_go42g")]
-position = Vector2(683, 266)
-
-[node name="RedTable2" parent="Tables" instance=ExtResource("4_go42g")]
-position = Vector2(727, 200)
-
-[node name="RedTable3" parent="Tables" instance=ExtResource("4_go42g")]
-position = Vector2(683, 125)
-
-[node name="RedTable4" parent="Tables" instance=ExtResource("4_go42g")]
-position = Vector2(568, 125)
-
-[node name="RedTable5" parent="Tables" instance=ExtResource("4_go42g")]
-position = Vector2(522, 200)

@@ -63,21 +63,20 @@ public partial class Plates : Node2D
   private void UpdatePhysics()
   {
     Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-    float weightFactor = Mathf.Clamp(_plateCount / (float)maxPlates, 0, 1);
 
-    UpdateAngularVelocity(inputDirection, weightFactor);
+    UpdateAngularVelocity(inputDirection);
     UpdateTiltAngle();
     UpdatePlatesPosition();
 
     QueueRedraw(); // Request redraw for debug visualization
   }
 
-  private void UpdateAngularVelocity(Vector2 inputDirection, float weightFactor)
+  private void UpdateAngularVelocity(Vector2 inputDirection)
   {
     if (inputDirection.X != 0)
     {
       // Apply manual tilting force based on input
-      _angularVelocity += -inputDirection.X * (tiltAcceleration * weightFactor) * _deltaTime;
+      _angularVelocity += -inputDirection.X * tiltAcceleration * _deltaTime;
     }
     else
     {

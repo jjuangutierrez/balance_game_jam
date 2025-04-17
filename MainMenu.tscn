@@ -30,7 +30,7 @@ shader = ExtResource("4_iwfq2")
 shader_parameter/progress = 0.0
 shader_parameter/color = Color(0, 0, 0, 1)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton", "_spiralRect")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("_playButton", "_transitionRect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,18 +38,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qoqlk")
-playButton = NodePath("Button")
-_spiralRect = NodePath("CanvasLayer/ColorRect")
+_playButton = NodePath("Button")
+_transitionRect = NodePath("CanvasLayer/ColorRect")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_7r1g0")
+layout_mode = 0
 offset_right = 480.0
 offset_bottom = 270.0
 texture = ExtResource("2_qoqlk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.905882)
+modulate = Color(0, 0, 0, 0.835294)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

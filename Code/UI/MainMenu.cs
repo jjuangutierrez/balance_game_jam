@@ -1,27 +1,27 @@
 using Godot;
 using System;
 
-public partial class MainMenu : Control
+public partial class MainMenu : Node
 {
-    [Export] private Button playButton;
-    [Export] private ColorRect _spiralRect;
+    [Export] private Button _playButton;
+    [Export] private ColorRect _transitionRect;
 
-    private ShaderMaterial _spiralMaterial;
+    private ShaderMaterial _shaderMaterial;
 
     public override void _Ready()
     {
-        playButton.Pressed += OnPlayButtonPressed;
-        _spiralMaterial = _spiralRect.Material as ShaderMaterial;
-        _spiralRect.Visible = false;
+        _playButton.Pressed += OnPlayPressed;
+        _shaderMaterial = _transitionRect.Material as ShaderMaterial;
+        _transitionRect.Visible = false;
     }
 
-    public async void OnPlayButtonPressed()
+    private async void OnPlayPressed()
     {
-        _spiralRect.Visible = true;
-        _spiralMaterial.SetShaderParameter("progress", 0f);
+        _transitionRect.Visible = true;
+        _shaderMaterial.SetShaderParameter("progress", 0f);
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(_spiralMaterial, "shader_parameter/progress", 1f, 1.5f);
+        tween.TweenProperty(_shaderMaterial, "shader_parameter/progress", 1f, 1f);
 
         await ToSignal(tween, Tween.SignalName.Finished);
 

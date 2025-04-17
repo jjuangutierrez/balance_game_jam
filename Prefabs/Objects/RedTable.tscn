@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://5xotbf6lslxg"]
+[gd_scene load_steps=3 format=3 uid="uid://dwsaari27kctx"]
 
-[ext_resource type="Texture2D" uid="uid://ks6c0x8kn3jl" path="res://Art/Objects/red_table.png" id="1_eskse"]
+[ext_resource type="Texture2D" uid="uid://fttgd2meg2kk" path="res://Art/Objects/red_table.png" id="1_eskse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pog2"]
 size = Vector2(68, 7)
