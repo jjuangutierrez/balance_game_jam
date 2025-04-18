@@ -1,13 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7uk0801xiwkp"]
+[gd_scene load_steps=10 format=3 uid="uid://b7uk0801xiwkp"]
 
 [ext_resource type="Shader" uid="uid://baffvbi2a6vg5" path="res://Shaders/ScrollBackground.gdshader" id="1_h7a2f"]
 [ext_resource type="Script" uid="uid://bml6qy77unlor" path="res://Code/UI/MainMenu.cs" id="1_qoqlk"]
 [ext_resource type="Texture2D" uid="uid://b4r10vtu5b5he" path="res://Art/UI/main_menu_background.png" id="2_qoqlk"]
-[ext_resource type="Shader" uid="uid://bru0vwxijwvv3" path="res://Shaders/SpiralShader.gdshader" id="4_iwfq2"]
+[ext_resource type="Texture2D" uid="uid://ckwx3a1fsa8u5" path="res://Art/UI/music_icon.png" id="4_qoqlk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7r1g0"]
 shader = ExtResource("1_h7a2f")
 shader_parameter/speed = 0.1
+
+[sub_resource type="SystemFont" id="SystemFont_qoqlk"]
+font_names = PackedStringArray("Comic Sans MS")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i26rj"]
 bg_color = Color(0, 0, 0, 1)
@@ -25,12 +28,10 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqjrg"]
-shader = ExtResource("4_iwfq2")
-shader_parameter/progress = 0.0
-shader_parameter/color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoqlk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("_playButton", "_transitionRect")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("_playButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,8 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qoqlk")
-_playButton = NodePath("Button")
-_transitionRect = NodePath("CanvasLayer/ColorRect")
+_playButton = NodePath("PlayButton")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_repeat = 2
@@ -58,7 +58,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="PlayButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -71,16 +71,21 @@ offset_right = 17.5
 offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_qoqlk")
+theme_override_font_sizes/font_size = 18
 theme_override_styles/hover = SubResource("StyleBoxFlat_i26rj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
 text = "Play"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_cqjrg")
-anchors_preset = 15
+[node name="MusicButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -43.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qoqlk")
+icon = ExtResource("4_qoqlk")

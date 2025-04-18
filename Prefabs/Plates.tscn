@@ -11,6 +11,7 @@ platesPivot = NodePath("PlatesPivot")
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.254902)
+z_index = 100
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_4tn0m")
 offset = Vector2(0, -65)

@@ -21,6 +21,7 @@ public partial class PlayerController : CharacterBody2D
   {
     InputDirection = Input.GetVector("left", "right", "up", "down");
     HandleAnimation();
+    
   }
 
   void HandleAnimation()

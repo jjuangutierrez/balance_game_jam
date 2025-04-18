@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform sampler2D screen_texture : hint_screen_texture, filter_nearest;
 
-uniform vec4 silhouette_color : source_color = vec4(0.0, 0.0, 0.0, 0.5); // Default: Semi-transparent black
+uniform vec4 silhouette_color : source_color = vec4(0.0, 0.0, 0.0, 0.3); // Default: Semi-transparent black
 
 uniform float color_tolerance : hint_range(0.0, 0.1) = 0.01;
 

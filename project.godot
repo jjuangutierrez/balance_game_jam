@@ -15,6 +15,10 @@ run/main_scene="uid://b7uk0801xiwkp"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Transition="*res://Prefabs/ui/TransitionLayer.tscn"
+
 [display]
 
 window/size/viewport_width=480

@@ -11,7 +11,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2qb3"]
 shader = ExtResource("4_t8lmw")
-shader_parameter/silhouette_color = Color(0, 0, 0, 0.5)
+shader_parameter/silhouette_color = Color(0, 0, 0, 0.415686)
 shader_parameter/color_tolerance = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4dohe"]
@@ -421,6 +421,7 @@ PlayerSprite = NodePath("Sprite2D")
 animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Plates" parent="." instance=ExtResource("2_shmu5")]
+y_sort_enabled = true
 position = Vector2(19, 5.05952)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
