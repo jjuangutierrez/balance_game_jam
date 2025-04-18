@@ -4,11 +4,23 @@ using System.Collections.Generic;
 
 public partial class NpcSpawnManger : Node2D
 {
-  [Export] PackedScene _npc;
+  public static NpcSpawnManger Instance { get; private set; }
+
+  [Export] PackedScene npcPrefab;
+  [Export] public Vector2 spawnPosition;
   List<Table> _tables = new List<Table>();
   Timer _timer;
+
   public override void _Ready()
   {
+    if (spawnPosition == Vector2.Zero)
+      spawnPosition = Position;
+
+    if (Instance != null && Instance != this)
+      QueueFree();
+    else
+      Instance = this;
+
     var tableNodes = GetTree().GetNodesInGroup("Tables");
     foreach (var node in tableNodes)
       _tables.Add(node as Table);
@@ -29,26 +41,29 @@ public partial class NpcSpawnManger : Node2D
         if (table.Chairs[i].isOccupied)
           continue;
 
-        SpawnNpc(table, i);
+        StartNpcNavigation(table, i);
         return;
       }
     }
   }
 
-  private void SpawnNpc(Table table, int chairIndex)
+  private void StartNpcNavigation(Table table, int chairIndex)
   {
-    var npc = _npc.Instantiate<Npc>();
+    Npc npc = npcPrefab.Instantiate<Npc>();
+
     table.SetSeatState(chairIndex, true);
+    table.ShowChairNpc(npc);
+
+    npc.Position = Position;
+    npc.MoveTo(table.Position);
   }
 
   private void OnTimerTimeOut()
   {
-    GD.Print("Timer timeout");
-    // CheckTables();
+    CheckTables();
   }
 
-  //TODO: Use global
-  private void StopTimer()
+  public void StopTimer()
   {
     _timer.Stop();
   }

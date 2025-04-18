@@ -13,19 +13,11 @@ public partial class Table : StaticBody2D
   public void SetSeatState(int chairIndex, bool isOccupied)
   {
     _chairs[chairIndex].isOccupied = isOccupied;
-
   }
 
-/* TODO */
-  public void ShowNpc(int npcIndex)
+  public void ShowChairNpc(Npc npc)
   {
-    _chairs[npcIndex].SetNpcTexture(npcIndex);
-  }
-
-/* TODO */
-  public void HideNpc(int npcIndex)
-  {
-    _chairs[npcIndex].HideNpc();
+    _chairs[npc.NpcIndex].SetNpc(npc);
   }
 
   public bool AllSeatsOccupied()

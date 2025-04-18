@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0nwutuge0qe"]
+[gd_scene load_steps=13 format=3 uid="uid://d0nwutuge0qe"]
 
 [ext_resource type="Script" uid="uid://dcijsamayub5" path="res://Code/Npc/Npc.cs" id="1_ih817"]
 [ext_resource type="Texture2D" uid="uid://c8jocqqq554sh" path="res://Art/Customers/customer_1_spritesheet.png" id="1_ttmuo"]
@@ -8,8 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://br5556i3uibqo" path="res://Art/Customers/customer_5_spritesheet.png" id="6_aderj"]
 [ext_resource type="Texture2D" uid="uid://bfpbnutat5phd" path="res://Art/Customers/customer_6_spritesheet.png" id="7_op51g"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ih817"]
+height = 34.0
+
 [sub_resource type="Animation" id="Animation_sbljn"]
 length = 0.001
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -40,7 +44,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ih817"]
-resource_name = "npc_walking"
+resource_name = "npc_walk"
 loop_mode = 1
 step = 0.25
 tracks/0/type = "value"
@@ -60,13 +64,8 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_sbljn"),
 &"npc_idle": SubResource("Animation_ikqwk"),
-&"npc_walking": SubResource("Animation_ih817")
+&"npc_walk": SubResource("Animation_ih817")
 }
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_ih817"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ih817"]
-height = 34.0
 
 [node name="Node2D" type="CharacterBody2D" node_paths=PackedStringArray("NPCSprite")]
 script = ExtResource("1_ih817")
@@ -79,19 +78,12 @@ hframes = 4
 vframes = 3
 frame = 4
 
-[node name="StateMachine" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_ih817")
+debug_color = Color(0.788459, 0.430439, 3.85046e-07, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_sbljn")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace1D_ih817")
-anim_player = NodePath("../AnimationPlayer")
-parameters/blend_position = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 2)
-shape = SubResource("CapsuleShape2D_ih817")
-debug_color = Color(0.788459, 0.430439, 3.85046e-07, 0.42)
