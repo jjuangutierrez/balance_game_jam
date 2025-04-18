@@ -30,9 +30,15 @@ project/assembly_name="balance_game_jam"
 [file_customization]
 
 folder_colors={
+"res://Animations/": "yellow",
+"res://Art/": "blue",
 "res://Code/": "orange",
 "res://Prefabs/": "green"
 }
+
+[global_group]
+
+Tables=""
 
 [input]
 

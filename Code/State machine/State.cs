@@ -11,8 +11,5 @@ public partial class State : Node
     public virtual void PhysicsUpdate(double delta) {}
 
     // Emit the signal
-    protected void EmitTransitioned(string newStateName)
-    {
-        EmitSignal(SignalName.Transitioned, newStateName);
-    }
+    protected void EmitTransitioned(string newStateName) => EmitSignal(SignalName.Transitioned, newStateName);
 }

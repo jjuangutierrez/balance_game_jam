@@ -1,0 +1,27 @@
+[gd_scene load_steps=9 format=3 uid="uid://bi2hhlsf5j01"]
+
+[ext_resource type="Texture2D" uid="uid://d3dstixl6noos" path="res://Art/Objects/white_chair.png" id="1_4fmkq"]
+[ext_resource type="Script" uid="uid://dgxtx0q008fhe" path="res://Code/Tables/Chair.cs" id="1_mccaq"]
+[ext_resource type="Texture2D" uid="uid://c8jocqqq554sh" path="res://Art/Customers/customer_1_spritesheet.png" id="2_mccaq"]
+[ext_resource type="Texture2D" uid="uid://bara84a0j0ilo" path="res://Art/Customers/customer_2_spritesheet.png" id="3_r2otp"]
+[ext_resource type="Texture2D" uid="uid://7bp1yw6av1xw" path="res://Art/Customers/customer_3_spritesheet.png" id="4_egcyt"]
+[ext_resource type="Texture2D" uid="uid://b1p1etfph6tgb" path="res://Art/Customers/customer_4_spritesheet.png" id="5_qcgtu"]
+[ext_resource type="Texture2D" uid="uid://br5556i3uibqo" path="res://Art/Customers/customer_5_spritesheet.png" id="6_vwyse"]
+[ext_resource type="Texture2D" uid="uid://bfpbnutat5phd" path="res://Art/Customers/customer_6_spritesheet.png" id="7_hd621"]
+
+[node name="Chair" type="Node2D" node_paths=PackedStringArray("npcSprite")]
+script = ExtResource("1_mccaq")
+npcTextures = Array[Texture2D]([ExtResource("2_mccaq"), ExtResource("3_r2otp"), ExtResource("4_egcyt"), ExtResource("5_qcgtu"), ExtResource("6_vwyse"), ExtResource("7_hd621")])
+npcSprite = NodePath("Npc")
+
+[node name="Chair" type="Sprite2D" parent="."]
+texture = ExtResource("1_4fmkq")
+
+[node name="Npc" type="Sprite2D" parent="."]
+visible = false
+light_mask = 2
+position = Vector2(3, -13)
+texture = ExtResource("2_mccaq")
+hframes = 4
+vframes = 3
+frame = 8
