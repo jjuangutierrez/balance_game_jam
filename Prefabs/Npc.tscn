@@ -67,10 +67,12 @@ _data = {
 &"npc_walk": SubResource("Animation_ih817")
 }
 
-[node name="Node2D" type="CharacterBody2D" node_paths=PackedStringArray("NPCSprite")]
+[node name="Node2D" type="CharacterBody2D" node_paths=PackedStringArray("NPCSprite", "animationPlayer", "agent")]
 script = ExtResource("1_ih817")
 textures = Array[Texture2D]([ExtResource("1_ttmuo"), ExtResource("3_sbljn"), ExtResource("4_ikqwk"), ExtResource("5_wmumj"), ExtResource("6_aderj"), ExtResource("7_op51g")])
 NPCSprite = NodePath("Sprite2D")
+animationPlayer = NodePath("AnimationPlayer")
+agent = NodePath("NavigationAgent2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ttmuo")
@@ -87,3 +89,5 @@ debug_color = Color(0.788459, 0.430439, 3.85046e-07, 0.42)
 libraries = {
 &"": SubResource("AnimationLibrary_sbljn")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

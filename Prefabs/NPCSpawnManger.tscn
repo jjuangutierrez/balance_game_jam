@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://diln8qb1uofp1"]
+[gd_scene load_steps=3 format=3 uid="uid://diln8qb1uofp1"]
 
 [ext_resource type="Script" uid="uid://c0o4jb4jh4opv" path="res://Code/Npc/NpcSpawnManger.cs" id="1_k6vnv"]
+[ext_resource type="PackedScene" uid="uid://d0nwutuge0qe" path="res://Prefabs/Npc.tscn" id="2_shpfe"]
 
 [node name="NPCSpawnManger" type="Node2D"]
 script = ExtResource("1_k6vnv")
+npcPrefab = ExtResource("2_shpfe")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeOut"]

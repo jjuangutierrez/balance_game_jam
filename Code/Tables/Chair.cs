@@ -20,7 +20,7 @@ public partial class Chair : Node2D
   public void Leave()
   {
     npcSprite.Visible = false;
-    _npc.MoveTo(NpcSpawnManger.Instance.spawnPosition);
+    _npc.MoveNpcTo(NpcSpawnManger.Instance.spawnPosition);
     _npc.SetProcess(true);
   }
 }

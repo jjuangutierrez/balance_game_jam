@@ -8,6 +8,8 @@ public partial class Npc : CharacterBody2D
   [Export] Sprite2D NPCSprite;
   [Export] AnimationPlayer animationPlayer;
   [Export] NavigationAgent2D agent;
+  float _distance;
+  Vector2 _tablePosition;
   int _npcIndex;
 
   public int NpcIndex
@@ -26,6 +28,9 @@ public partial class Npc : CharacterBody2D
     Vector2 target = agent.GetNextPathPosition();
     if (target != Vector2.Zero)
     {
+      _distance = (_tablePosition - Position).Length();
+      GD.Print(_distance);
+
       if (GlobalPosition.DistanceTo(target) > stopDistance)
       {
         var dir = (target - GlobalPosition).Normalized();
@@ -40,9 +45,10 @@ public partial class Npc : CharacterBody2D
     }
   }
 
-  public void MoveTo(Vector2 position)
+  public void MoveNpcTo(Vector2 tablePosition)
   {
-    agent.TargetPosition = position;
+    _tablePosition = tablePosition;
+    agent.TargetPosition = tablePosition;
     Visible = true;
     SetProcess(true);
   }

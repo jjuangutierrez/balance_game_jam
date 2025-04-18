@@ -42,20 +42,21 @@ public partial class NpcSpawnManger : Node2D
           continue;
 
         StartNpcNavigation(table, i);
-        return;
+        break;
       }
     }
   }
 
   private void StartNpcNavigation(Table table, int chairIndex)
   {
+
     Npc npc = npcPrefab.Instantiate<Npc>();
+    AddChild(npc);
 
     table.SetSeatState(chairIndex, true);
     table.ShowChairNpc(npc);
-
-    npc.Position = Position;
-    npc.MoveTo(table.Position);
+    npc.Position = spawnPosition;
+    npc.MoveNpcTo(table.Position);
   }
 
   private void OnTimerTimeOut()

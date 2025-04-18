@@ -10,13 +10,9 @@ platesPivot = NodePath("PlatesPivot")
 
 [node name="Plate" type="Sprite2D" parent="."]
 visible = false
+z_index = 100
 texture = ExtResource("2_6ynlc")
 offset = Vector2(0, -4)
 vframes = 3
-modulate = Color(1, 1, 1, 0.254902)
-z_index = 100
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_4tn0m")
-offset = Vector2(0, -65)
 
 [node name="PlatesPivot" type="Node2D" parent="."]
