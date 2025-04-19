@@ -10,12 +10,12 @@ public partial class MainMenu : Node
         _playButton.Pressed += OnPlayPressed;
     }
 
-    private async void OnPlayPressed()
+    private void OnPlayPressed()
     {
         var transition = GetTree().Root.GetNode<TransitionLayer>("Transition");
-        
-        await transition.PlayOutTransition();
-        
+
+        // await transition.PlayOutTransition();
+
         GetTree().ChangeSceneToFile("res://TestScene.tscn");
     }
 }

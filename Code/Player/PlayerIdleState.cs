@@ -1,14 +1,17 @@
 using Godot;
-using System;
 
 public partial class PlayerIdleState : State
 {
-    [Export] PlayerController Player;
+    PlayerController _player;
 
+    public override void Enter()
+    {
+        _player = GetParent().GetParent() as PlayerController;
+    }
 
     public override void Update(double delta)
     {
-        if (Player.InputDirection != Vector2.Zero)
+        if (_player.inputDirection != Vector2.Zero)
             EmitTransitioned("Run");
     }
 

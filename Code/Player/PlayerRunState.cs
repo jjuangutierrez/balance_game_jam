@@ -1,25 +1,27 @@
 using Godot;
-using System;
 
 public partial class PlayerRunState : State
 {
-    [Export] PlayerController Player;
+    PlayerController _player;
+
+    public override void _Ready()
+    {
+      _player = GetParent().GetParent() as PlayerController;
+    }
 
     public override void PhysicsUpdate(double delta)
     {
-        Vector2 velocity = Player.Velocity;
+        Vector2 velocity = _player.Velocity;
 
-        velocity.X = Player.InputDirection.X * Player.MoveSpeed;
-        velocity.Y = Player.InputDirection.Y * Player.MoveSpeed;
+        velocity.X = _player.inputDirection.X * _player.MoveSpeed;
+        velocity.Y = _player.inputDirection.Y * _player.MoveSpeed;
 
-        if (Player.InputDirection == Vector2.Zero)
-        {
+        if (_player.inputDirection == Vector2.Zero)
             EmitTransitioned("Idle");
-        }
 
-        Player.Velocity = velocity * Player.MoveSpeed;
+        _player.Velocity = velocity * _player.MoveSpeed;
 
-        Player.MoveAndSlide();
+        _player.MoveAndSlide();
     }
 
 

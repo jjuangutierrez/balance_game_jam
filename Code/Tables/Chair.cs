@@ -3,24 +3,36 @@ using System;
 
 public partial class Chair : Node2D
 {
-  [Export] Texture2D[] npcTextures;
-  [Export] Sprite2D npcSprite;
-  Npc _npc;
+  [Export] private Texture2D[] npcTextures;
+  [Export] private Sprite2D npcSprite;
 
-  public bool isOccupied = false;
+  private Npc _currentNpc;
+
+  public bool IsOccupied { get; private set; }
+  public bool IsReserved { get; set; }
 
   public void SetNpc(Npc npc)
   {
-    _npc = npc;
+    if (npc == null)
+      throw new ArgumentNullException(nameof(npc));
+
+    _currentNpc = npc;
     npcSprite.Texture = npcTextures[npc.NpcIndex];
     npcSprite.Visible = true;
+    IsOccupied = true;
+    IsReserved = true;
   }
 
-  //TODO: Call this after timer timeout
   public void Leave()
   {
-    npcSprite.Visible = false;
-    _npc.MoveNpcTo(NpcSpawnManger.Instance.spawnPosition);
-    _npc.SetProcess(true);
+    // if (_currentNpc == null)
+    //   return;
+
+    // npcSprite.Visible = false;
+    // _currentNpc.MoveTo(NpcSpawnManager.Instance.spawnPoint.GlobalPosition);
+    // _currentNpc.SetProcess(true);
+    // IsOccupied = false;
+    // IsReserved = false;
+    // _currentNpc = null;
   }
 }

@@ -3,60 +3,75 @@ using Godot;
 public partial class Npc : CharacterBody2D
 {
   [Export] Texture2D[] textures;
-  [Export] float stopDistance = 5;
-  [Export] float speed = 100;
+  [Export] float stopDistance = 60;
+  [Export] float speed = 80;
   [Export] Sprite2D NPCSprite;
   [Export] AnimationPlayer animationPlayer;
   [Export] NavigationAgent2D agent;
-  float _distance;
-  Vector2 _tablePosition;
-  int _npcIndex;
 
-  public int NpcIndex
-  {
-    get { return _npcIndex; }
-  }
+  int _npcIndex = -1;
+  int _chairIndex = -1;
+
+  public Table AssignedTable { get; private set; }
+  public int NpcIndex => _npcIndex;
+  public int ChairIndex => _chairIndex;
 
   public override void _Ready()
   {
-    NPCSprite.Texture = RandomTexture();
-    animationPlayer.Play("npc_walk");
+    InitializeAppearance();
   }
 
-  public override void _Process(double delta)
+  private void InitializeAppearance()
   {
-    Vector2 target = agent.GetNextPathPosition();
-    if (target != Vector2.Zero)
-    {
-      _distance = (_tablePosition - Position).Length();
-      GD.Print(_distance);
+    NPCSprite.Texture = RandomTexture();
+    animationPlayer.Play("npc_walk");
+    animationPlayer.SpeedScale = 2f;
+  }
 
-      if (GlobalPosition.DistanceTo(target) > stopDistance)
-      {
-        var dir = (target - GlobalPosition).Normalized();
-        Velocity = dir * speed;
-        MoveAndSlide();
-      }
-      else
-      {
-        Visible = false;
-        SetProcess(false);
-      }
+  public override void _PhysicsProcess(double delta)
+  {
+    UpdateMovement();
+  }
+
+  private void UpdateMovement()
+  {
+    Vector2 targetPoint = agent.GetNextPathPosition();
+    Vector2 target = ToLocal(targetPoint).Normalized();
+    Velocity = target * speed;
+
+    UpdateSpriteDirection();
+    MoveAndSlide();
+  }
+
+  private void UpdateSpriteDirection()
+  {
+    if (Velocity.X < 0)
+      NPCSprite.FlipH = true;
+    else if (Velocity.X > 0)
+      NPCSprite.FlipH = false;
+  }
+
+  public void MoveTo()
+  {
+    agent.TargetPosition = AssignedTable.GlobalPosition;
+    if (ProcessMode == ProcessModeEnum.Disabled)
+    {
+      Visible = true;
+      SetProcess(true);
     }
   }
 
-  public void MoveNpcTo(Vector2 tablePosition)
+  public void AssignToTable(Table table, int chairIndex)
   {
-    _tablePosition = tablePosition;
-    agent.TargetPosition = tablePosition;
-    Visible = true;
-    SetProcess(true);
+    AssignedTable = table;
+    _chairIndex = chairIndex;
+    MoveTo();
   }
 
-  Texture2D RandomTexture()
+  private Texture2D RandomTexture()
   {
     int randomNumber = GD.RandRange(0, textures.Length - 1);
-    _npcIndex = (byte)randomNumber;
+    _npcIndex = randomNumber;
     return textures[randomNumber];
   }
 }
