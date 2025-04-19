@@ -3,13 +3,19 @@ using System;
 
 public partial class Chair : Node2D
 {
-  [Export] private Texture2D[] npcTextures;
-  [Export] private Sprite2D npcSprite;
+  [Export] Texture2D[] npcTextures;
+  [Export] Sprite2D npcSprite;
 
-  private Npc _currentNpc;
+  Timer timer;
+  Npc _currentNpc;
 
   public bool IsOccupied { get; private set; }
   public bool IsReserved { get; set; }
+
+  public override void _Ready()
+  {
+    timer = GetNode<Timer>("Timer");
+  }
 
   public void SetNpc(Npc npc)
   {
@@ -19,20 +25,36 @@ public partial class Chair : Node2D
     _currentNpc = npc;
     npcSprite.Texture = npcTextures[npc.NpcIndex];
     npcSprite.Visible = true;
+
     IsOccupied = true;
     IsReserved = true;
+
+    timer.Start(5);
   }
+
+  public void WaitingFood() { }
+
+  private void Talking() { }
+
+  private void Eating() { }
+
+  private void Angry() { }
+
+  public void OnTimerTimeout() => Leave();
 
   public void Leave()
   {
-    // if (_currentNpc == null)
-    //   return;
+    if (_currentNpc == null)
+      return;
 
-    // npcSprite.Visible = false;
-    // _currentNpc.MoveTo(NpcSpawnManager.Instance.spawnPoint.GlobalPosition);
-    // _currentNpc.SetProcess(true);
-    // IsOccupied = false;
-    // IsReserved = false;
-    // _currentNpc = null;
+    npcSprite.Visible = false;
+    _currentNpc.Visible = true;
+
+    _currentNpc.SetProcess(true);
+    _currentNpc.MoveTo(NpcSpawnManager.Instance.exitPoint.GlobalPosition);
+
+    IsOccupied = false;
+    IsReserved = false;
+    _currentNpc = null;
   }
 }

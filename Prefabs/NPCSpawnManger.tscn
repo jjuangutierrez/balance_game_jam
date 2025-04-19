@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://diln8qb1uofp1"]
+[gd_scene load_steps=4 format=3 uid="uid://diln8qb1uofp1"]
 
 [ext_resource type="Script" uid="uid://c0o4jb4jh4opv" path="res://Code/Npc/NpcSpawnManager.cs" id="1_k6vnv"]
 [ext_resource type="PackedScene" uid="uid://d0nwutuge0qe" path="res://Prefabs/Npc.tscn" id="2_shpfe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shpfe"]
 
 [node name="NPCSpawnManger" type="Node2D"]
 script = ExtResource("1_k6vnv")
@@ -10,4 +12,16 @@ npcScene = ExtResource("2_shpfe")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="exitPoint" type="Node2D" parent="."]
+position = Vector2(0, 44)
+
+[node name="ExitArea" type="Area2D" parent="exitPoint"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exitPoint/ExitArea"]
+shape = SubResource("RectangleShape2D_shpfe")
+debug_color = Color(0.776046, 0.435281, 0.182131, 0.42)
+
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="exitPoint/ExitArea" to="." method="OnExitAreaEnteded"]

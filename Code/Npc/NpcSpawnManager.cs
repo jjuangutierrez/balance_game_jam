@@ -6,18 +6,20 @@ public partial class NpcSpawnManager : Node2D
 {
   public static NpcSpawnManager Instance { get; private set; }
 
-  [Export] public PackedScene npcScene;
-  [Export] public Node2D spawnPoint;
+  [Export] PackedScene npcScene;
+  [Export] Node2D spawnPoint;
+  [Export] Vector2I spawnRate = new Vector2I(5, 10);
+  public Node2D exitPoint { get; private set; }
 
-  private List<Table> _tables = new();
-  private Timer _spawnTimer;
-  private List<Npc> _activeNpcs = new();
-  private int _maxNpcs = 10;
-  private readonly float _minSpawnTime = 5f;
-  private readonly float _maxSpawnTime = 10f;
+  List<Table> _tables = new();
+  Timer _spawnTimer;
+  List<Npc> _activeNpcs = new();
+  int _maxNpcs = 10;
 
   public override void _Ready()
   {
+    exitPoint = GetNode<Node2D>("exitPoint");
+
     SetupInstance();
 
     InitializeTables();
@@ -44,8 +46,8 @@ public partial class NpcSpawnManager : Node2D
   private void InitializeTimer()
   {
     _spawnTimer = GetNode<Timer>("Timer");
-    _spawnTimer.WaitTime = GD.RandRange(_minSpawnTime, _maxSpawnTime);
-    _spawnTimer.Start();
+    int spawnTime = GD.RandRange(spawnRate.X, spawnRate.Y);
+    _spawnTimer.Start(spawnTime);
   }
 
   private void InitializeTables()
@@ -70,13 +72,12 @@ public partial class NpcSpawnManager : Node2D
     if (npcScene == null || spawnPoint == null)
       return;
 
+    int chairIndex = table.ReserveChair();
     var npc = npcScene.Instantiate<Npc>();
     AddChild(npc);
     npc.GlobalPosition = spawnPoint.GlobalPosition;
 
     _activeNpcs.Add(npc);
-
-    int chairIndex = table.ReserveChair();
     npc.AssignToTable(table, chairIndex);
   }
 
@@ -95,5 +96,12 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Remove(npc);
     npc.QueueFree();
+  }
+
+  public void OnExitAreaEnteded(Node2D body){
+    if (body is not Npc npc)
+      return;
+
+    RemoveNpc(npc);
   }
 }

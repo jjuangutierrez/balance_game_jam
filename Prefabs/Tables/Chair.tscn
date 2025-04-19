@@ -25,3 +25,7 @@ texture = ExtResource("2_mccaq")
 hframes = 4
 vframes = 3
 frame = 8
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

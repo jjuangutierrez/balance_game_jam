@@ -51,9 +51,13 @@ public partial class Npc : CharacterBody2D
       NPCSprite.FlipH = false;
   }
 
-  public void MoveTo()
+  public void MoveTo(Vector2? position = null)
   {
-    agent.TargetPosition = AssignedTable.GlobalPosition;
+    if (position == null)
+      agent.TargetPosition = AssignedTable.GlobalPosition;
+    else
+      agent.TargetPosition = position.Value;
+
     if (ProcessMode == ProcessModeEnum.Disabled)
     {
       Visible = true;
