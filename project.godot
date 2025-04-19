@@ -41,10 +41,6 @@ folder_colors={
 "res://Prefabs/": "green"
 }
 
-[global_group]
-
-Tables=""
-
 [input]
 
 up={

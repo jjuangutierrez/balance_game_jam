@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cfn8rvipdqweb"]
+[gd_scene load_steps=30 format=4 uid="uid://cfn8rvipdqweb"]
 
 [ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
 [ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
@@ -262,6 +262,12 @@ size = Vector2(32, 224)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sr5jl"]
 size = Vector2(32, 32)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_12c36"]
+vertices = PackedVector2Array(607.5, 479.5, 607.5, 452.5, 624, 408, 624, 840, 512, 536, 528.5, 479.5, 512, 456, 528.5, 452.5, 592, 408, 320, 840, 320, 552, 432, 536, 432, 456, 183.5, 535.5, 183.5, 508.5, 304, 408, 32, 552, 104.5, 535.5, 32, 376, 104.5, 508.5, 304, 376, 512, 408, 592, 296, 512, 296, 752, 120, 752, 296, 480, 120, 480, 296)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 0, 3), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(8, 2, 1, 7), PackedInt32Array(4, 3, 9, 10, 11), PackedInt32Array(12, 11, 10, 13, 14, 15), PackedInt32Array(13, 10, 16, 17), PackedInt32Array(17, 16, 18, 19), PackedInt32Array(14, 19, 18, 20, 15), PackedInt32Array(6, 12, 15, 21, 7), PackedInt32Array(22, 8, 7, 21, 23), PackedInt32Array(24, 25, 22, 26), PackedInt32Array(26, 22, 23), PackedInt32Array(26, 23, 27)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(24, 368, 312, 368, 312, 400, 504, 400, 504, 304, 472, 304, 472, 112, 760, 112, 760, 304, 600, 304, 600, 400, 632, 400, 632, 848, 312, 848, 312, 560, 24, 560), PackedVector2Array(440, 528, 504, 528, 504, 464, 440, 464)])
+agent_radius = 8.0
+
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 
@@ -359,4 +365,16 @@ script = ExtResource("3_wicfy")
 position = Vector2(119, 512)
 
 [node name="NPCSpawnManger" parent="." instance=ExtResource("7_12c36")]
-position = Vector2(480, 592)
+position = Vector2(480, 576)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(8, -16)
+navigation_polygon = SubResource("NavigationPolygon_12c36")
+
+[node name="WhiteTable" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+z_index = 1
+position = Vector2(144, 520)
+
+[node name="WhiteTable2" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+z_index = 1
+position = Vector2(568, 464)

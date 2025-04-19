@@ -1,64 +1,72 @@
 using Godot;
-using System;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 public partial class PlayerController : CharacterBody2D
 {
-  [Export] public float MoveSpeed = 20;
-  [Export] public Sprite2D PlayerSprite;
+  [Export] float moveSpeed = 10;
+  [Export] Sprite2D playerSprite;
   [Export] AnimationPlayer animationPlayer;
-  public Vector2 InputDirection = Vector2.Zero;
-  string _lastDirection = "right";
 
+   public Vector2 inputDirection {get; private set;}
+
+   string _lastDirection = "right";
+
+  // Animation name constants
+  const string _ANIM_IDLE_RIGHT = "player_idle_right";
+  const string _ANIM_IDLE_LEFT = "player_idle_left";
+  const string _ANIM_RUN_RIGHT = "player_run_right";
+  const string _ANIM_RUN_LEFT = "player_run_left";
+
+  public float MoveSpeed {
+    get { return moveSpeed; }
+  }
 
   public override void _Ready()
   {
-    animationPlayer.Play("player_idle_right");
+    animationPlayer.Play(_ANIM_IDLE_RIGHT);
+    animationPlayer.SpeedScale = 1.2f;
   }
 
   public override void _Process(double delta)
   {
-    InputDirection = Input.GetVector("left", "right", "up", "down");
+    inputDirection = Input.GetVector("left", "right", "up", "down");
     HandleAnimation();
-    
   }
 
-  void HandleAnimation()
+  public override void _PhysicsProcess(double delta)
   {
+    ApplyMovement();
+  }
 
-    if (InputDirection.X < 0)
+  private void ApplyMovement()
+  {
+    Vector2 velocity = inputDirection.Normalized() * moveSpeed;
+    Velocity = velocity;
+    MoveAndSlide();
+  }
+
+  private void HandleAnimation()
+  {
+    if (inputDirection == Vector2.Zero)
     {
-      _lastDirection = "left";
-      animationPlayer.Play("player_run_left");
-    }
-    else if (InputDirection.X > 0)
-    {
-      _lastDirection = "right";
-      animationPlayer.Play("player_run_right");
-    }
-    else if (InputDirection.Y != 0)
-    {
-      if (_lastDirection == "left")
-      {
-        animationPlayer.Play("player_run_left");
-      }
-      else
-      {
-        animationPlayer.Play("player_run_right");
-      }
-    }
-    else
-    {
-      if (_lastDirection == "left")
-      {
-        animationPlayer.Play("player_idle_left");
-      }
-      else
-      {
-        animationPlayer.Play("player_idle_right");
-      }
+      PlayIdleAnimation();
+      return;
     }
 
+    if (inputDirection.X != 0)
+      _lastDirection = inputDirection.X < 0 ? "left" : "right";
+
+    PlayRunAnimation();
+  }
+
+  private void PlayIdleAnimation()
+  {
+    string animation = _lastDirection == "left" ? _ANIM_IDLE_LEFT : _ANIM_IDLE_RIGHT;
+    animationPlayer.Play(animation);
+  }
+
+  private void PlayRunAnimation()
+  {
+    string animation = _lastDirection == "left" ? _ANIM_RUN_LEFT : _ANIM_RUN_RIGHT;
+    animationPlayer.Play(animation);
   }
 }
