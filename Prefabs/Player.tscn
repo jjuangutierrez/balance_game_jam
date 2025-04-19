@@ -462,3 +462,4 @@ autoplay = "player_idle_right"
 
 [node name="Plates" parent="." instance=ExtResource("8_3ygst")]
 position = Vector2(18, 5)
+maxPlates = 20

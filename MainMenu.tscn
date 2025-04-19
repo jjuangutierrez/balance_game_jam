@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7uk0801xiwkp"]
+[gd_scene load_steps=12 format=3 uid="uid://b7uk0801xiwkp"]
 
 [ext_resource type="Shader" uid="uid://baffvbi2a6vg5" path="res://Shaders/ScrollBackground.gdshader" id="1_h7a2f"]
 [ext_resource type="Script" uid="uid://bml6qy77unlor" path="res://Code/UI/MainMenu.cs" id="1_qoqlk"]
@@ -8,6 +8,16 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7r1g0"]
 shader = ExtResource("1_h7a2f")
 shader_parameter/speed = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoqlk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="SystemFont" id="SystemFont_xl4ts"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[sub_resource type="LabelSettings" id="LabelSettings_qoqlk"]
+font = SubResource("SystemFont_xl4ts")
+font_color = Color(1, 0.803922, 0, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_qoqlk"]
 font_names = PackedStringArray("Comic Sans MS")
@@ -28,10 +38,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoqlk"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("_playButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +46,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qoqlk")
-_playButton = NodePath("PlayButton")
+playButton = NodePath("BoxContainer/VBoxContainer/PlayButton")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_repeat = 2
@@ -58,25 +65,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -12.5
-offset_right = 17.5
-offset_bottom = 12.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = SubResource("SystemFont_qoqlk")
-theme_override_font_sizes/font_size = 18
-theme_override_styles/hover = SubResource("StyleBoxFlat_i26rj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
-text = "Play"
-
 [node name="MusicButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -89,3 +77,33 @@ offset_bottom = 44.0
 grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_qoqlk")
 icon = ExtResource("4_qoqlk")
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -27.5
+offset_right = 36.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
+layout_mode = 2
+
+[node name="RecordScoreLabel" type="Label" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Record: 0"
+label_settings = SubResource("LabelSettings_qoqlk")
+
+[node name="PlayButton" type="Button" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_qoqlk")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/hover = SubResource("StyleBoxFlat_i26rj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
+text = "Play"

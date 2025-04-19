@@ -3,8 +3,8 @@ using System;
 
 public partial class GameManager : Node
 {
-    [Export] public float Score;
-    [Export] public float Time;
+    [Export] public float Score = 0;
+    [Export] public float Time = 60;
     [Export] public float Plates;
     [Export] public float CurrentTime;
 
@@ -19,7 +19,7 @@ public partial class GameManager : Node
         if (CurrentTime <= 0)
         {
             GD.Print("game over");
-            CurrentTime = 0;
+            CurrentTime = Time;
             GetTree().ChangeSceneToFile("res://GameOver.tscn");
         }
     }

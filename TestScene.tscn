@@ -1,10 +1,9 @@
-[gd_scene load_steps=29 format=4 uid="uid://cfn8rvipdqweb"]
+[gd_scene load_steps=28 format=4 uid="uid://cfn8rvipdqweb"]
 
 [ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
 [ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
 [ext_resource type="Script" uid="uid://c5qln680y0wgw" path="res://Code/UI/TransitionManager.cs" id="3_wicfy"]
 [ext_resource type="PackedScene" uid="uid://cx65ukao2r3oq" path="res://Prefabs/ui/ui.tscn" id="4_go42g"]
-[ext_resource type="PackedScene" uid="uid://d3ycehrrs3gnn" path="res://Prefabs/GameManager.tscn" id="5_sreuk"]
 [ext_resource type="PackedScene" uid="uid://wxe8omedx456" path="res://Prefabs/Tables/WhiteTable.tscn" id="6_tq6uv"]
 [ext_resource type="PackedScene" uid="uid://diln8qb1uofp1" path="res://Prefabs/NPCSpawnManger.tscn" id="7_12c36"]
 
@@ -354,12 +353,7 @@ shape = SubResource("RectangleShape2D_sr5jl")
 [node name="TransitionManager" type="Node" parent="."]
 script = ExtResource("3_wicfy")
 
-[node name="UI" parent="." node_paths=PackedStringArray("gameManager") instance=ExtResource("4_go42g")]
-gameManager = NodePath("../GameManager")
-
-[node name="GameManager" parent="." instance=ExtResource("5_sreuk")]
-Time = 60.0
-CurrentTime = 60.0
+[node name="UI" parent="." instance=ExtResource("4_go42g")]
 
 [node name="WhiteTable" parent="." instance=ExtResource("6_tq6uv")]
 position = Vector2(119, 512)

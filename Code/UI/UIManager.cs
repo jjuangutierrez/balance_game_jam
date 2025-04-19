@@ -8,6 +8,12 @@ public partial class UIManager : CanvasLayer
     [Export] private AnimationPlayer animationPlayer;
     [Export] private GameManager gameManager;
 
+    public override void _Ready()
+    {
+        gameManager = GetTree().Root.GetNode<GameManager>("GameManager");
+    }
+
+
     public override void _PhysicsProcess(double delta)
     {
 

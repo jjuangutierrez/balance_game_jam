@@ -3,11 +3,11 @@ using System;
 
 public partial class MainMenu : Node
 {
-    [Export] private Button _playButton;
+    [Export] private Button playButton;
 
     public override void _Ready()
     {
-        _playButton.Pressed += OnPlayPressed;
+        playButton.Pressed += OnPlayPressed;
     }
 
     private async void OnPlayPressed()

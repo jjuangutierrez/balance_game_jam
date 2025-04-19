@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1a8lb8bjed8h"]
+[gd_scene load_steps=6 format=3 uid="uid://d1a8lb8bjed8h"]
+
+[ext_resource type="Script" uid="uid://4kvlna5ykrv" path="res://Code/UI/GameOver.cs" id="1_40baj"]
 
 [sub_resource type="SystemFont" id="SystemFont_4g1ep"]
 font_names = PackedStringArray("Comic Sans MS")
@@ -14,20 +16,15 @@ font_names = PackedStringArray("Comic Sans MS")
 font = SubResource("SystemFont_a1htc")
 font_color = Color(1, 0.804681, 0, 1)
 
-[sub_resource type="SystemFont" id="SystemFont_xl4ts"]
-font_names = PackedStringArray("Comic Sans MS")
-
-[sub_resource type="LabelSettings" id="LabelSettings_jywu3"]
-font = SubResource("SystemFont_xl4ts")
-font_color = Color(1, 0.803922, 0, 1)
-
-[node name="GameOver" type="Control"]
+[node name="GameOver" type="Control" node_paths=PackedStringArray("backButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_40baj")
+backButton = NodePath("BoxContainer/VBoxContainer/MainMenuButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -72,11 +69,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Total score: 0"
 label_settings = SubResource("LabelSettings_eksk4")
-
-[node name="RecordScoreLabel" type="Label" parent="BoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Record: 0"
-label_settings = SubResource("LabelSettings_jywu3")
 
 [node name="MainMenuButton" type="Button" parent="BoxContainer/VBoxContainer"]
 layout_mode = 2
