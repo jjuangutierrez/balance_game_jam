@@ -12,10 +12,7 @@ public partial class MainMenu : Node
 
     private void OnPlayPressed()
     {
-        var transition = GetTree().Root.GetNode<TransitionLayer>("Transition");
-
-        // await transition.PlayOutTransition();
-
-        GetTree().ChangeSceneToFile("res://TestScene.tscn");
+        var gameManager = GetNode<GameManager>("/root/GameManager");
+        gameManager.ChangeScene("res://TestScene.tscn");
     }
 }

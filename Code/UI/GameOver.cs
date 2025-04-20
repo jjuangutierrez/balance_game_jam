@@ -12,6 +12,7 @@ public partial class GameOver : Control
 
     void OnBackPressed()
     {
-        GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+        var gameManager = GetNode<GameManager>("/root/GameManager");
+        gameManager.ChangeScene("res://MainMenu.tscn");
     }
 }
