@@ -4,22 +4,34 @@ using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
+    public static GameManager Instance { get; private set; }
     [Export] public float Score = 0;
     [Export] public float Time = 10;
-    [Export] public float Plates;
+    [Export] public float Dishes;
     [Export] public float CurrentTime;
     [Export] AnimationPlayer transitionAnimation;
-    
+
     private string nextScene = "";
-    
+
     public override void _Ready()
     {
         CurrentTime = Time;
         transitionAnimation.Play("up");
-        
+        SetupInstance();
+
         transitionAnimation.AnimationFinished += OnAnimationFinished;
     }
-    
+
+    private void SetupInstance()
+    {
+        if (Instance != null && Instance != this)
+        {
+            QueueFree();
+            return;
+        }
+        Instance = this;
+    }
+
     public override void _Process(double delta)
     {
         var currentScene = GetTree().CurrentScene;
@@ -34,13 +46,13 @@ public partial class GameManager : Node
             }
         }
     }
-    
+
     public void ChangeScene(string scenePath)
     {
         nextScene = scenePath;
         transitionAnimation.Play("down");
     }
-    
+
     private void OnAnimationFinished(StringName animName)
     {
         if (animName == "down" && !string.IsNullOrEmpty(nextScene))
@@ -55,69 +67,15 @@ public partial class GameManager : Node
             nextScene = "";
         }
     }
-    
+
     public void AddTime(float extraTime)
     {
         CurrentTime += extraTime;
     }
-    
-    public void AddPlates(float extraPlates)
-    {
-        Plates += extraPlates;
-    }
-    
+
     public void AddScore(float extraScore)
     {
         Score += extraScore;
     }
-  public static GameManager Instance { get; private set; }
 
-  [Export] public float score = 0;
-  [Export] public float time = 999;
-  [Export] public float plates;
-  [Export] public float currentTime;
-  public List<Texture2D> emoticons { get; private set; }
-
-  public override void _Ready()
-  {
-    SetupInstance();
-
-    currentTime = time;
-  }
-
-  private void SetupInstance()
-  {
-    if (Instance != null && Instance != this)
-    {
-      QueueFree();
-      return;
-    }
-    Instance = this;
-  }
-
-  public override void _Process(double delta)
-  {
-    currentTime -= (float)delta;
-    if (currentTime <= 0)
-    {
-      GD.Print("game over");
-      currentTime = time;
-      GetTree().ChangeSceneToFile("res://GameOver.tscn");
-    }
-  }
-
-  public void AddTime(float extraTime)
-  {
-    currentTime += extraTime;
-  }
-
-  public void AddPlates(float extraPlates)
-  {
-    plates += extraPlates;
-  }
-
-  public void AddScore(float extraScore)
-  {
-    score += extraScore;
-  }
 }
