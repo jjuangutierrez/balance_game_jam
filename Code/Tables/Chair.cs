@@ -1,58 +1,24 @@
 using Godot;
 using System;
 
-/// <summary>
-/// TODO: agregar esperar x tiempo mientras se ejecuta un emoji random (5s)
-/// TODO: Si tiene plato, mostrar animacion de comer (5s)
-/// TODO: despues de comer ejecutar leave()
-/// TODO: si no tiene plato mostrar carita enojada (3s) despues se va
-/// TODO: la animaicon de leave se ejecuta despues de comer o
-/// </summary>
-
 public partial class Chair : Node2D
 {
-  [Export] public Texture2D[] npcTextures;
-  [Export] public Sprite2D npcSprite;
-  [Export] DefaultChairState defaultState;
-  [Export] WaitingChairState waitingChairState;
-  [Export] EatingChairState eatingChairState;
-  [Export] LeavingChairState leavingChairState;
-  [Export] Timer waitTimer;
-  [Export] Timer eatTimer;
-  private bool _isEating = false;
-  private Npc _currentNpc;
-  private bool food;
-  private Table _table;
+  [ExportGroup("NPC")]
+  [Export] public Texture2D[] NpcTextures { get; private set; }
+  [Export] public Sprite2D NpcSprite { get; private set; }
+  [Export] public Sprite2D EmoticonSprite { get; private set; }
 
+  [ExportGroup("Emoticons")]
+  [Export] public Texture2D[] FrustrationTextures { get; private set; }
+  [Export] public Texture2D HungryTexture { get; private set; }
+  [Export] public Texture2D[] HappyTextures { get; private set; }
 
-  public bool IsOccupied;
-  public bool IsReserved;
+  public bool IsOccupied { get; private set; }
+  public bool IsReserved { get; set; }
 
-  public override void _Ready()
-  {
-    waitTimer.Timeout += WaitTimeTimeOut;
-    eatTimer.Timeout += EatTimerTimeOut;
-    _table = GetParent() as Table;
-  }
+  Npc _currentNpc;
 
-
-  public override void _Process(double delta)
-  {
-    GD.Print(food);
-    food = _table.ThereAreFood;
-    if (_currentNpc != null && food && !_isEating)
-    {
-        _isEating = true;
-        eatTimer.Start(20);
-        eatingChairState.Eating();
-    }
-    // Si hay un NPC sentado pero no hay comida, que espere
-    else if (_currentNpc != null && !food && !_isEating)
-    {
-        waitingChairState.Waitting(delta);
-    }
-  }
-
+  public override void _Ready(){}
 
   public void SetNpc(Npc npc)
   {
@@ -61,30 +27,63 @@ public partial class Chair : Node2D
 
     _currentNpc = npc;
 
-    defaultState.SetNpc(npc, this);
-    // Start Wait timer
-    waitTimer.Start(30);
+    NpcSprite.Texture = NpcTextures[npc.NpcIndex];
+    NpcSprite.Visible = true;
+
+    IsOccupied = true;
+    IsReserved = true;
+
+    WaitForFood();
   }
 
-  public void WaitTimeTimeOut()
+  private async void WaitForFood()
   {
-    leavingChairState.Leave(_currentNpc, this);
-    _currentNpc.AngryEmoticonSprite.Visible = true;
-    waitingChairState.StopWaitting();
-    _isEating = false;
-    _currentNpc = null;
-    _table.ThereAreFood = false;
-    food = false;
+    EmoticonSprite.Texture = HungryTexture;
+
+    bool isDishServed = false;
+
+    const float totalWaitTime = 5.0f;
+    float elapsedTime = 0f;
+
+    while (elapsedTime < totalWaitTime)
+    {
+      await ToSignal(GetTree().CreateTimer(3.0f), "timeout");
+      isDishServed = _currentNpc.AssignedTable.IsDishServed(_currentNpc.ChairIndex);
+      if (isDishServed)
+        break;
+      EmoticonSprite.Visible = true;
+
+      await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
+      EmoticonSprite.Visible = false;
+
+      elapsedTime += 1f;
+    }
+
+    if (isDishServed)
+      await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
+
+    ClearChair(isDishServed);
   }
 
-  public void EatTimerTimeOut()
+  private void ClearChair(bool isDishServed)
   {
-    leavingChairState.Leave(_currentNpc, this);
-    _currentNpc.HappyEmoticonSprite.Visible = true;
-    eatingChairState.StopEating();
-    _isEating = false;
+    _currentNpc.EmoticonSprite.Visible = true;
+
+    if(isDishServed){
+      _currentNpc.AssignedTable.ClearDish(_currentNpc.ChairIndex);
+      _currentNpc.ShowHappyEmotion(HappyTextures);
+    }else{
+      _currentNpc.ShowFrustrationEmotion(FrustrationTextures);
+    }
+
+    NpcSprite.Visible = false;
+    _currentNpc.Visible = true;
+
+    _currentNpc.SetProcess(true);
+    _currentNpc.MoveTo(NpcSpawnManager.Instance.ExitPoint.GlobalPosition);
+
+    IsOccupied = false;
+    IsReserved = false;
     _currentNpc = null;
-    _table.ThereAreFood = false;
-    food = false;
   }
 }

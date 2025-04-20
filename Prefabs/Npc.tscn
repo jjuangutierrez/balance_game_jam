@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d0nwutuge0qe"]
+[gd_scene load_steps=18 format=3 uid="uid://d0nwutuge0qe"]
 
 [ext_resource type="Script" uid="uid://dcijsamayub5" path="res://Code/Npc/Npc.cs" id="1_ih817"]
 [ext_resource type="Texture2D" uid="uid://c8jocqqq554sh" path="res://Art/Customers/customer_1_spritesheet.png" id="1_ttmuo"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://br5556i3uibqo" path="res://Art/Customers/customer_5_spritesheet.png" id="6_aderj"]
 [ext_resource type="Texture2D" uid="uid://bfpbnutat5phd" path="res://Art/Customers/customer_6_spritesheet.png" id="7_op51g"]
 [ext_resource type="Texture2D" uid="uid://bqec2ctw7x0yh" path="res://Art/Emoticons/emoticon_angry.png" id="8_sbljn"]
-[ext_resource type="Texture2D" uid="uid://63ijiwwnwjg6" path="res://Art/Emoticons/emoticon_happy.png" id="9_ikqwk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ih817"]
 radius = 3.0
@@ -89,60 +88,53 @@ _data = {
 &"npc_walk": SubResource("Animation_ih817")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ikqwk"]
-atlas = ExtResource("8_sbljn")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="Animation" id="Animation_op51g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmumj"]
-atlas = ExtResource("8_sbljn")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="Animation" id="Animation_aderj"]
+resource_name = "emoticon_animation"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_aderj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ikqwk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wmumj")
-}],
-"loop": true,
-"name": &"Angry",
-"speed": 5.0
-}]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_op51g"]
+_data = {
+&"RESET": SubResource("Animation_op51g"),
+&"emoticon_animation": SubResource("Animation_aderj")
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aderj"]
-atlas = ExtResource("9_ikqwk")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op51g"]
-atlas = ExtResource("9_ikqwk")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_blow2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aderj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op51g")
-}],
-"loop": true,
-"name": &"Happy",
-"speed": 5.0
-}]
-
-[node name="Npc" type="CharacterBody2D" node_paths=PackedStringArray("NPCSprite", "animationPlayer", "agent", "AngryEmoticonSprite", "HappyEmoticonSprite")]
-collision_layer = 2
+[node name="Npc" type="CharacterBody2D" node_paths=PackedStringArray("NPCSprite", "animationPlayer", "agent", "EmoticonSprite")]
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ih817")
 textures = Array[Texture2D]([ExtResource("1_ttmuo"), ExtResource("3_sbljn"), ExtResource("4_ikqwk"), ExtResource("5_wmumj"), ExtResource("6_aderj"), ExtResource("7_op51g")])
 NPCSprite = NodePath("Sprite2D")
 animationPlayer = NodePath("AnimationPlayer")
 agent = NodePath("NavigationAgent2D")
-AngryEmoticonSprite = NodePath("AngryEmoticonSprite")
-HappyEmoticonSprite = NodePath("HappyEmoticonSprite")
+EmoticonSprite = NodePath("emoticonSprite")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -18)
@@ -154,27 +146,26 @@ frame = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -15)
 shape = SubResource("CapsuleShape2D_ih817")
-debug_color = Color(0.788459, 0.430439, 3.85046e-07, 0.42)
+debug_color = Color(0.731517, 0.363983, 0.770936, 0.42)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_sbljn")
 }
+speed_scale = 1.5
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
-
-[node name="AngryEmoticonSprite" type="AnimatedSprite2D" parent="."]
+[node name="emoticonSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(16, -39)
-sprite_frames = SubResource("SpriteFrames_aderj")
-animation = &"Angry"
-autoplay = "Angry"
-frame_progress = 0.315676
+texture = ExtResource("8_sbljn")
+hframes = 2
 
-[node name="HappyEmoticonSprite" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(16, -39)
-sprite_frames = SubResource("SpriteFrames_blow2")
-animation = &"Happy"
-frame_progress = 0.854715
+[node name="AnimationPlayer" type="AnimationPlayer" parent="emoticonSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_op51g")
+}
+autoplay = "emoticon_animation"
+speed_scale = 2.5

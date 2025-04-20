@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://h5uybdncsqui"]
+[gd_scene load_steps=18 format=3 uid="uid://h5uybdncsqui"]
 
 [ext_resource type="Script" uid="uid://15ltbjoapuon" path="res://Code/Player/PlayerController.cs" id="1_x3d5u"]
 [ext_resource type="Texture2D" uid="uid://dsg45laek08v6" path="res://Art/Shadow.png" id="2_k2qb3"]
@@ -7,15 +7,12 @@
 [ext_resource type="Shader" uid="uid://b2sadybvf1wu6" path="res://Shaders/Silhouette.gdshader" id="4_t8lmw"]
 [ext_resource type="Script" uid="uid://dq08ly4reub77" path="res://Code/Player/PlayerIdleState.cs" id="5_javds"]
 [ext_resource type="Script" uid="uid://dxnpi68goxdsi" path="res://Code/Player/PlayerRunState.cs" id="6_3ygst"]
-[ext_resource type="PackedScene" uid="uid://o6o7byy03lnt" path="res://Prefabs/Plates.tscn" id="8_3ygst"]
+[ext_resource type="PackedScene" uid="uid://o6o7byy03lnt" path="res://Prefabs/Dishes.tscn" id="8_3ygst"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2qb3"]
 shader = ExtResource("4_t8lmw")
 shader_parameter/silhouette_color = Color(0, 0, 0, 0.415686)
 shader_parameter/color_tolerance = 0.01
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dohe"]
-size = Vector2(15, 12.1429)
 
 [sub_resource type="Animation" id="Animation_javds"]
 length = 0.001
@@ -413,12 +410,21 @@ _data = {
 &"player_run_right": SubResource("Animation_3ygst")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "animationPlayer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhekp"]
+size = Vector2(30, 25)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhekp"]
+radius = 5.0
+height = 15.762
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "animationPlayer", "interactionArea", "dishes")]
 y_sort_enabled = true
-collision_layer = 3
 script = ExtResource("1_x3d5u")
+moveSpeed = 11.0
 playerSprite = NodePath("Sprite2D")
 animationPlayer = NodePath("AnimationPlayer")
+interactionArea = NodePath("InteractableArea")
+dishes = NodePath("Dishes")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_3ygst")
@@ -437,10 +443,8 @@ texture = ExtResource("3_3ygst")
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 10.119)
-scale = Vector2(0.999999, 0.999999)
-shape = SubResource("RectangleShape2D_4dohe")
+[node name="Dishes" parent="." instance=ExtResource("8_3ygst")]
+position = Vector2(21, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "initialState")]
 script = ExtResource("4_gg3t4")
@@ -459,6 +463,16 @@ libraries = {
 }
 autoplay = "player_idle_right"
 
-[node name="Plates" parent="." instance=ExtResource("8_3ygst")]
-position = Vector2(18, 5)
-maxPlates = 20
+[node name="InteractableArea" type="Area2D" parent="."]
+position = Vector2(1, 0)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_lhekp")
+debug_color = Color(0.760338, 0.348038, 0.739035, 0.42)
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(2.98023e-08, 9)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("CapsuleShape2D_lhekp")

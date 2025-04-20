@@ -1,41 +1,57 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
-    [Export] public float Score = 0;
-    [Export] public float Time = 999999999;
-    [Export] public float Plates;
-    [Export] public float CurrentTime;
+  public static GameManager Instance { get; private set; }
 
-    public override void _Ready()
-    {
-        CurrentTime = Time;
-    }
+  [Export] public float score = 0;
+  [Export] public float time = 999;
+  [Export] public float plates;
+  [Export] public float currentTime;
+  public List<Texture2D> emoticons { get; private set; }
 
-    public override void _Process(double delta)
-    {
-        CurrentTime -= (float)delta;
-        if (CurrentTime <= 0)
-        {
-            GD.Print("game over");
-            CurrentTime = Time;
-            GetTree().ChangeSceneToFile("res://GameOver.tscn");
-        }
-    }
+  public override void _Ready()
+  {
+    SetupInstance();
 
-    public void AddTime(float extraTime)
-    {
-        CurrentTime += extraTime;
-    }
+    currentTime = time;
+  }
 
-    public void AddPlates(float extraPlates)
+  private void SetupInstance()
+  {
+    if (Instance != null && Instance != this)
     {
-        Plates += extraPlates;
+      QueueFree();
+      return;
     }
+    Instance = this;
+  }
 
-    public void AddScore(float extraScore)
+  public override void _Process(double delta)
+  {
+    currentTime -= (float)delta;
+    if (currentTime <= 0)
     {
-        Score += extraScore;
+      GD.Print("game over");
+      currentTime = time;
+      GetTree().ChangeSceneToFile("res://GameOver.tscn");
     }
+  }
+
+  public void AddTime(float extraTime)
+  {
+    currentTime += extraTime;
+  }
+
+  public void AddPlates(float extraPlates)
+  {
+    plates += extraPlates;
+  }
+
+  public void AddScore(float extraScore)
+  {
+    score += extraScore;
+  }
 }

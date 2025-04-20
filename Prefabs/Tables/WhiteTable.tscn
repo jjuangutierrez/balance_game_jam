@@ -1,34 +1,58 @@
-[gd_scene load_steps=6 format=3 uid="uid://wxe8omedx456"]
+[gd_scene load_steps=7 format=3 uid="uid://wxe8omedx456"]
 
 [ext_resource type="Script" uid="uid://cfqhi3lgu82np" path="res://Code/Tables/Table.cs" id="1_c5hji"]
 [ext_resource type="Texture2D" uid="uid://dddmltptq6k28" path="res://Art/Objects/white_table.png" id="1_v30hk"]
 [ext_resource type="PackedScene" uid="uid://bi2hhlsf5j01" path="res://Prefabs/Tables/Chair.tscn" id="3_tev45"]
+[ext_resource type="Texture2D" uid="uid://c2csqg2y54vuh" path="res://Art/Objects/dishes.png" id="4_fb5c1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tev45"]
-size = Vector2(92, 46)
+size = Vector2(74, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5hji"]
 size = Vector2(63, 11)
 
-[node name="WhiteTable" type="StaticBody2D" node_paths=PackedStringArray("tableArea") groups=["Tables"]]
+[node name="WhiteTable" type="StaticBody2D" node_paths=PackedStringArray("tableArea", "DishSprites") groups=["Tables"]]
+z_as_relative = false
 script = ExtResource("1_c5hji")
 chairPrefab = ExtResource("3_tev45")
-tableArea = NodePath("Area2D")
+tableArea = NodePath("InteractableArea")
+chairPaths = Array[NodePath]([NodePath("ChairL"), NodePath("ChairR")])
+DishSprites = [NodePath("DishL"), NodePath("DishR")]
 
 [node name="Table" type="Sprite2D" parent="."]
 texture = ExtResource("1_v30hk")
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(-1, 3)
-collision_layer = 2
-collision_mask = 2
-monitorable = false
+[node name="DishL" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-9, -3)
+texture = ExtResource("4_fb5c1")
+vframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="DishR" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(11, -3)
+texture = ExtResource("4_fb5c1")
+vframes = 3
+frame = 2
+
+[node name="ChairL" parent="." instance=ExtResource("3_tev45")]
+position = Vector2(-31, -1)
+
+[node name="ChairR" parent="." instance=ExtResource("3_tev45")]
+position = Vector2(29, -1)
+scale = Vector2(-1, 1)
+
+[node name="InteractableArea" type="Area2D" parent="."]
+position = Vector2(-1, 3)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_tev45")
+debug_color = Color(0.8175, 0.400807, 0.161408, 0.42)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="TableCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_c5hji")
-debug_color = Color(0.74905, 0.453897, 0.213448, 0.42)
+debug_color = Color(0.615833, 0.388844, 0.93618, 0.42)

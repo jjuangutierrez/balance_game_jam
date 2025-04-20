@@ -1,92 +1,94 @@
 using Godot;
 using System;
 
-public partial class Plates : Node2D
+public partial class Dishes : Node2D
 {
-  [ExportGroup("Plate Configuration")]
-  [Export] Sprite2D plateSprite;
-  [Export] int maxPlates = 10;
-  [Export] Node2D platesPivot;
+  [ExportGroup("Dish Configuration")]
+  [Export] Sprite2D dishSprite;
+  [Export] int maxDishes = 10;
+  [Export] Node2D dishesPivot;
   [Export(PropertyHint.Range, "0,1,0.01")] float curveFactor = 0.5f;
 
   [ExportGroup("Physics Configuration")]
   [Export] float maxTiltDegrees = 80;
   [Export] float tiltAcceleration = 160;
   [Export] float gravityForce = 80;
-  [Export] float deadZoneAngle = 10f;
+  [Export] float deadZoneAngle = 60f;
   [Export] float dampingFactor = 4f;
   [Export] float springConstant = 20f;
 
-  int _plateCount = 0;
+  public int DishCount { get; private set; }
   float _currentTiltAngle = 0f;
   float _angularVelocity = 0f;
   float _deltaTime = 0f;
-  bool _allPlatesFallen;
+  bool _allDishesFallen;
 
   public override void _Process(double delta)
   {
-    if (_allPlatesFallen)
+    _deltaTime = (float)delta;
+
+    if (_allDishesFallen)
       return;
 
-    _deltaTime = (float)delta;
-    HandleInput();
+    if (DishCount <= 1)
+      return;
+
     UpdatePhysics();
-
-    OnPlatesFall();
+    OnDishesFall();
   }
 
-  public void AddPlate(int quantity = 1)
+  public void AddDish(int quantity = 1)
   {
-    int newCount = _plateCount + quantity;
-    if (newCount <= maxPlates)
+    int newCount = DishCount + quantity;
+    if (newCount <= maxDishes)
     {
-      _plateCount = newCount;
-      CreateVisualPlates(quantity);
+      DishCount = newCount;
+      CreateVisualDishes(quantity);
     }
   }
 
-  public void RemovePlate(int quantity = 1)
+  public void RemoveDish(int quantity = 1)
   {
-    int newCount = Math.Max(0, _plateCount - quantity);
+    int newCount = Math.Max(0, DishCount - quantity);
 
-    while (_plateCount > newCount && platesPivot.GetChildCount() > 0)
+    while (DishCount > newCount && dishesPivot.GetChildCount() > 0)
     {
-      int lastIndex = platesPivot.GetChildCount() - 1;
-      var lastPlate = platesPivot.GetChild(lastIndex);
-      platesPivot.RemoveChild(lastPlate);
-      lastPlate.QueueFree();
-      _plateCount--;
+      int lastIndex = dishesPivot.GetChildCount() - 1;
+      var lastDish = dishesPivot.GetChild(lastIndex);
+      dishesPivot.RemoveChild(lastDish);
+      lastDish.QueueFree();
+      DishCount--;
     }
-  }
 
-  private void HandleInput()
-  {
-    if (Input.IsActionJustPressed("interact"))
-      AddPlate();
+    // Reset tilt when only one dish remains
+    if (DishCount <= 1)
+    {
+      _currentTiltAngle = 0f;
+      _angularVelocity = 0f;
+      UpdateDishesPosition();
+    }
   }
 
   private void UpdatePhysics()
   {
     Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-    float weightFactor = Mathf.Clamp(_plateCount / (float)maxPlates, 0, 1);
 
-    UpdateAngularVelocity(inputDirection, weightFactor);
+    UpdateAngularVelocity(inputDirection);
     UpdateTiltAngle();
-    UpdatePlatesPosition();
+    UpdateDishesPosition();
 
     // QueueRedraw(); // Request redraw for debug visualization
   }
 
-  private void UpdateAngularVelocity(Vector2 inputDirection, float weightFactor)
+  private void UpdateAngularVelocity(Vector2 inputDirection)
   {
     if (inputDirection.X != 0)
     {
-      // Apply manual tilting force based on input
-      _angularVelocity += -inputDirection.X * (tiltAcceleration * weightFactor) * _deltaTime;
+      // float difficultyFactor = 0.2f + (0.8f * ((float)_plateCount / maxPlates));
+      _angularVelocity += -inputDirection.X * tiltAcceleration * /* difficultyFactor * */ _deltaTime;
     }
     else
     {
-      // Apply physics when no input
       if (Mathf.Abs(_currentTiltAngle) < deadZoneAngle)
         ApplySpringStabilization();
       else
@@ -113,27 +115,27 @@ public partial class Plates : Node2D
     _currentTiltAngle = Mathf.Clamp(_currentTiltAngle, -maxTiltDegrees, maxTiltDegrees);
   }
 
-  private void CreateVisualPlates(int quantity)
+  private void CreateVisualDishes(int quantity)
   {
-    if (plateSprite == null)
+    if (dishSprite == null)
       return;
 
     for (int i = 0; i < quantity; i++)
     {
       int randomIndex = GD.RandRange(0, 2);
-      Sprite2D plate = plateSprite.Duplicate() as Sprite2D;
-      plate.Frame = randomIndex;
-      plate.Visible = true;
-      platesPivot.AddChild(plate);
+      Sprite2D dish = dishSprite.Duplicate() as Sprite2D;
+      dish.Frame = randomIndex;
+      dish.Visible = true;
+      dishesPivot.AddChild(dish);
     }
   }
 
-  private void UpdatePlatesPosition()
+  private void UpdateDishesPosition()
   {
-    if (_plateCount <= 0 || platesPivot.GetChildCount() == 0)
+    if (DishCount <= 0 || dishesPivot.GetChildCount() == 0)
       return;
 
-    int plateCount = platesPivot.GetChildCount();
+    int dishCount = dishesPivot.GetChildCount();
     Vector2 endPosition = CalculateEndPlatePosition();
     Vector2 direction = endPosition.Normalized();
     Vector2 perpendicular = new Vector2(-direction.Y, direction.X);
@@ -145,9 +147,9 @@ public partial class Plates : Node2D
     Vector2 controlPoint = midPoint + perpendicular * curveIntensity;
 
     // Position each plate along the curve
-    for (int i = 0; i < plateCount; i++)
+    for (int i = 0; i < dishCount; i++)
     {
-      float heightRatio = i / (float)plateCount;
+      float heightRatio = i / (float)dishCount;
 
       // Get position on quadratic Bezier curve based on height ratio instead of uniform distribution
       Vector2 position = CalculateQuadraticBezier(Vector2.Zero, controlPoint, endPosition, heightRatio);
@@ -157,9 +159,9 @@ public partial class Plates : Node2D
       float rotation = Mathf.Atan2(tangent.Y, tangent.X) + Mathf.Pi / 2;
 
       // Apply position and rotation to plate
-      Sprite2D plate = platesPivot.GetChild<Sprite2D>(i);
-      plate.Position = position;
-      plate.Rotation = rotation;
+      Sprite2D dish = dishesPivot.GetChild<Sprite2D>(i);
+      dish.Position = position;
+      dish.Rotation = rotation;
     }
   }
 
@@ -177,28 +179,27 @@ public partial class Plates : Node2D
 
   private Vector2 CalculateEndPlatePosition()
   {
-    if (plateSprite == null)
+    if (dishSprite == null)
       return Vector2.Zero;
 
-    float spriteHeight = plateSprite.Texture.GetHeight() / 3 * .8f;
-    float totalStackHeight = spriteHeight * _plateCount;
+    float spriteHeight = dishSprite.Texture.GetHeight() / 3 * .8f;
+    float totalStackHeight = spriteHeight * DishCount;
     float tiltRadians = Mathf.DegToRad(_currentTiltAngle);
 
     return new Vector2(
-        totalStackHeight * Mathf.Sin(tiltRadians),
-        -totalStackHeight * Mathf.Cos(tiltRadians)
+      totalStackHeight * Mathf.Sin(tiltRadians),
+      -totalStackHeight * Mathf.Cos(tiltRadians)
     );
   }
 
-  public void OnPlatesFall()
+  public void OnDishesFall()
   {
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
-      _allPlatesFallen = true;
+      _allDishesFallen = true;
       GD.Print("Game Over");
     }
   }
-
 
   // public override void _Draw()
   // {

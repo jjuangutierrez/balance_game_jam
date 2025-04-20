@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Transition="*res://Prefabs/ui/TransitionLayer.tscn"
-GameManager="*res://Prefabs/GameManager.tscn"
 
 [display]
 

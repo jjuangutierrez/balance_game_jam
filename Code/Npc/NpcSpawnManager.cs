@@ -8,8 +8,9 @@ public partial class NpcSpawnManager : Node2D
 
   [Export] PackedScene npcScene;
   [Export] Node2D spawnPoint;
-  [Export] Vector2I spawnRate = new Vector2I(5, 10);
-  public Node2D exitPoint { get; private set; }
+  [Export] Vector2I spawnRateRange = new Vector2I(5, 10);
+
+  [Export] public Node2D ExitPoint { get; private set; }
 
   List<Table> _tables = new();
   Timer _spawnTimer;
@@ -18,10 +19,7 @@ public partial class NpcSpawnManager : Node2D
 
   public override void _Ready()
   {
-    exitPoint = GetNode<Node2D>("exitPoint");
-
     SetupInstance();
-
     InitializeTables();
     InitializeSpawnPoint();
     InitializeTimer();
@@ -46,8 +44,9 @@ public partial class NpcSpawnManager : Node2D
   private void InitializeTimer()
   {
     _spawnTimer = GetNode<Timer>("Timer");
+
     _spawnTimer.Timeout += OnTimerTimeout;
-    int spawnTime = GD.RandRange(spawnRate.X, spawnRate.Y);
+    int spawnTime = GD.RandRange(spawnRateRange.X, spawnRateRange.Y);
     _spawnTimer.Start(spawnTime);
   }
 
@@ -63,7 +62,7 @@ public partial class NpcSpawnManager : Node2D
 
   private void OnTimerTimeout()
   {
-    Table availableTable = GetRandomTable();
+    Table availableTable = GetRandomAvailableTable();
     if (_activeNpcs.Count < _maxNpcs && !availableTable.IsOccupied)
       SpawnNpc(availableTable);
   }
@@ -74,35 +73,30 @@ public partial class NpcSpawnManager : Node2D
       return;
 
     int chairIndex = table.ReserveChair();
+
     var npc = npcScene.Instantiate<Npc>();
     AddChild(npc);
+
     npc.GlobalPosition = spawnPoint.GlobalPosition;
 
     _activeNpcs.Add(npc);
     npc.AssignToTable(table, chairIndex);
   }
 
-  private Table GetRandomTable()
+  private Table GetRandomAvailableTable()
   {
     var availableTables = _tables.FindAll(table => !table.IsOccupied);
     if (availableTables.Count > 0)
       return availableTables[GD.RandRange(0, availableTables.Count - 1)];
-    return _tables[GD.RandRange(0, _tables.Count - 1)];
+    return null;
   }
 
-  public void RemoveNpc(Npc npc)
+  public void OnExitAreaEnteded(Node2D body)
   {
-    if (npc == null)
+    if (body is not Npc npc || npc == null)
       return;
 
     _activeNpcs.Remove(npc);
     npc.QueueFree();
-  }
-
-  public void OnExitAreaEnteded(Node2D body){
-    if (body is not Npc npc)
-      return;
-
-    RemoveNpc(npc);
   }
 }
