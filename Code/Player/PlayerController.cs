@@ -5,9 +5,12 @@ public partial class PlayerController : CharacterBody2D
   [Export] float moveSpeed = 10;
   [Export] Sprite2D playerSprite;
   [Export] AnimationPlayer animationPlayer;
-  public Table table;
+  [Export] Area2D interactionArea;
+  [Export] Dishes dishes;
 
   public Vector2 inputDirection {get; private set;}
+
+  IInteractable _currentInteractable = null;
 
   string _lastDirection = "right";
 
@@ -23,6 +26,9 @@ public partial class PlayerController : CharacterBody2D
 
   public override void _Ready()
   {
+    interactionArea.BodyEntered += OnInteractionAreaBodyEntered;
+    interactionArea.BodyExited += OnInteractionAreaBodyExited;
+
     animationPlayer.Play(_ANIM_IDLE_RIGHT);
     animationPlayer.SpeedScale = 1.2f;
   }
@@ -32,17 +38,11 @@ public partial class PlayerController : CharacterBody2D
     inputDirection = Input.GetVector("left", "right", "up", "down");
     HandleAnimation();
 
-    if (table != null && Input.IsActionJustPressed("interact"))
-    {
-      GD.Print("food delivered", table);
-      table.ThereAreFood = true;
-    }
+    if (_currentInteractable != null && Input.IsActionJustPressed("interact"))
+      _currentInteractable.Interact(dishes);
   }
 
-  public override void _PhysicsProcess(double delta)
-  {
-    ApplyMovement();
-  }
+  public override void _PhysicsProcess(double delta) => ApplyMovement();
 
   private void ApplyMovement()
   {
@@ -76,4 +76,12 @@ public partial class PlayerController : CharacterBody2D
     string animation = _lastDirection == "left" ? _ANIM_RUN_LEFT : _ANIM_RUN_RIGHT;
     animationPlayer.Play(animation);
   }
+
+  private void OnInteractionAreaBodyEntered(Node body)
+  {
+    if (body is IInteractable interactable)
+      _currentInteractable = interactable;
+  }
+
+  private void OnInteractionAreaBodyExited(Node body) => _currentInteractable = null;
 }

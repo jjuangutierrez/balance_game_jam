@@ -1,30 +1,32 @@
 using Godot;
-using System;
+using System.Linq;
 
-public partial class Table : StaticBody2D
+public partial class Table : StaticBody2D, IInteractable
 {
   [Export] PackedScene chairPrefab;
   [Export] Area2D tableArea;
-  public bool ThereAreFood;
-  Vector2[] _chairPositions = [new Vector2(-29, 0), new Vector2(29, 0)];
+  [Export] NodePath[] chairPaths;
+  [Export] public Sprite2D[] DishSprites { get; private set; }
 
-  private Chair[] _chairs;
+  Chair[] _chairs;
+
+  public bool IsOccupied => _chairs.All(chair => chair.IsOccupied || chair.IsReserved);
 
   public override void _Ready()
   {
-    _chairs = new Chair[2];
-    for (int i = 0; i < 2; i++)
-    {
-      var chair = chairPrefab.Instantiate<Chair>();
-      chair.Position = _chairPositions[i];
-      _chairs[i] = chair;
-      AddChild(chair);
-    }
-
-    _chairs[1].Scale = new Vector2(-1, 1);
+    _chairs = chairPaths.Select(path => GetNode<Chair>(path)).ToArray();
 
     tableArea.BodyEntered += OnArea2DBodyEntered;
-    tableArea.BodyExited += OnArea2DBodyExit;
+  }
+
+  public bool IsDishServed(int chairIndex)
+  {
+    return DishSprites[chairIndex].Visible;
+  }
+
+  public void ClearDish(int chairIndex)
+  {
+    DishSprites[chairIndex].Visible = false;
   }
 
   private void SeatNpc(Npc npc, Chair chair)
@@ -47,13 +49,25 @@ public partial class Table : StaticBody2D
     return -1;
   }
 
-  public bool IsOccupied => Array.TrueForAll(_chairs, chair => chair.IsOccupied || chair.IsReserved);
+  private int ServeDish(int availableDishes)
+  {
+    int servedDishes = 0;
+
+    for (int i = 0; i < _chairs.Length && i < DishSprites.Length; i++)
+    {
+      Chair chair = _chairs[i];
+      if (chair.IsOccupied && chair.IsReserved && !DishSprites[i].Visible && servedDishes < availableDishes)
+      {
+        DishSprites[i].Visible = true;
+        servedDishes++;
+      }
+    }
+
+    return servedDishes;
+  }
 
   private void OnArea2DBodyEntered(Node body)
   {
-    if (body is PlayerController player)
-      player.table = this;
-
     if (body is not Npc npc)
       return;
 
@@ -61,12 +75,13 @@ public partial class Table : StaticBody2D
       return;
 
     SeatNpc(npc, _chairs[npc.ChairIndex]);
-
   }
 
-  private void OnArea2DBodyExit(Node body)
+  public void Interact(Node node)
   {
-    if (body is PlayerController player)
-      player.table = null;
+    if (node is not Dishes dishes)
+      return;
+
+    dishes.RemoveDish(ServeDish(dishes.DishCount));
   }
 }

@@ -10,7 +10,7 @@ public partial class StateMachine : Node
 
     public override void _Ready()
     {
-        foreach (Node child in this.GetChildren())
+        foreach (Node child in GetChildren())
         {
             if (child is State state)
             {

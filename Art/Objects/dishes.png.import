@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2csqg2y54vuh"
-path="res://.godot/imported/plates.png-8aa6442748213134dcb0f6d1332143eb.ctex"
+path="res://.godot/imported/dishes.png-6c52b7fc626958a68ead58e3a3ff353c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Objects/plates.png"
-dest_files=["res://.godot/imported/plates.png-8aa6442748213134dcb0f6d1332143eb.ctex"]
+source_file="res://Art/Objects/dishes.png"
+dest_files=["res://.godot/imported/dishes.png-6c52b7fc626958a68ead58e3a3ff353c.ctex"]
 
 [params]
 

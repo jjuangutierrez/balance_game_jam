@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://o6o7byy03lnt"]
+
+[ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Dishes/Dishes.cs" id="1_6ynlc"]
+[ext_resource type="Texture2D" uid="uid://c2csqg2y54vuh" path="res://Art/Objects/dishes.png" id="2_6ynlc"]
+
+[node name="Dishes" type="Node2D" node_paths=PackedStringArray("dishSprite", "dishesPivot")]
+script = ExtResource("1_6ynlc")
+dishSprite = NodePath("DishSprite")
+dishesPivot = NodePath("DishesPivot")
+dampingFactor = 6.0
+springConstant = 60.0
+
+[node name="DishSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_6ynlc")
+offset = Vector2(0, -4)
+vframes = 3
+
+[node name="DishesPivot" type="Node2D" parent="."]
