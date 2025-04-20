@@ -8,6 +8,8 @@ public partial class Npc : CharacterBody2D
   [Export] Sprite2D NPCSprite;
   [Export] AnimationPlayer animationPlayer;
   [Export] NavigationAgent2D agent;
+  [Export] public AnimatedSprite2D AngryEmoticonSprite;
+  [Export] public AnimatedSprite2D HappyEmoticonSprite;
 
   int _npcIndex = -1;
   int _chairIndex = -1;
@@ -18,6 +20,8 @@ public partial class Npc : CharacterBody2D
 
   public override void _Ready()
   {
+    AngryEmoticonSprite.Visible = false;
+    HappyEmoticonSprite.Visible = false;
     InitializeAppearance();
   }
 

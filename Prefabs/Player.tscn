@@ -415,6 +415,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "animationPlayer")]
 y_sort_enabled = true
+collision_layer = 3
 script = ExtResource("1_x3d5u")
 playerSprite = NodePath("Sprite2D")
 animationPlayer = NodePath("AnimationPlayer")

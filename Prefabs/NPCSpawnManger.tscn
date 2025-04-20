@@ -23,5 +23,4 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_shpfe")
 debug_color = Color(0.776046, 0.435281, 0.182131, 0.42)
 
-[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
 [connection signal="body_entered" from="exitPoint/ExitArea" to="." method="OnExitAreaEnteded"]

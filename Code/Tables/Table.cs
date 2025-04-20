@@ -4,6 +4,8 @@ using System;
 public partial class Table : StaticBody2D
 {
   [Export] PackedScene chairPrefab;
+  [Export] Area2D tableArea;
+  public bool ThereAreFood;
   Vector2[] _chairPositions = [new Vector2(-29, 0), new Vector2(29, 0)];
 
   private Chair[] _chairs;
@@ -20,6 +22,9 @@ public partial class Table : StaticBody2D
     }
 
     _chairs[1].Scale = new Vector2(-1, 1);
+
+    tableArea.BodyEntered += OnArea2DBodyEntered;
+    tableArea.BodyExited += OnArea2DBodyExit;
   }
 
   private void SeatNpc(Npc npc, Chair chair)
@@ -29,9 +34,12 @@ public partial class Table : StaticBody2D
     chair.SetNpc(npc);
   }
 
-  public int ReserveChair() {
-    for (int i = 0; i < _chairs.Length; i++) {
-      if (!_chairs[i].IsOccupied && !_chairs[i].IsReserved) {
+  public int ReserveChair()
+  {
+    for (int i = 0; i < _chairs.Length; i++)
+    {
+      if (!_chairs[i].IsOccupied && !_chairs[i].IsReserved)
+      {
         _chairs[i].IsReserved = true;
         return i;
       }
@@ -43,6 +51,9 @@ public partial class Table : StaticBody2D
 
   private void OnArea2DBodyEntered(Node body)
   {
+    if (body is PlayerController player)
+      player.table = this;
+
     if (body is not Npc npc)
       return;
 
@@ -50,5 +61,12 @@ public partial class Table : StaticBody2D
       return;
 
     SeatNpc(npc, _chairs[npc.ChairIndex]);
+
+  }
+
+  private void OnArea2DBodyExit(Node body)
+  {
+    if (body is PlayerController player)
+      player.table = null;
   }
 }

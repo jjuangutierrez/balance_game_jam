@@ -4,7 +4,7 @@ public partial class PlayerRunState : State
 {
     PlayerController _player;
 
-    public override void _Ready()
+    public override void Enter()
     {
       _player = GetParent().GetParent() as PlayerController;
     }

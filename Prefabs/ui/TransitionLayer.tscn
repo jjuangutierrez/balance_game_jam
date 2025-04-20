@@ -9,9 +9,8 @@ shader_parameter/progress = 0.0
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/transition_type = 0
 
-[node name="TransitionLayer" type="CanvasLayer" node_paths=PackedStringArray("transitionRect")]
+[node name="TransitionLayer" type="CanvasLayer"]
 script = ExtResource("1_wf6j4")
-transitionRect = NodePath("TransictionRect")
 
 [node name="TransictionRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_hlbw8")

@@ -4,7 +4,7 @@ using System;
 public partial class GameManager : Node
 {
     [Export] public float Score = 0;
-    [Export] public float Time = 60;
+    [Export] public float Time = 999999999;
     [Export] public float Plates;
     [Export] public float CurrentTime;
 

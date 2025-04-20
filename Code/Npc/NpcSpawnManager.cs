@@ -14,7 +14,7 @@ public partial class NpcSpawnManager : Node2D
   List<Table> _tables = new();
   Timer _spawnTimer;
   List<Npc> _activeNpcs = new();
-  int _maxNpcs = 10;
+  int _maxNpcs = 4;
 
   public override void _Ready()
   {
@@ -46,6 +46,7 @@ public partial class NpcSpawnManager : Node2D
   private void InitializeTimer()
   {
     _spawnTimer = GetNode<Timer>("Timer");
+    _spawnTimer.Timeout += OnTimerTimeout;
     int spawnTime = GD.RandRange(spawnRate.X, spawnRate.Y);
     _spawnTimer.Start(spawnTime);
   }

@@ -10,9 +10,10 @@ size = Vector2(92, 46)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5hji"]
 size = Vector2(63, 11)
 
-[node name="WhiteTable" type="StaticBody2D" groups=["Tables"]]
+[node name="WhiteTable" type="StaticBody2D" node_paths=PackedStringArray("tableArea") groups=["Tables"]]
 script = ExtResource("1_c5hji")
 chairPrefab = ExtResource("3_tev45")
+tableArea = NodePath("Area2D")
 
 [node name="Table" type="Sprite2D" parent="."]
 texture = ExtResource("1_v30hk")
@@ -31,5 +32,3 @@ shape = SubResource("RectangleShape2D_tev45")
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_c5hji")
 debug_color = Color(0.74905, 0.453897, 0.213448, 0.42)
-
-[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

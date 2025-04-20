@@ -5,10 +5,11 @@ public partial class PlayerController : CharacterBody2D
   [Export] float moveSpeed = 10;
   [Export] Sprite2D playerSprite;
   [Export] AnimationPlayer animationPlayer;
+  public Table table;
 
-   public Vector2 inputDirection {get; private set;}
+  public Vector2 inputDirection {get; private set;}
 
-   string _lastDirection = "right";
+  string _lastDirection = "right";
 
   // Animation name constants
   const string _ANIM_IDLE_RIGHT = "player_idle_right";
@@ -30,6 +31,12 @@ public partial class PlayerController : CharacterBody2D
   {
     inputDirection = Input.GetVector("left", "right", "up", "down");
     HandleAnimation();
+
+    if (table != null && Input.IsActionJustPressed("interact"))
+    {
+      GD.Print("food delivered", table);
+      table.ThereAreFood = true;
+    }
   }
 
   public override void _PhysicsProcess(double delta)
