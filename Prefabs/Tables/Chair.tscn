@@ -59,9 +59,9 @@ script = ExtResource("1_mccaq")
 NpcTextures = Array[Texture2D]([ExtResource("2_mccaq"), ExtResource("3_r2otp"), ExtResource("4_egcyt"), ExtResource("5_qcgtu"), ExtResource("6_vwyse"), ExtResource("7_hd621")])
 NpcSprite = NodePath("Npc")
 EmoticonSprite = NodePath("Emoticon")
-FrustrationTextures = Array[Texture2D]([ExtResource("14_b0nev"), ExtResource("12_hd621")])
+FrustrationTextures = Array[Texture2D]([ExtResource("12_hd621"), ExtResource("14_b0nev")])
 HungryTexture = ExtResource("12_laygf")
-HappyTextures = Array[Texture2D]([ExtResource("16_3girp"), ExtResource("20_541qy"), ExtResource("15_hqnmw")])
+HappyTextures = Array[Texture2D]([ExtResource("20_541qy"), ExtResource("16_3girp"), ExtResource("15_hqnmw")])
 
 [node name="Chair" type="Sprite2D" parent="."]
 texture = ExtResource("1_4fmkq")

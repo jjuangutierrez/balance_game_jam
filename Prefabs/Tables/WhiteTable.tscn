@@ -14,7 +14,6 @@ size = Vector2(63, 11)
 [node name="WhiteTable" type="StaticBody2D" node_paths=PackedStringArray("tableArea", "DishSprites") groups=["Tables"]]
 z_as_relative = false
 script = ExtResource("1_c5hji")
-chairPrefab = ExtResource("3_tev45")
 tableArea = NodePath("InteractableArea")
 chairPaths = Array[NodePath]([NodePath("ChairL"), NodePath("ChairR")])
 DishSprites = [NodePath("DishL"), NodePath("DishR")]

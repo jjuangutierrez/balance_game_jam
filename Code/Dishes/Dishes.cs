@@ -42,6 +42,7 @@ public partial class Dishes : Node2D
     int newCount = DishCount + quantity;
     if (newCount <= maxDishes)
     {
+      _allDishesFallen = false;
       DishCount = newCount;
       CreateVisualDishes(quantity);
     }
@@ -194,10 +195,13 @@ public partial class Dishes : Node2D
 
   public void OnDishesFall()
   {
+    // TODO: fallen dishes particles
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
       _allDishesFallen = true;
-      GD.Print("Game Over");
+      _currentTiltAngle = 0;
+      _angularVelocity = 0f;
+      RemoveDish(DishCount);
     }
   }
 

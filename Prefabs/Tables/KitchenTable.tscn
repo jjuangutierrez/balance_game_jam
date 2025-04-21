@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bax8cnjmowdu6"]
+[gd_scene load_steps=4 format=3 uid="uid://bax8cnjmowdu6"]
 
 [ext_resource type="Script" uid="uid://b8f38mdq87elw" path="res://Code/Tables/KitchenTable.cs" id="1_xgi2k"]
+[ext_resource type="Texture2D" uid="uid://bgv7eoskyckw7" path="res://Art/Objects/kitchen_table.png" id="2_p1ec4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgi2k"]
-size = Vector2(20, 64)
+size = Vector2(40, 56)
 
 [node name="KitchenTable" type="StaticBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_xgi2k")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p1ec4")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_xgi2k")

@@ -3,7 +3,6 @@ using System.Linq;
 
 public partial class Table : StaticBody2D, IInteractable
 {
-  [Export] PackedScene chairPrefab;
   [Export] Area2D tableArea;
   [Export] NodePath[] chairPaths;
   [Export] public Sprite2D[] DishSprites { get; private set; }
@@ -53,7 +52,7 @@ public partial class Table : StaticBody2D, IInteractable
   {
     int servedDishes = 0;
 
-    for (int i = 0; i < _chairs.Length && i < DishSprites.Length; i++)
+    for (int i = 0; i < _chairs.Length; i++)
     {
       Chair chair = _chairs[i];
       if (chair.IsOccupied && chair.IsReserved && !DishSprites[i].Visible && servedDishes < availableDishes)

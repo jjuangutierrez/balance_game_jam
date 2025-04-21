@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
-    public static GameManager Instance { get; private set; }
     [Export] public float Score = 0;
-    [Export] public float Time = 10;
+    [Export] public float Time = 999;
     [Export] public float Dishes;
     [Export] public float CurrentTime;
     [Export] AnimationPlayer transitionAnimation;
@@ -17,19 +16,8 @@ public partial class GameManager : Node
     {
         CurrentTime = Time;
         transitionAnimation.Play("up");
-        SetupInstance();
 
         transitionAnimation.AnimationFinished += OnAnimationFinished;
-    }
-
-    private void SetupInstance()
-    {
-        if (Instance != null && Instance != this)
-        {
-            QueueFree();
-            return;
-        }
-        Instance = this;
     }
 
     public override void _Process(double delta)
