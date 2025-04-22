@@ -1,13 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bi2hhlsf5j01"]
+[gd_scene load_steps=16 format=3 uid="uid://bi2hhlsf5j01"]
 
-[ext_resource type="Texture2D" uid="uid://d3dstixl6noos" path="res://Art/Objects/white_chair.png" id="1_4fmkq"]
+[ext_resource type="Texture2D" uid="uid://d3dstixl6noos" path="res://Art/Objects/wooden_chair.png" id="1_4fmkq"]
 [ext_resource type="Script" uid="uid://dgxtx0q008fhe" path="res://Code/Tables/Chair.cs" id="1_mccaq"]
-[ext_resource type="Texture2D" uid="uid://c8jocqqq554sh" path="res://Art/Customers/customer_1_spritesheet.png" id="2_mccaq"]
-[ext_resource type="Texture2D" uid="uid://bara84a0j0ilo" path="res://Art/Customers/customer_2_spritesheet.png" id="3_r2otp"]
-[ext_resource type="Texture2D" uid="uid://7bp1yw6av1xw" path="res://Art/Customers/customer_3_spritesheet.png" id="4_egcyt"]
-[ext_resource type="Texture2D" uid="uid://b1p1etfph6tgb" path="res://Art/Customers/customer_4_spritesheet.png" id="5_qcgtu"]
-[ext_resource type="Texture2D" uid="uid://br5556i3uibqo" path="res://Art/Customers/customer_5_spritesheet.png" id="6_vwyse"]
-[ext_resource type="Texture2D" uid="uid://bfpbnutat5phd" path="res://Art/Customers/customer_6_spritesheet.png" id="7_hd621"]
+[ext_resource type="Texture2D" uid="uid://c6t73o37x7ia6" path="res://Art/Customers/npc1-Sheet.png" id="2_vwyse"]
+[ext_resource type="Texture2D" uid="uid://j6vfgpgrle7s" path="res://Art/Customers/npc2-Sheet.png" id="3_hd621"]
+[ext_resource type="Texture2D" uid="uid://c76h16vmnlbly" path="res://Art/Customers/npc3-Sheet.png" id="4_a7pt3"]
 [ext_resource type="Texture2D" uid="uid://bqec2ctw7x0yh" path="res://Art/Emoticons/emoticon_angry.png" id="12_hd621"]
 [ext_resource type="Texture2D" uid="uid://urtmjwrgs7tv" path="res://Art/Emoticons/emoticon_chicken.png" id="12_laygf"]
 [ext_resource type="Texture2D" uid="uid://cue0bgns23ot7" path="res://Art/Emoticons/emoticon_crying.png" id="14_b0nev"]
@@ -56,7 +53,7 @@ _data = {
 
 [node name="Chair" type="Node2D" node_paths=PackedStringArray("NpcSprite", "EmoticonSprite")]
 script = ExtResource("1_mccaq")
-NpcTextures = Array[Texture2D]([ExtResource("2_mccaq"), ExtResource("3_r2otp"), ExtResource("4_egcyt"), ExtResource("5_qcgtu"), ExtResource("6_vwyse"), ExtResource("7_hd621")])
+NpcTextures = Array[Texture2D]([ExtResource("2_vwyse"), ExtResource("3_hd621"), ExtResource("4_a7pt3")])
 NpcSprite = NodePath("Npc")
 EmoticonSprite = NodePath("Emoticon")
 FrustrationTextures = Array[Texture2D]([ExtResource("12_hd621"), ExtResource("14_b0nev")])
@@ -70,10 +67,10 @@ texture = ExtResource("1_4fmkq")
 visible = false
 light_mask = 2
 position = Vector2(3, -13)
-texture = ExtResource("2_mccaq")
-hframes = 4
-vframes = 3
-frame = 8
+texture = ExtResource("2_vwyse")
+hframes = 7
+vframes = 2
+frame = 7
 
 [node name="Emoticon" type="Sprite2D" parent="."]
 visible = false

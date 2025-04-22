@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://wxe8omedx456"]
 
 [ext_resource type="Script" uid="uid://cfqhi3lgu82np" path="res://Code/Tables/Table.cs" id="1_c5hji"]
-[ext_resource type="Texture2D" uid="uid://dddmltptq6k28" path="res://Art/Objects/white_table.png" id="1_v30hk"]
+[ext_resource type="Texture2D" uid="uid://dddmltptq6k28" path="res://Art/Objects/wooden_table.png" id="1_v30hk"]
 [ext_resource type="PackedScene" uid="uid://bi2hhlsf5j01" path="res://Prefabs/Tables/Chair.tscn" id="3_tev45"]
 [ext_resource type="Texture2D" uid="uid://c2csqg2y54vuh" path="res://Art/Objects/dishes.png" id="4_fb5c1"]
 
@@ -23,22 +23,22 @@ texture = ExtResource("1_v30hk")
 
 [node name="DishL" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-9, -3)
+position = Vector2(-9, -13)
 texture = ExtResource("4_fb5c1")
 vframes = 3
 
 [node name="DishR" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(11, -3)
+position = Vector2(11, -13)
 texture = ExtResource("4_fb5c1")
 vframes = 3
 frame = 2
 
 [node name="ChairL" parent="." instance=ExtResource("3_tev45")]
-position = Vector2(-31, -1)
+position = Vector2(-27, -1)
 
 [node name="ChairR" parent="." instance=ExtResource("3_tev45")]
-position = Vector2(29, -1)
+position = Vector2(27, -1)
 scale = Vector2(-1, 1)
 
 [node name="InteractableArea" type="Area2D" parent="."]

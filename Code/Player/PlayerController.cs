@@ -4,21 +4,18 @@ public partial class PlayerController : CharacterBody2D
 {
   [Export] float moveSpeed = 10;
   [Export] Sprite2D playerSprite;
+  [Export] AnimationTree animationTree;
   [Export] AnimationPlayer animationPlayer;
   [Export] Area2D interactionArea;
   [Export] Dishes dishes;
+  [Export] Node2D playerHolder;
+  int _lastDirection = 1;
+ float _rightDishesX = 16f;
+ float _leftDishesX = -16f;
 
-  public Vector2 inputDirection {get; private set;}
+  public Vector2 inputDirection { get; private set; }
 
   IInteractable _currentInteractable = null;
-
-  string _lastDirection = "right";
-
-  // Animation name constants
-  const string _ANIM_IDLE_RIGHT = "player_idle_right";
-  const string _ANIM_IDLE_LEFT = "player_idle_left";
-  const string _ANIM_RUN_RIGHT = "player_run_right";
-  const string _ANIM_RUN_LEFT = "player_run_left";
 
   public float MoveSpeed {
     get { return moveSpeed; }
@@ -28,9 +25,8 @@ public partial class PlayerController : CharacterBody2D
   {
     interactionArea.BodyEntered += OnInteractionAreaBodyEntered;
     interactionArea.BodyExited += OnInteractionAreaBodyExited;
-
-    animationPlayer.Play(_ANIM_IDLE_RIGHT);
-    animationPlayer.SpeedScale = 1.2f;
+    _rightDishesX = dishes.Position.X;
+    _leftDishesX = -dishes.Position.X;
   }
 
   public override void _Process(double delta)
@@ -53,28 +49,17 @@ public partial class PlayerController : CharacterBody2D
 
   private void HandleAnimation()
   {
-    if (inputDirection == Vector2.Zero)
-    {
-      PlayIdleAnimation();
-      return;
-    }
+    animationTree.Set("parameters/blend_position", inputDirection.Length());
 
-    if (inputDirection.X != 0)
-      _lastDirection = inputDirection.X < 0 ? "left" : "right";
+    // Si el input es suficientemente fuerte horizontalmente, cambiamos la dirección
+    if (inputDirection.X > 0.1f)
+      _lastDirection = 1;
+    else if (inputDirection.X < -0.1f)
+      _lastDirection = -1;
 
-    PlayRunAnimation();
-  }
-
-  private void PlayIdleAnimation()
-  {
-    string animation = _lastDirection == "left" ? _ANIM_IDLE_LEFT : _ANIM_IDLE_RIGHT;
-    animationPlayer.Play(animation);
-  }
-
-  private void PlayRunAnimation()
-  {
-    string animation = _lastDirection == "left" ? _ANIM_RUN_LEFT : _ANIM_RUN_RIGHT;
-    animationPlayer.Play(animation);
+    float dishesX = _lastDirection == 1 ? _rightDishesX : _leftDishesX;
+    dishes.Position = new Vector2(dishesX, dishes.Position.Y);
+    playerHolder.Scale = new Vector2(_lastDirection, playerHolder.Scale.Y);
   }
 
   private void OnInteractionAreaBodyEntered(Node body)
