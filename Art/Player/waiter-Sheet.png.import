@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3dstixl6noos"
-path="res://.godot/imported/white_chair.png-e67e13ae5097b6dba8bffeeed2c61617.ctex"
+uid="uid://dikyfu3kabeef"
+path="res://.godot/imported/waiter-Sheet.png-660bcb398421c99ef5ec2116e5be0ae2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Objects/white_chair.png"
-dest_files=["res://.godot/imported/white_chair.png-e67e13ae5097b6dba8bffeeed2c61617.ctex"]
+source_file="res://Art/Player/waiter-Sheet.png"
+dest_files=["res://.godot/imported/waiter-Sheet.png-660bcb398421c99ef5ec2116e5be0ae2.ctex"]
 
 [params]
 
