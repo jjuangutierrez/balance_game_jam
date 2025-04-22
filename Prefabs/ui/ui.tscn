@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cx65ukao2r3oq"]
+[gd_scene load_steps=11 format=3 uid="uid://cx65ukao2r3oq"]
 
 [ext_resource type="Texture2D" uid="uid://cngfbcagyo7ks" path="res://Art/UI/timer.png" id="1_1uads"]
 [ext_resource type="Script" uid="uid://bsc3vsswlpxys" path="res://Code/UI/UIManager.cs" id="1_3swcx"]
-[ext_resource type="Texture2D" uid="uid://1h3yhx8ultr4" path="res://Art/UI/plates_icon.png" id="2_3swcx"]
 
 [sub_resource type="SystemFont" id="SystemFont_sreuk"]
 font_names = PackedStringArray("Comic Sans MS")
@@ -10,16 +9,6 @@ subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_tq6uv"]
 font = SubResource("SystemFont_sreuk")
-font_size = 18
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_12c36"]
-font_names = PackedStringArray("Comic Sans MS")
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_5uqhi"]
-font = SubResource("SystemFont_12c36")
 font_size = 18
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -225,19 +214,6 @@ offset_bottom = 13.0
 text = "60"
 label_settings = SubResource("LabelSettings_tq6uv")
 metadata/_edit_use_anchors_ = true
-
-[node name="Plates" type="Sprite2D" parent="Control/BoxContainer/VBoxContainer"]
-position = Vector2(13, 50)
-texture = ExtResource("2_3swcx")
-
-[node name="PlatesLabel" type="Label" parent="Control/BoxContainer/VBoxContainer/Plates"]
-offset_left = 19.0
-offset_top = -13.0
-offset_right = 59.0
-offset_bottom = 42.0
-text = "x5
-"
-label_settings = SubResource("LabelSettings_5uqhi")
 
 [node name="ScoreLabel" type="Label" parent="Control"]
 layout_mode = 1

@@ -73,6 +73,7 @@ public partial class Chair : Node2D
       _currentNpc.AssignedTable.ClearDish(_currentNpc.ChairIndex);
       _currentNpc.ShowHappyEmotion(HappyTextures);
     }else{
+      GameManager.Instance.PlaySound("soundRage");
       _currentNpc.ShowFrustrationEmotion(FrustrationTextures);
     }
 

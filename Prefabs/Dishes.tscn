@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://o6o7byy03lnt"]
+[gd_scene load_steps=4 format=3 uid="uid://o6o7byy03lnt"]
 
 [ext_resource type="Script" uid="uid://dwx5thbbi3lf8" path="res://Code/Dishes/Dishes.cs" id="1_6ynlc"]
 [ext_resource type="Texture2D" uid="uid://c2csqg2y54vuh" path="res://Art/Objects/dishes.png" id="2_6ynlc"]
 
-[node name="Dishes" type="Node2D" node_paths=PackedStringArray("dishSprite", "dishesPivot")]
+[sub_resource type="Curve" id="Curve_vps24"]
+_data = [Vector2(0.130682, 1), 0.0, 0.0, 0, 0, Vector2(0.960227, 0.101124), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Dishes" type="Node2D" node_paths=PackedStringArray("dishSprite", "dishesPivot", "_breakeParticle")]
 script = ExtResource("1_6ynlc")
 dishSprite = NodePath("DishSprite")
 dishesPivot = NodePath("DishesPivot")
+_breakeParticle = NodePath("CPUParticles2D")
 dampingFactor = 6.0
 springConstant = 60.0
 
@@ -17,3 +22,17 @@ offset = Vector2(0, -4)
 vframes = 3
 
 [node name="DishesPivot" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 8)
+emitting = false
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_vps24")

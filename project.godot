@@ -37,7 +37,8 @@ folder_colors={
 "res://Animations/": "yellow",
 "res://Art/": "blue",
 "res://Code/": "orange",
-"res://Prefabs/": "green"
+"res://Prefabs/": "green",
+"res://Sounds/": "red"
 }
 
 [input]

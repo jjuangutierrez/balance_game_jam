@@ -81,6 +81,10 @@ public partial class Table : StaticBody2D, IInteractable
     if (node is not Dishes dishes)
       return;
 
-    dishes.RemoveDish(ServeDish(dishes.DishCount));
+    if (dishes.DishCount > 0)
+    {
+      GameManager.Instance.PlaySound("pickup");
+      dishes.RemoveDish(ServeDish(dishes.DishCount));
+    }
   }
 }

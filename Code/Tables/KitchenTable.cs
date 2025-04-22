@@ -9,5 +9,7 @@ public partial class KitchenTable : StaticBody2D, IInteractable
       return;
 
     dishes.AddDish(1);
+    if (dishes.DishCount < 10)
+      GameManager.Instance.PlaySound("pickup");
   }
 }

@@ -7,6 +7,8 @@ public partial class PlayerController : CharacterBody2D
   [Export] AnimationPlayer animationPlayer;
   [Export] Area2D interactionArea;
   [Export] Dishes dishes;
+  private float _stepColdown = 0.3f;
+  private float _stepTimer = 0.0f;
 
   public Vector2 inputDirection {get; private set;}
 
@@ -36,6 +38,18 @@ public partial class PlayerController : CharacterBody2D
   public override void _Process(double delta)
   {
     inputDirection = Input.GetVector("left", "right", "up", "down");
+
+    // Step sound
+    if (inputDirection != Vector2.Zero)
+    {
+      _stepTimer -= (float)delta;
+      if(_stepTimer <= 0.0f)
+      {
+        GameManager.Instance.PlaySound("steps");
+        _stepTimer = _stepColdown;
+      }
+    }
+
     HandleAnimation();
 
     if (_currentInteractable != null && Input.IsActionJustPressed("interact"))

@@ -1,19 +1,37 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class GameManager : Node
 {
-    [Export] public float Score = 0;
-    [Export] public float Time = 999;
+    public static GameManager Instance { get; private set; }
+    [Export] public int RecordScore = 0;
+    [Export] public int CurrentScore = 0;
+    [Export] public float CurrentScene = 0;
+    [Export] public float Time = 60;
     [Export] public float Dishes;
     [Export] public float CurrentTime;
     [Export] AnimationPlayer transitionAnimation;
+    private Dictionary<string, AudioStream> _sounds = new();
+    private AudioStreamPlayer _audioStreamPlayer;
 
     private string nextScene = "";
 
     public override void _Ready()
     {
+        Instance = this;
+        _audioStreamPlayer = new AudioStreamPlayer();
+        AddChild(_audioStreamPlayer);
+
+        // load sounds
+        _sounds["steps"] = GD.Load<AudioStream>("res://Sounds/steps.wav");
+        _sounds["pickup"] = GD.Load<AudioStream>("res://Sounds/pickup.wav");
+        _sounds["breakinDishes"] = GD.Load<AudioStream>("res://Sounds/breakin dishes.wav");
+        _sounds["bell"] = GD.Load<AudioStream>("res://Sounds/bell.wav");
+        _sounds["soundRage"] = GD.Load<AudioStream>("res://Sounds/sound rage.wav");
+
+
         CurrentTime = Time;
         transitionAnimation.Play("up");
 
@@ -41,6 +59,39 @@ public partial class GameManager : Node
         transitionAnimation.Play("down");
     }
 
+    public void PlaySound(string name)
+    {
+        if (_sounds.ContainsKey(name))
+        {
+            var player = new AudioStreamPlayer();
+            player.Stream = _sounds[name];
+
+            if (name == "steps")
+                player.VolumeDb = -20;
+
+            if (name == "pickup")
+                player.VolumeDb = -20;
+
+            if (name == "breakinDishes")
+                player.VolumeDb = -10;
+
+            if (name == "soundRage")
+                player.VolumeDb = -10;
+
+            AddChild(player);
+            player.Play();
+
+            // Delete node audio when that sfx its finished
+            player.Finished += () => player.QueueFree();
+        }
+        else
+        {
+            GD.Print($"[Audio] sound not found!: {name}");
+        }
+    }
+
+
+
     private void OnAnimationFinished(StringName animName)
     {
         if (animName == "down" && !string.IsNullOrEmpty(nextScene))
@@ -51,6 +102,7 @@ public partial class GameManager : Node
             if (nextScene == "res://TestScene.tscn")
             {
                 CurrentTime = Time;
+                CurrentScore = 0;
             }
             nextScene = "";
         }
@@ -61,9 +113,9 @@ public partial class GameManager : Node
         CurrentTime += extraTime;
     }
 
-    public void AddScore(float extraScore)
+    public void AddScore(int extraScore)
     {
-        Score += extraScore;
+        CurrentScore += extraScore;
     }
 
 }

@@ -8,6 +8,7 @@ public partial class Dishes : Node2D
   [Export] int maxDishes = 10;
   [Export] Node2D dishesPivot;
   [Export(PropertyHint.Range, "0,1,0.01")] float curveFactor = 0.5f;
+  [Export] CpuParticles2D _breakeParticle;
 
   [ExportGroup("Physics Configuration")]
   [Export] float maxTiltDegrees = 80;
@@ -58,6 +59,11 @@ public partial class Dishes : Node2D
       var lastDish = dishesPivot.GetChild(lastIndex);
       dishesPivot.RemoveChild(lastDish);
       lastDish.QueueFree();
+
+      // add score
+      GameManager.Instance.AddScore(100);
+      GameManager.Instance.AddTime(15);
+
       DishCount--;
     }
 
@@ -198,6 +204,8 @@ public partial class Dishes : Node2D
     // TODO: fallen dishes particles
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
+      _breakeParticle.Emitting = true;
+      GameManager.Instance.PlaySound("breakinDishes");
       _allDishesFallen = true;
       _currentTiltAngle = 0;
       _angularVelocity = 0f;

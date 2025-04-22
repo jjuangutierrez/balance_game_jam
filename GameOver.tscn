@@ -16,7 +16,7 @@ font_names = PackedStringArray("Comic Sans MS")
 font = SubResource("SystemFont_a1htc")
 font_color = Color(1, 0.804681, 0, 1)
 
-[node name="GameOver" type="Control" node_paths=PackedStringArray("backButton")]
+[node name="GameOver" type="Control" node_paths=PackedStringArray("backButton", "totalScore")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_40baj")
 backButton = NodePath("BoxContainer/VBoxContainer/MainMenuButton")
+totalScore = NodePath("BoxContainer/VBoxContainer/TotalScoreLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

@@ -81,6 +81,9 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Add(npc);
     npc.AssignToTable(table, chairIndex);
+    
+    // bell sound
+    GameManager.Instance.PlaySound("bell");
   }
 
   private Table GetRandomAvailableTable()
@@ -98,5 +101,17 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Remove(npc);
     npc.QueueFree();
+    // bell sound
+    GameManager.Instance.PlaySound("bell");
   }
+
+  // reset singleton
+  public override void _ExitTree()
+  {
+    if (Instance == this)
+    {
+      Instance = null;
+    }
+  }
+
 }
