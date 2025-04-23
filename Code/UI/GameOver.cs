@@ -5,20 +5,15 @@ public partial class GameOver : Control
 {
     [Export] Button backButton;
     [Export] Label totalScore;
-
+    GameManager _gameManager;
     public override void _Ready()
     {
         backButton.Pressed += OnBackPressed;
-        totalScore.Text = $"Total score: {GameManager.Instance.CurrentScore}";
+        _gameManager = GetNode<GameManager>("/root/GameManager");
     }
 
     void OnBackPressed()
     {
-        if (GameManager.Instance.CurrentScore > GameManager.Instance.RecordScore)
-        {
-            GameManager.Instance.RecordScore = GameManager.Instance.CurrentScore;
-        }
-
-        GameManager.Instance.ChangeScene("res://MainMenu.tscn");
+        _gameManager.ChangeScene("res://MainMenu.tscn");
     }
 }

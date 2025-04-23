@@ -5,7 +5,7 @@ public partial class Dishes : Node2D
 {
   [ExportGroup("Dish Configuration")]
   [Export] Sprite2D dishSprite;
-  [Export] int maxDishes = 10;
+  [Export] public int maxDishes { get; private set; } = 10;
   [Export] Node2D dishesPivot;
   [Export(PropertyHint.Range, "0,1,0.01")] float curveFactor = 0.5f;
   [Export] CpuParticles2D _breakeParticle;
@@ -61,8 +61,7 @@ public partial class Dishes : Node2D
       lastDish.QueueFree();
 
       // add score
-      GameManager.Instance.AddScore(100);
-      GameManager.Instance.AddTime(15);
+      // GameManager.Instance.AddScore(100);
 
       DishCount--;
     }
@@ -205,7 +204,7 @@ public partial class Dishes : Node2D
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
       _breakeParticle.Emitting = true;
-      GameManager.Instance.PlaySound("breakinDishes");
+      //TODO: GameManager.Instance.PlaySound("breakinDishes");
       _allDishesFallen = true;
       _currentTiltAngle = 0;
       _angularVelocity = 0f;

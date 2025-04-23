@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cx65ukao2r3oq"]
+[gd_scene load_steps=9 format=3 uid="uid://cx65ukao2r3oq"]
 
 [ext_resource type="Texture2D" uid="uid://cngfbcagyo7ks" path="res://Art/UI/timer.png" id="1_1uads"]
 [ext_resource type="Script" uid="uid://bsc3vsswlpxys" path="res://Code/UI/UIManager.cs" id="1_3swcx"]
@@ -10,16 +10,6 @@ subpixel_positioning = 0
 [sub_resource type="LabelSettings" id="LabelSettings_tq6uv"]
 font = SubResource("SystemFont_sreuk")
 font_size = 18
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_1uads"]
-font_names = PackedStringArray("Comic Sans MS")
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_3swcx"]
-font = SubResource("SystemFont_1uads")
-font_color = Color(1, 0.738495, 0, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
@@ -177,10 +167,9 @@ _data = {
 &"start_timer": SubResource("Animation_2sc0s")
 }
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("timer", "score", "animationPlayer")]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("timer", "animationPlayer")]
 script = ExtResource("1_3swcx")
 timer = NodePath("Control/BoxContainer/VBoxContainer/Timer/TimerLabel")
-score = NodePath("Control/ScoreLabel")
 animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Control" type="Control" parent="."]
@@ -214,19 +203,6 @@ offset_bottom = 13.0
 text = "60"
 label_settings = SubResource("LabelSettings_tq6uv")
 metadata/_edit_use_anchors_ = true
-
-[node name="ScoreLabel" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -80.0
-offset_top = 4.0
-offset_right = -7.0
-offset_bottom = 27.0
-grow_horizontal = 0
-text = "SCORE: 0"
-label_settings = SubResource("LabelSettings_3swcx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Prefabs/GameManager.tscn"
+AudioManager="*res://Prefabs/AudioManager.tscn"
 
 [display]
 
@@ -36,9 +37,9 @@ project/assembly_name="balance_game_jam"
 folder_colors={
 "res://Animations/": "yellow",
 "res://Art/": "blue",
+"res://Audio/": "red",
 "res://Code/": "orange",
-"res://Prefabs/": "green",
-"res://Sounds/": "red"
+"res://Prefabs/": "green"
 }
 
 [input]

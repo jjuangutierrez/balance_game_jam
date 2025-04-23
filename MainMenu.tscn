@@ -38,7 +38,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton", "recordLabel")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qoqlk")
 playButton = NodePath("BoxContainer/VBoxContainer/PlayButton")
-recordLabel = NodePath("BoxContainer/VBoxContainer/RecordScoreLabel")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_repeat = 2

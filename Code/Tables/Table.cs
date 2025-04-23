@@ -8,13 +8,14 @@ public partial class Table : StaticBody2D, IInteractable
   [Export] public Sprite2D[] DishSprites { get; private set; }
 
   Chair[] _chairs;
-
+  AudioManager _audioManager;
   public bool IsOccupied => _chairs.All(chair => chair.IsOccupied || chair.IsReserved);
 
   public override void _Ready()
   {
-    _chairs = chairPaths.Select(path => GetNode<Chair>(path)).ToArray();
+    _audioManager = GetNode<AudioManager>("/root/AudioManager");
 
+    _chairs = chairPaths.Select(path => GetNode<Chair>(path)).ToArray();
     tableArea.BodyEntered += OnArea2DBodyEntered;
   }
 
@@ -81,9 +82,13 @@ public partial class Table : StaticBody2D, IInteractable
     if (node is not Dishes dishes)
       return;
 
+
+    bool shouldPlaySound = _chairs.Any(chair => chair.IsOccupied) && DishSprites.All(dish => !dish.Visible);
     if (dishes.DishCount > 0)
     {
-      GameManager.Instance.PlaySound("pickup");
+      if (shouldPlaySound)
+        _audioManager.PlaySound("serveDish", (float)GD.RandRange(1f, 1.1f));
+
       dishes.RemoveDish(ServeDish(dishes.DishCount));
     }
   }

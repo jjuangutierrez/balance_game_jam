@@ -5,13 +5,11 @@ using System.Linq;
 
 public partial class GameManager : Node
 {
-    public static GameManager Instance { get; private set; }
-    [Export] public int RecordScore = 0;
-    [Export] public int CurrentScore = 0;
     [Export] public float CurrentScene = 0;
     [Export] public float Time = 60;
     [Export] public float Dishes;
     [Export] public float CurrentTime;
+    [Export] public float CurrentSatisfaction;
     [Export] AnimationPlayer transitionAnimation;
     private Dictionary<string, AudioStream> _sounds = new();
     private AudioStreamPlayer _audioStreamPlayer;
@@ -20,16 +18,15 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
-        Instance = this;
         _audioStreamPlayer = new AudioStreamPlayer();
         AddChild(_audioStreamPlayer);
 
-        // load sounds
+   /*      // load sounds
         _sounds["steps"] = GD.Load<AudioStream>("res://Sounds/steps.wav");
         _sounds["pickup"] = GD.Load<AudioStream>("res://Sounds/pickup.wav");
         _sounds["breakinDishes"] = GD.Load<AudioStream>("res://Sounds/breakin dishes.wav");
         _sounds["bell"] = GD.Load<AudioStream>("res://Sounds/bell.wav");
-        _sounds["soundRage"] = GD.Load<AudioStream>("res://Sounds/sound rage.wav");
+        _sounds["soundRage"] = GD.Load<AudioStream>("res://Sounds/sound rage.wav"); */
 
 
         CurrentTime = Time;
@@ -102,7 +99,7 @@ public partial class GameManager : Node
             if (nextScene == "res://TestScene.tscn")
             {
                 CurrentTime = Time;
-                CurrentScore = 0;
+                CurrentSatisfaction = 0;
             }
             nextScene = "";
         }
@@ -113,9 +110,9 @@ public partial class GameManager : Node
         CurrentTime += extraTime;
     }
 
-    public void AddScore(int extraScore)
+    public void IncreaseSatisfaction(int extraSatisfaction)
     {
-        CurrentScore += extraScore;
+        CurrentSatisfaction += extraSatisfaction;
     }
 
 }

@@ -9,16 +9,17 @@ public partial class NpcSpawnManager : Node2D
   [Export] PackedScene npcScene;
   [Export] Node2D spawnPoint;
   [Export] Vector2I spawnRateRange = new Vector2I(5, 10);
-
   [Export] public Node2D ExitPoint { get; private set; }
 
   List<Table> _tables = new();
   Timer _spawnTimer;
   List<Npc> _activeNpcs = new();
   int _maxNpcs = 4;
-
+  AudioManager _audioManager;
   public override void _Ready()
   {
+    _audioManager = GetNode<AudioManager>("/root/AudioManager");
+
     SetupInstance();
     InitializeTables();
     InitializeSpawnPoint();
@@ -81,9 +82,9 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Add(npc);
     npc.AssignToTable(table, chairIndex);
-    
-    // bell sound
-    GameManager.Instance.PlaySound("bell");
+
+    //TODO: bell sound
+    /* _audioManager.PlaySound("bell"); */
   }
 
   private Table GetRandomAvailableTable()
@@ -101,8 +102,8 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Remove(npc);
     npc.QueueFree();
-    // bell sound
-    GameManager.Instance.PlaySound("bell");
+    //TODO: bell sound
+    /* _audioManager.PlaySound("bell"); */
   }
 
   // reset singleton

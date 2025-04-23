@@ -17,8 +17,11 @@ public partial class Chair : Node2D
   public bool IsReserved { get; set; }
 
   Npc _currentNpc;
-
-  public override void _Ready(){}
+  AudioManager _audioManager;
+  public override void _Ready()
+  {
+    _audioManager = GetNode<AudioManager>("/root/AudioManager");
+  }
 
   public void SetNpc(Npc npc)
   {
@@ -73,7 +76,7 @@ public partial class Chair : Node2D
       _currentNpc.AssignedTable.ClearDish(_currentNpc.ChairIndex);
       _currentNpc.ShowHappyEmotion(HappyTextures);
     }else{
-      GameManager.Instance.PlaySound("soundRage");
+      //TODO: GameManager.Instance.PlaySound("soundRage");
       _currentNpc.ShowFrustrationEmotion(FrustrationTextures);
     }
 

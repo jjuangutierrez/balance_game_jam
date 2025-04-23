@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cm4jw753uyicr"
-path="res://.godot/imported/sound rage.wav-10038ea06eae85aeca5990cd8d9601f4.sample"
+uid="uid://cix72jwfhgekh"
+path="res://.godot/imported/bell.wav-7a8cf0907f100b5e3b6d704b4f9a3f88.sample"
 
 [deps]
 
-source_file="res://Sounds/sound rage.wav"
-dest_files=["res://.godot/imported/sound rage.wav-10038ea06eae85aeca5990cd8d9601f4.sample"]
+source_file="res://Audio/bell.wav"
+dest_files=["res://.godot/imported/bell.wav-7a8cf0907f100b5e3b6d704b4f9a3f88.sample"]
 
 [params]
 

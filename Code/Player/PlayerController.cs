@@ -18,6 +18,7 @@ public partial class PlayerController : CharacterBody2D
   public Vector2 inputDirection { get; private set; }
 
   IInteractable _currentInteractable = null;
+  AudioManager _audioManager;
 
   public float MoveSpeed {
     get { return moveSpeed; }
@@ -25,6 +26,8 @@ public partial class PlayerController : CharacterBody2D
 
   public override void _Ready()
   {
+    _audioManager = GetNode<AudioManager>("/root/AudioManager");
+
     interactionArea.BodyEntered += OnInteractionAreaBodyEntered;
     interactionArea.BodyExited += OnInteractionAreaBodyExited;
     _rightDishesX = dishes.Position.X;
@@ -41,7 +44,7 @@ public partial class PlayerController : CharacterBody2D
       _stepTimer -= (float)delta;
       if(_stepTimer <= 0.0f)
       {
-        GameManager.Instance.PlaySound("steps");
+        _audioManager.PlaySound("footSteps", (float)GD.RandRange(1f, 1.1f));
         _stepTimer = _stepColdown;
       }
     }

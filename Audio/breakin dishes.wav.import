@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bd41st5voe15r"
-path="res://.godot/imported/breakin dishes.wav-400b5cb772046da53316b2e39c0518a5.sample"
+path="res://.godot/imported/breakin dishes.wav-5469bc9ae91f8b2b20df2009f96a0873.sample"
 
 [deps]
 
-source_file="res://Sounds/breakin dishes.wav"
-dest_files=["res://.godot/imported/breakin dishes.wav-400b5cb772046da53316b2e39c0518a5.sample"]
+source_file="res://Audio/breakin dishes.wav"
+dest_files=["res://.godot/imported/breakin dishes.wav-5469bc9ae91f8b2b20df2009f96a0873.sample"]
 
 [params]
 
