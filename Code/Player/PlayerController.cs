@@ -4,22 +4,21 @@ public partial class PlayerController : CharacterBody2D
 {
   [Export] float moveSpeed = 10;
   [Export] Sprite2D playerSprite;
-  [Export] AnimationTree animationTree;
   [Export] AnimationPlayer animationPlayer;
   [Export] Area2D interactionArea;
   [Export] Dishes dishes;
   private float _stepColdown = 0.3f;
   private float _stepTimer = 0.0f;
-  [Export] Node2D playerHolder;
   int _lastDirection = 1;
- float _rightDishesX = 16f;
- float _leftDishesX = -16f;
+  float _rightDishesX = 16f;
+  float _leftDishesX = -16f;
 
   public Vector2 inputDirection { get; private set; }
 
   IInteractable _currentInteractable = null;
 
-  public float MoveSpeed {
+  public float MoveSpeed
+  {
     get { return moveSpeed; }
   }
 
@@ -39,7 +38,7 @@ public partial class PlayerController : CharacterBody2D
     if (inputDirection != Vector2.Zero)
     {
       _stepTimer -= (float)delta;
-      if(_stepTimer <= 0.0f)
+      if (_stepTimer <= 0.0f)
       {
         GameManager.Instance.PlaySound("steps");
         _stepTimer = _stepColdown;
@@ -63,17 +62,25 @@ public partial class PlayerController : CharacterBody2D
 
   private void HandleAnimation()
   {
-    animationTree.Set("parameters/blend_position", inputDirection.Length());
+    if (inputDirection.Length() > 0)
+      animationPlayer.Play("waiter_run");
+    else
+      animationPlayer.Play("waiter_idle");
 
-    // Si el input es suficientemente fuerte horizontalmente, cambiamos la dirección
     if (inputDirection.X > 0.1f)
+    {
+      playerSprite.Scale = new Vector2 (1, 1);
       _lastDirection = 1;
+    }
     else if (inputDirection.X < -0.1f)
+    {
+      playerSprite.Scale = new Vector2 (-1, 1);
       _lastDirection = -1;
+    }
 
     float dishesX = _lastDirection == 1 ? _rightDishesX : _leftDishesX;
     dishes.Position = new Vector2(dishesX, dishes.Position.Y);
-    playerHolder.Scale = new Vector2(_lastDirection, playerHolder.Scale.Y);
+
   }
 
   private void OnInteractionAreaBodyEntered(Node body)

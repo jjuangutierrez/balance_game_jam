@@ -15,7 +15,7 @@ public partial class NpcSpawnManager : Node2D
   List<Table> _tables = new();
   Timer _spawnTimer;
   List<Npc> _activeNpcs = new();
-  int _maxNpcs = 4;
+  int _maxNpcs = 14;
 
   public override void _Ready()
   {
