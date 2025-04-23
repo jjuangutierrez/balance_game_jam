@@ -8,6 +8,7 @@ _data = [Vector2(0.130682, 1), 0.0, 0.0, 0, 0, Vector2(0.960227, 0.101124), 0.0,
 point_count = 2
 
 [node name="Dishes" type="Node2D" node_paths=PackedStringArray("dishSprite", "dishesPivot", "_breakeParticle")]
+z_index = 1
 script = ExtResource("1_6ynlc")
 dishSprite = NodePath("DishSprite")
 dishesPivot = NodePath("DishesPivot")

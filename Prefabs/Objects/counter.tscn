@@ -3,22 +3,23 @@
 [ext_resource type="Texture2D" uid="uid://cmc0tgxv82g74" path="res://Art/Objects/counter.png" id="1_88seb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k32ni"]
-size = Vector2(96, 25)
+size = Vector2(99, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwfby"]
-size = Vector2(18, 62)
+size = Vector2(25, 62)
 
 [node name="Counter" type="StaticBody2D"]
-y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -20)
+y_sort_enabled = true
+position = Vector2(0, 12)
 texture = ExtResource("1_88seb")
+offset = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 6.5)
+position = Vector2(2.5, 6.5)
 shape = SubResource("RectangleShape2D_k32ni")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(41, -28)
+position = Vector2(39.5, -28)
 shape = SubResource("RectangleShape2D_kwfby")

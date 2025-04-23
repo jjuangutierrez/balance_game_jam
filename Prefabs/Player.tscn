@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://h5uybdncsqui"]
+[gd_scene load_steps=13 format=3 uid="uid://h5uybdncsqui"]
 
 [ext_resource type="Script" uid="uid://15ltbjoapuon" path="res://Code/Player/PlayerController.cs" id="1_x3d5u"]
 [ext_resource type="Texture2D" uid="uid://dikyfu3kabeef" path="res://Art/Player/waiter-Sheet.png" id="2_lhekp"]
@@ -19,7 +19,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Playerolder/Waiter:frame")
+tracks/0/path = NodePath("Waiter:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,7 +37,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Playerolder/Waiter:frame")
+tracks/0/path = NodePath("Waiter:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -55,7 +55,7 @@ step = 0.166667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Playerolder/Waiter:frame")
+tracks/0/path = NodePath("Waiter:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -72,44 +72,21 @@ _data = {
 &"waiter_run": SubResource("Animation_k2qb3")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gg3t4"]
-animation = &"waiter_run"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_javds"]
-animation = &"waiter_run"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3ygst"]
-animation = &"waiter_idle"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_lhekp"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_gg3t4")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_javds")
-blend_point_1/pos = 1.0
-blend_point_2/node = SubResource("AnimationNodeAnimation_3ygst")
-blend_point_2/pos = 0.0
-blend_mode = 1
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "animationTree", "animationPlayer", "interactionArea", "dishes", "playerHolder")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "animationPlayer", "interactionArea", "dishes")]
 y_sort_enabled = true
 script = ExtResource("1_x3d5u")
 moveSpeed = 11.0
-playerSprite = NodePath("Playerolder/Waiter")
-animationTree = NodePath("AnimationTree")
+playerSprite = NodePath("Waiter")
 animationPlayer = NodePath("AnimationPlayer")
 interactionArea = NodePath("InteractableArea")
 dishes = NodePath("Dishes")
-playerHolder = NodePath("Playerolder")
 
 [node name="Dishes" parent="." instance=ExtResource("8_3ygst")]
 position = Vector2(15, -21)
 
-[node name="Playerolder" type="Node2D" parent="."]
-
-[node name="Waiter" type="Sprite2D" parent="Playerolder"]
-z_index = 1
-position = Vector2(3, -20)
+[node name="Waiter" type="Sprite2D" parent="."]
 texture = ExtResource("2_lhekp")
+offset = Vector2(4, -20)
 hframes = 7
 vframes = 2
 frame = 1
@@ -131,7 +108,7 @@ script = ExtResource("5_javds")
 script = ExtResource("6_3ygst")
 
 [node name="InteractableArea" type="Area2D" parent="."]
-position = Vector2(1, -24)
+position = Vector2(1, -21)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
@@ -144,9 +121,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_t8lmw")
 }
 speed_scale = 2.0
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-deterministic = false
-tree_root = SubResource("AnimationNodeBlendSpace1D_lhekp")
-anim_player = NodePath("../AnimationPlayer")
-parameters/blend_position = 1.0
