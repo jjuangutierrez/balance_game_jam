@@ -4,12 +4,15 @@ using System;
 public partial class GameOver : Control
 {
     [Export] Button backButton;
-    [Export] Label totalScore;
+    [Export] Label totalTime;
     GameManager _gameManager;
     public override void _Ready()
     {
-        backButton.Pressed += OnBackPressed;
         _gameManager = GetNode<GameManager>("/root/GameManager");
+
+        totalTime.Text = $"Total Time: {_gameManager.CurrentTime.ToString("0.0")}";
+
+        backButton.Pressed += OnBackPressed;
     }
 
     void OnBackPressed()

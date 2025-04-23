@@ -6,48 +6,55 @@ using System.Linq;
 public partial class GameManager : Node
 {
     [Export] public float CurrentScene = 0;
-    [Export] public float Time = 60;
+    [Export] public float Time = 0;
     [Export] public float Dishes;
     [Export] public float CurrentTime;
-    [Export] public float CurrentSatisfaction;
+    [Export] public float RecordTime;
+    [Export] public float CurrentSatisfaction { get; private set; } = 50;
     [Export] AnimationPlayer transitionAnimation;
-    private Dictionary<string, AudioStream> _sounds = new();
-    private AudioStreamPlayer _audioStreamPlayer;
+    [Export] UIManager _UiManager;
 
     private string nextScene = "";
 
     public override void _Ready()
     {
-        _audioStreamPlayer = new AudioStreamPlayer();
-        AddChild(_audioStreamPlayer);
-
-   /*      // load sounds
-        _sounds["steps"] = GD.Load<AudioStream>("res://Sounds/steps.wav");
-        _sounds["pickup"] = GD.Load<AudioStream>("res://Sounds/pickup.wav");
-        _sounds["breakinDishes"] = GD.Load<AudioStream>("res://Sounds/breakin dishes.wav");
-        _sounds["bell"] = GD.Load<AudioStream>("res://Sounds/bell.wav");
-        _sounds["soundRage"] = GD.Load<AudioStream>("res://Sounds/sound rage.wav"); */
-
-
-        CurrentTime = Time;
         transitionAnimation.Play("up");
-
         transitionAnimation.AnimationFinished += OnAnimationFinished;
+
+        _UiManager = GetNode<UIManager>("/root/UI");
     }
 
     public override void _Process(double delta)
     {
+        // TODO: change game scene
         var currentScene = GetTree().CurrentScene;
-        if (currentScene != null && currentScene.SceneFilePath == "res://TestScene.tscn")
+
+
+        switch (currentScene.SceneFilePath)
         {
-            CurrentTime -= (float)delta;
-            if (CurrentTime <= 0)
-            {
-                GD.Print("game over");
-                ChangeScene("res://GameOver.tscn");
-                CurrentTime = 0;
-            }
+            case "res://MainMenu.tscn":
+                _UiManager.Hide();
+                break;
+            case "res://GameOver.tscn":
+                _UiManager.Hide();
+                break;
+            case "res://TestScene.tscn":
+                _UiManager.Show();
+                _UiManager.UpdateTimer(delta);
+                _UiManager.UpdateProgressBar();
+                CurrentTime += (float)delta;
+
+                if (CurrentSatisfaction <= 0)
+                {
+                    if (CurrentTime > RecordTime)
+                        RecordTime = CurrentTime;
+                    ChangeScene("res://GameOver.tscn");
+                }
+                break;
+            default:
+                break;
         }
+
     }
 
     public void ChangeScene(string scenePath)
@@ -55,38 +62,6 @@ public partial class GameManager : Node
         nextScene = scenePath;
         transitionAnimation.Play("down");
     }
-
-    public void PlaySound(string name)
-    {
-        if (_sounds.ContainsKey(name))
-        {
-            var player = new AudioStreamPlayer();
-            player.Stream = _sounds[name];
-
-            if (name == "steps")
-                player.VolumeDb = -20;
-
-            if (name == "pickup")
-                player.VolumeDb = -20;
-
-            if (name == "breakinDishes")
-                player.VolumeDb = -10;
-
-            if (name == "soundRage")
-                player.VolumeDb = -10;
-
-            AddChild(player);
-            player.Play();
-
-            // Delete node audio when that sfx its finished
-            player.Finished += () => player.QueueFree();
-        }
-        else
-        {
-            GD.Print($"[Audio] sound not found!: {name}");
-        }
-    }
-
 
 
     private void OnAnimationFinished(StringName animName)
@@ -98,9 +73,10 @@ public partial class GameManager : Node
 
             if (nextScene == "res://TestScene.tscn")
             {
+                CurrentSatisfaction = 50;
                 CurrentTime = Time;
-                CurrentSatisfaction = 0;
             }
+
             nextScene = "";
         }
     }
@@ -110,9 +86,14 @@ public partial class GameManager : Node
         CurrentTime += extraTime;
     }
 
+    public void DecreaseSatisfaction(int extraSatisfaction)
+    {
+        CurrentSatisfaction = Mathf.Clamp(CurrentSatisfaction - extraSatisfaction, 0, 100);
+    }
+
     public void IncreaseSatisfaction(int extraSatisfaction)
     {
-        CurrentSatisfaction += extraSatisfaction;
+        CurrentSatisfaction = Mathf.Clamp(CurrentSatisfaction + extraSatisfaction, 0, 100);
     }
 
 }

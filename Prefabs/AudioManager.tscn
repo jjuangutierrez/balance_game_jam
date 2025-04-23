@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://cy5b7l661yypq"]
+[gd_scene load_steps=5 format=4 uid="uid://bq5sxafkr7c3u"]
 
 [ext_resource type="Script" uid="uid://bwwu5enuxqsq1" path="res://Code/Game/AudioManager.cs" id="1_6ksl6"]
 [ext_resource type="AudioStream" uid="uid://dh8t87icjw0bj" path="res://Audio/SFX/serveDish.wav" id="2_pun2d"]
@@ -13,14 +13,10 @@ script = ExtResource("1_6ksl6")
 [node name="footSteps" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMP3_6ksl6")
 volume_db = -4.0
-bus = &"SFX"
 
 [node name="serveDish" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_pun2d")
-volume_db = -4.0
-bus = &"SFX"
 
 [node name="pickUpDish" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_s3gfx")
 volume_db = -4.0
-bus = &"SFX"

@@ -1,9 +1,8 @@
-[gd_scene load_steps=32 format=4 uid="uid://cfn8rvipdqweb"]
+[gd_scene load_steps=31 format=4 uid="uid://cfn8rvipdqweb"]
 
 [ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
 [ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
 [ext_resource type="PackedScene" uid="uid://cgqlddgg6s1wt" path="res://Prefabs/Objects/counter.tscn" id="3_12c36"]
-[ext_resource type="PackedScene" uid="uid://cx65ukao2r3oq" path="res://Prefabs/ui/ui.tscn" id="4_go42g"]
 [ext_resource type="PackedScene" uid="uid://dbyav7dismce4" path="res://Prefabs/Objects/plant.tscn" id="6_5uqhi"]
 [ext_resource type="PackedScene" uid="uid://b3d7ry7unolsf" path="res://Prefabs/Tables/WoodenTable.tscn" id="6_tq6uv"]
 [ext_resource type="PackedScene" uid="uid://diln8qb1uofp1" path="res://Prefabs/NPCSpawnManger.tscn" id="7_12c36"]
@@ -92,7 +91,6 @@ sources/0 = SubResource("TileSetAtlasSource_sreuk")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cguwc"]
 texture = ExtResource("2_cguwc")
 texture_region_size = Vector2i(32, 32)
-7:7/0 = 0
 8:5/0 = 0
 3:3/0 = 0
 3:2/0 = 0
@@ -145,10 +143,11 @@ sources/0 = SubResource("TileSetAtlasSource_cguwc")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_go42g"]
 texture = ExtResource("2_cguwc")
 texture_region_size = Vector2i(32, 32)
-8:7/0 = 0
-8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(10.6667, 16, 10.6667, -16, -16, -16, -16, 16)
 8:6/0 = 0
 8:6/0/y_sort_origin = 16
+7:7/animation_frame_0/duration = 1.0
+7:7/animation_frame_1/duration = 1.0
+7:7/animation_frame_2/duration = 1.0
 7:7/0 = 0
 7:6/0 = 0
 12:5/0 = 0
@@ -160,6 +159,8 @@ texture_region_size = Vector2i(32, 32)
 8:5/0 = 0
 9:5/0 = 0
 10:4/0 = 0
+7:2/0 = 0
+8:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_sreuk"]
 tile_size = Vector2i(32, 32)
@@ -234,13 +235,6 @@ color = Color(1, 0.842484, 0.506577, 1)
 texture = SubResource("GradientTexture2D_5uqhi")
 texture_scale = 2.0
 
-[node name="PointLight2D5" type="PointLight2D" parent="Lights"]
-z_index = -1
-position = Vector2(443, 453)
-color = Color(1, 0.842484, 0.506577, 1)
-texture = SubResource("GradientTexture2D_5uqhi")
-texture_scale = 2.0
-
 [node name="PointLight2D6" type="PointLight2D" parent="Lights"]
 z_index = -1
 position = Vector2(507, 497)
@@ -262,6 +256,20 @@ color = Color(1, 0.842484, 0.506577, 1)
 texture = SubResource("GradientTexture2D_5uqhi")
 texture_scale = 2.0
 
+[node name="PointLight2D10" type="PointLight2D" parent="Lights"]
+z_index = -1
+position = Vector2(48, 48)
+color = Color(1, 0.842484, 0.506577, 1)
+texture = SubResource("GradientTexture2D_5uqhi")
+texture_scale = 2.0
+
+[node name="PointLight2D11" type="PointLight2D" parent="Lights"]
+z_index = -1
+position = Vector2(219, 208)
+color = Color(1, 0.842484, 0.506577, 1)
+texture = SubResource("GradientTexture2D_5uqhi")
+texture_scale = 2.0
+
 [node name="TilemapLayers" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -279,8 +287,7 @@ tile_map_data = PackedByteArray("AAAKAAsAAAAIAAAAAAACAAgAAAABAAgAAAACAAkAAAADAAI
 tile_set = SubResource("TileSet_wicfy")
 
 [node name="Decoration" type="TileMapLayer" parent="TilemapLayers"]
-y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAGAAoAAAAMAAQAAAADAAoAAAAMAAUAAAAFAAkAAAAHAAYAAAAEAAEAAAAJAAYAAAAEAAkAAAAIAAYAAAAJAAwAAAAJAAYAAAAKAAoAAAAKAAQAAAAHAAkAAAAHAAUAAAABAAoAAAAJAAUAAAAOAAoAAAAHAAUAAAAPAA8AAAAIAAUAAAABAA8AAAAJAAUAAAAKABEAAAAJAAUAAAA=")
+tile_map_data = PackedByteArray("AAAGAAoAAAAMAAQAAAADAAoAAAAMAAUAAAAFAAkAAAAHAAYAAAAEAAEAAAAJAAYAAAAEAAkAAAAIAAYAAAAJAAwAAAAJAAYAAAAKAAoAAAAKAAQAAAAHAAkAAAAHAAUAAAABAAoAAAAJAAUAAAAOAAoAAAAHAAUAAAAPAA8AAAAIAAUAAAABAA8AAAAJAAUAAAAKABEAAAAJAAUAAAABAAEAAAAHAAUAAAAGAAYAAAAIAAUAAAALABIAAAAHAAIAAAAMABIAAAAIAAIAAAA=")
 tile_set = SubResource("TileSet_sreuk")
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
@@ -289,7 +296,7 @@ position = Vector2(95, 176)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 0
 limit_top = 0
-limit_right = 800
+limit_right = 576
 limit_bottom = 640
 editor_draw_limits = true
 
@@ -345,8 +352,6 @@ shape = SubResource("RectangleShape2D_sr5jl")
 [node name="CollisionShape2D16" type="CollisionShape2D" parent="MapCollsisions"]
 position = Vector2(384.5, 615)
 shape = SubResource("RectangleShape2D_b3dy1")
-
-[node name="UI" parent="." instance=ExtResource("4_go42g")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
@@ -406,14 +411,6 @@ position = Vector2(142, 176)
 
 [node name="NPCSpawnManger" parent="." instance=ExtResource("7_12c36")]
 position = Vector2(384, 592)
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 320.0
-offset_top = 383.0
-offset_right = 361.0
-offset_bottom = 408.0
-scale = Vector2(1.56, 0.32)
-color = Color(0, 0, 0, 0.180392)
 
 [editable path="NavigationRegion2D/Plant2"]
 [editable path="NavigationRegion2D/Plant3"]

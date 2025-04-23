@@ -9,7 +9,7 @@ public partial class AudioManager : Node
   public override void _Ready()
   {
     _sounds = GetChildren().OfType<AudioStreamPlayer>()
-            .ToDictionary(player => player.Name.ToString(), player => player);
+      .ToDictionary(player => player.Name.ToString(), player => player);
   }
 
   public void PlaySound(string soundName, float pitchScale = 1f)

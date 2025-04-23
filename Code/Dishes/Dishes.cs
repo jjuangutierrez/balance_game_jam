@@ -23,6 +23,7 @@ public partial class Dishes : Node2D
   float _angularVelocity = 0f;
   float _deltaTime = 0f;
   bool _allDishesFallen;
+  GameManager _gameManager;
 
   public override void _Process(double delta)
   {
@@ -59,9 +60,6 @@ public partial class Dishes : Node2D
       var lastDish = dishesPivot.GetChild(lastIndex);
       dishesPivot.RemoveChild(lastDish);
       lastDish.QueueFree();
-
-      // add score
-      // GameManager.Instance.AddScore(100);
 
       DishCount--;
     }
@@ -200,10 +198,11 @@ public partial class Dishes : Node2D
 
   public void OnDishesFall()
   {
-    // TODO: fallen dishes particles
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
       _breakeParticle.Emitting = true;
+      _gameManager = GetNode<GameManager>("/root/GameManager");
+      _gameManager.DecreaseSatisfaction(20);
       //TODO: GameManager.Instance.PlaySound("breakinDishes");
       _allDishesFallen = true;
       _currentTiltAngle = 0;

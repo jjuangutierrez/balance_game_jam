@@ -1,12 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3ycehrrs3gnn"]
 
 [ext_resource type="Script" uid="uid://bxleufstc484w" path="res://Code/Game/GameManager.cs" id="1_4v1xe"]
-[ext_resource type="PackedScene" uid="uid://j06x8u45cm8h" path="res://Prefabs/ui/TransitionLayer.tscn" id="2_uc36f"]
+[ext_resource type="PackedScene" uid="uid://j06x8u45cm8h" path="res://Prefabs/UI/TransitionLayer.tscn" id="2_uc36f"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("transitionAnimation")]
 script = ExtResource("1_4v1xe")
 transitionAnimation = NodePath("TransitionLayer/AnimationPlayer")
 
 [node name="TransitionLayer" parent="." instance=ExtResource("2_uc36f")]
+
+[node name="TransictionRect" parent="TransitionLayer" index="0"]
+offset_bottom = -270.0
 
 [editable path="TransitionLayer"]

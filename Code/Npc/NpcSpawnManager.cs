@@ -110,9 +110,6 @@ public partial class NpcSpawnManager : Node2D
   public override void _ExitTree()
   {
     if (Instance == this)
-    {
       Instance = null;
-    }
   }
-
 }

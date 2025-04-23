@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://Prefabs/GameManager.tscn"
 AudioManager="*res://Prefabs/AudioManager.tscn"
+UI="*res://Prefabs/UI/UI.tscn"
 
 [display]
 

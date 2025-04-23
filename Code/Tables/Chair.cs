@@ -18,9 +18,12 @@ public partial class Chair : Node2D
 
   Npc _currentNpc;
   AudioManager _audioManager;
+  GameManager _gameManager;
+
   public override void _Ready()
   {
     _audioManager = GetNode<AudioManager>("/root/AudioManager");
+    _gameManager = GetNode<GameManager>("/root/GameManager");
   }
 
   public void SetNpc(Npc npc)
@@ -75,9 +78,11 @@ public partial class Chair : Node2D
     if(isDishServed){
       _currentNpc.AssignedTable.ClearDish(_currentNpc.ChairIndex);
       _currentNpc.ShowHappyEmotion(HappyTextures);
+      _gameManager.IncreaseSatisfaction(5);
     }else{
       //TODO: GameManager.Instance.PlaySound("soundRage");
       _currentNpc.ShowFrustrationEmotion(FrustrationTextures);
+      _gameManager.DecreaseSatisfaction(10);
     }
 
     NpcSprite.Visible = false;
@@ -85,6 +90,7 @@ public partial class Chair : Node2D
 
     _currentNpc.SetProcess(true);
     _currentNpc.MoveTo(NpcSpawnManager.Instance.ExitPoint.GlobalPosition);
+    //_gameManager.DecreaseSatisfaction(10); this whas moved to line 84
 
     IsOccupied = false;
     IsReserved = false;
