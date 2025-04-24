@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=3 uid="uid://die0tol2xd5q0"]
+
+[ext_resource type="Script" uid="uid://3q7bwitbndox" path="res://Code/UI/PauseMenu.cs" id="1_etnfi"]
+[ext_resource type="FontFile" uid="uid://c0yo3lty7v0ue" path="res://Art/Fonts/Pixica-Bold.ttf" id="2_q775a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qg8xq"]
+font = ExtResource("2_q775a")
+font_size = 32
+font_color = Color(1, 0.803922, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sev4g"]
+font = ExtResource("2_q775a")
+
+[sub_resource type="LabelSettings" id="LabelSettings_04dm0"]
+font = ExtResource("2_q775a")
+
+[sub_resource type="LabelSettings" id="LabelSettings_idhon"]
+font = ExtResource("2_q775a")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36k83"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.764252, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2gvh"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntcl7"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.764252, 0, 1)
+
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("ContinueButton", "RestartButton", "QuitButton", "Master", "Effects", "Music")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_etnfi")
+ContinueButton = NodePath("PanelContainer/VBoxContainer/ContinueButton")
+RestartButton = NodePath("PanelContainer/VBoxContainer/RestartButton")
+QuitButton = NodePath("PanelContainer/VBoxContainer/QuitButton")
+Master = NodePath("PanelContainer/VBoxContainer/HSliderMaster")
+Effects = NodePath("PanelContainer/VBoxContainer/HSliderEffets")
+Music = NodePath("PanelContainer/VBoxContainer/HSliderMusic")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.380392)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = -69.0
+offset_right = 60.5
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PauseTitle" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "PAUSE"
+label_settings = SubResource("LabelSettings_qg8xq")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master"
+label_settings = SubResource("LabelSettings_sev4g")
+
+[node name="HSliderMaster" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Effects"
+label_settings = SubResource("LabelSettings_04dm0")
+
+[node name="HSliderEffets" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_idhon")
+
+[node name="HSliderMusic" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q775a")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_36k83")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r2gvh")
+text = "Continue"
+
+[node name="RestartButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q775a")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_36k83")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r2gvh")
+text = "Restart
+"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q775a")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_ntcl7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r2gvh")
+text = "Quit"

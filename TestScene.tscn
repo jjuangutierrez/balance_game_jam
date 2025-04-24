@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cfn8rvipdqweb"]
+[gd_scene load_steps=32 format=4 uid="uid://cfn8rvipdqweb"]
 
 [ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
 [ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b3d7ry7unolsf" path="res://Prefabs/Tables/WoodenTable.tscn" id="6_tq6uv"]
 [ext_resource type="PackedScene" uid="uid://diln8qb1uofp1" path="res://Prefabs/NPCSpawnManger.tscn" id="7_12c36"]
 [ext_resource type="PackedScene" uid="uid://bax8cnjmowdu6" path="res://Prefabs/Tables/KitchenTable.tscn" id="8_5uqhi"]
+[ext_resource type="PackedScene" uid="uid://die0tol2xd5q0" path="res://PauseMenu.tscn" id="8_b3dy1"]
 
 [sub_resource type="Gradient" id="Gradient_12c36"]
 offsets = PackedFloat32Array(0, 0.584416)
@@ -411,6 +412,10 @@ position = Vector2(142, 176)
 
 [node name="NPCSpawnManger" parent="." instance=ExtResource("7_12c36")]
 position = Vector2(384, 592)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_b3dy1")]
 
 [editable path="NavigationRegion2D/Plant2"]
 [editable path="NavigationRegion2D/Plant3"]

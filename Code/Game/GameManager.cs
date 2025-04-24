@@ -18,8 +18,11 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
-        transitionAnimation.Play("up");
-        transitionAnimation.AnimationFinished += OnAnimationFinished;
+        if (transitionAnimation != null)
+        {
+            transitionAnimation.Play("up");
+            transitionAnimation.AnimationFinished += OnAnimationFinished;
+        }
 
         _UiManager = GetNode<UIManager>("/root/UI");
     }
@@ -27,8 +30,15 @@ public partial class GameManager : Node
     public override void _Process(double delta)
     {
         // TODO: change game scene
-        var currentScene = GetTree().CurrentScene;
 
+        if (_UiManager == null)
+        {
+            _UiManager = GetNode<UIManager>("/root/UI");
+            if (_UiManager == null) return;
+        }
+
+        var currentScene = GetTree().CurrentScene;
+        if (currentScene == null) return;
 
         switch (currentScene.SceneFilePath)
         {
@@ -60,7 +70,20 @@ public partial class GameManager : Node
     public void ChangeScene(string scenePath)
     {
         nextScene = scenePath;
-        transitionAnimation.Play("down");
+
+        if (transitionAnimation != null)
+        {
+            transitionAnimation.Play("down");
+        }
+        else
+        {
+            GetTree().ChangeSceneToFile(scenePath);
+
+            if (scenePath == "res://TestScene.tscn")
+            {
+                ResetGameValues();
+            }
+        }
     }
 
 
@@ -69,16 +92,23 @@ public partial class GameManager : Node
         if (animName == "down" && !string.IsNullOrEmpty(nextScene))
         {
             GetTree().ChangeSceneToFile(nextScene);
-            transitionAnimation.Play("up");
+
+            if (transitionAnimation != null)
+                transitionAnimation.Play("up");
 
             if (nextScene == "res://TestScene.tscn")
             {
-                CurrentSatisfaction = 50;
-                CurrentTime = Time;
+                ResetGameValues();
             }
 
             nextScene = "";
         }
+    }
+
+    public void ResetGameValues()
+    {
+        CurrentSatisfaction = 50;
+        CurrentTime = 0;
     }
 
     public void AddTime(float extraTime)
