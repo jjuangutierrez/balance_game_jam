@@ -115,10 +115,8 @@ public partial class Dishes : Node2D
     _angularVelocity += (springTorque + dampingTorque) * _deltaTime;
   }
 
-  private void ApplyGravityForce()
-  {
+  private void ApplyGravityForce() =>
     _angularVelocity += Mathf.Sign(_currentTiltAngle) * gravityForce * _deltaTime;
-  }
 
   private void UpdateTiltAngle()
   {
@@ -183,10 +181,8 @@ public partial class Dishes : Node2D
     return q0.Lerp(q1, t);
   }
 
-  private Vector2 CalculateBezierTangent(Vector2 p0, Vector2 p1, Vector2 p2, float t)
-  {
-    return 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
-  }
+  private Vector2 CalculateBezierTangent(Vector2 p0, Vector2 p1, Vector2 p2, float t) =>
+    2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
 
   private Vector2 CalculateEndPlatePosition()
   {

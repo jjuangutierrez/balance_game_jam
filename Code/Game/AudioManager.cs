@@ -9,8 +9,6 @@ public partial class AudioManager : Node
   {
     _sounds = GetChildren().OfType<AudioStreamPlayer>()
       .ToDictionary(player => player.Name.ToString(), player => player);
-
-    // PlayMusic("music");
   }
 
   public void PlaySound(string soundName, float pitchScale = 1f)
@@ -25,15 +23,6 @@ public partial class AudioManager : Node
     else
     {
       GD.PrintErr($"AudioManager: sound '{soundName}' not found.");
-    }
-  }
-
-  public void PlayMusic(string musicName)
-  {
-    if (_sounds.TryGetValue(musicName, out var player))
-    {
-      player.StreamPaused = false;
-      player.Stream = player.Stream.Duplicate() as AudioStream;
     }
   }
 }

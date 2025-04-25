@@ -26,8 +26,6 @@ public partial class GameManager : Node
 
     public override void _Process(double delta)
     {
-        // TODO: change game scene
-
         if (_UiManager == null)
         {
             _UiManager = GetNode<UIManager>("/root/UI");
@@ -49,19 +47,20 @@ public partial class GameManager : Node
                 _UiManager.Show();
                 _UiManager.UpdateTimer(delta);
                 _UiManager.UpdateProgressBar();
+
                 CurrentTime += (float)delta;
 
                 if (CurrentSatisfaction <= 0)
                 {
                     if (CurrentTime > RecordTime)
                         RecordTime = CurrentTime;
+
                     ChangeScene("res://GameOver.tscn");
                 }
                 break;
             default:
                 break;
         }
-
     }
 
     public void ChangeScene(string scenePath)
@@ -79,7 +78,6 @@ public partial class GameManager : Node
                 ResetGameValues();
         }
     }
-
 
     private void OnAnimationFinished(StringName animName)
     {
@@ -103,19 +101,11 @@ public partial class GameManager : Node
         CurrentTime = 0;
     }
 
-    public void AddTime(float extraTime)
-    {
-        CurrentTime += extraTime;
-    }
+    public void AddTime(float extraTime) => CurrentTime += extraTime;
 
-    public void DecreaseSatisfaction(int extraSatisfaction)
-    {
+    public void DecreaseSatisfaction(int extraSatisfaction) =>
         CurrentSatisfaction = Mathf.Clamp(CurrentSatisfaction - extraSatisfaction, 0, 100);
-    }
 
-    public void IncreaseSatisfaction(int extraSatisfaction)
-    {
+    public void IncreaseSatisfaction(int extraSatisfaction) =>
         CurrentSatisfaction = Mathf.Clamp(CurrentSatisfaction + extraSatisfaction, 0, 100);
-    }
-
 }

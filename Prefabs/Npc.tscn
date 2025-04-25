@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0nwutuge0qe"]
+[gd_scene load_steps=15 format=3 uid="uid://d0nwutuge0qe"]
 
 [ext_resource type="Script" uid="uid://dcijsamayub5" path="res://Code/Npc/Npc.cs" id="1_ih817"]
 [ext_resource type="Texture2D" uid="uid://j6vfgpgrle7s" path="res://Art/Customers/npc2-Sheet.png" id="3_krnsb"]
 [ext_resource type="Texture2D" uid="uid://c76h16vmnlbly" path="res://Art/Customers/npc3-Sheet.png" id="4_vm3si"]
+[ext_resource type="Texture2D" uid="uid://dsg45laek08v6" path="res://Art/Shadow.png" id="5_vm3si"]
 [ext_resource type="Texture2D" uid="uid://c6t73o37x7ia6" path="res://Art/Customers/npc1-Sheet.png" id="8_ikqwk"]
 [ext_resource type="Texture2D" uid="uid://bqec2ctw7x0yh" path="res://Art/Emoticons/emoticon_angry.png" id="8_sbljn"]
 
@@ -139,6 +140,11 @@ NPCSprite = NodePath("Sprite2D")
 animationPlayer = NodePath("AnimationPlayer")
 agent = NodePath("NavigationAgent2D")
 EmoticonSprite = NodePath("emoticonSprite")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.247059)
+position = Vector2(0, -2)
+texture = ExtResource("5_vm3si")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -18)

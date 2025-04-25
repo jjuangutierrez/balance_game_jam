@@ -42,6 +42,7 @@ backButton = NodePath("VBoxContainer/VBoxContainer3/Button")
 totalTime = NodePath("VBoxContainer/VBoxContainer3/VBoxContainer2/TotalScoreLabel")
 
 [node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 480.0
 offset_bottom = 270.0
 texture = ExtResource("2_xl4ts")
@@ -92,6 +93,8 @@ layout_mode = 2
 [node name="Button" type="Button" parent="VBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_a1htc")
 theme_override_styles/focus = SubResource("StyleBoxTexture_xl4ts")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jywu3")

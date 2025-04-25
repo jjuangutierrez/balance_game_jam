@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://h5uybdncsqui"]
+[gd_scene load_steps=14 format=3 uid="uid://h5uybdncsqui"]
 
 [ext_resource type="Script" uid="uid://15ltbjoapuon" path="res://Code/Player/PlayerController.cs" id="1_x3d5u"]
+[ext_resource type="Texture2D" uid="uid://dsg45laek08v6" path="res://Art/Shadow.png" id="2_javds"]
 [ext_resource type="Texture2D" uid="uid://dikyfu3kabeef" path="res://Art/Player/waiter-Sheet.png" id="2_lhekp"]
 [ext_resource type="Script" uid="uid://dmwow1f85w2i4" path="res://Code/State machine/StateMachine.cs" id="4_gg3t4"]
 [ext_resource type="Script" uid="uid://dq08ly4reub77" path="res://Code/Player/PlayerIdleState.cs" id="5_javds"]
@@ -80,6 +81,11 @@ playerSprite = NodePath("Waiter")
 animationPlayer = NodePath("AnimationPlayer")
 interactionArea = NodePath("InteractableArea")
 dishes = NodePath("Dishes")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.247059)
+position = Vector2(0, -3)
+texture = ExtResource("2_javds")
 
 [node name="Dishes" parent="." instance=ExtResource("8_3ygst")]
 position = Vector2(15, -21)

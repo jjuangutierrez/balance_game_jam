@@ -47,8 +47,7 @@ public partial class NpcSpawnManager : Node2D
     _spawnTimer = new Timer();
     AddChild(_spawnTimer);
     _spawnTimer.Timeout += OnTimerTimeout;
-    int spawnTime = GD.RandRange(spawnRateRange.X, spawnRateRange.Y);
-    _spawnTimer.Start(spawnTime);
+    _spawnTimer.Start(6);
   }
 
   private void InitializeTables()

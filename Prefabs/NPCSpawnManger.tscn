@@ -9,7 +9,7 @@ size = Vector2(62, 20)
 [node name="NPCSpawnManger" type="Node2D" node_paths=PackedStringArray("ExitPoint")]
 script = ExtResource("1_k6vnv")
 npcScene = ExtResource("2_shpfe")
-spawnRateRange = Vector2i(2, 5)
+spawnRateRange = Vector2i(2, 4)
 ExitPoint = NodePath("exitPoint")
 
 [node name="exitPoint" type="Node2D" parent="."]
