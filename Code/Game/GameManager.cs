@@ -29,7 +29,6 @@ public partial class GameManager : Node
         // TODO: change game scene
         var currentScene = GetTree().CurrentScene;
 
-
         switch (currentScene.SceneFilePath)
         {
             case "res://MainMenu.tscn":

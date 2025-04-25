@@ -79,8 +79,10 @@ public partial class Chair : Node2D
       _currentNpc.AssignedTable.ClearDish(_currentNpc.ChairIndex);
       _currentNpc.ShowHappyEmotion(HappyTextures);
       _gameManager.IncreaseSatisfaction(5);
-    }else{
-      //TODO: GameManager.Instance.PlaySound("soundRage");
+    }
+    else
+    {
+      _audioManager.PlaySound("huh", (float)GD.RandRange(1f, 1.1f));
       _currentNpc.ShowFrustrationEmotion(FrustrationTextures);
       _gameManager.DecreaseSatisfaction(10);
     }
@@ -90,7 +92,6 @@ public partial class Chair : Node2D
 
     _currentNpc.SetProcess(true);
     _currentNpc.MoveTo(NpcSpawnManager.Instance.ExitPoint.GlobalPosition);
-    //_gameManager.DecreaseSatisfaction(10); this whas moved to line 84
 
     IsOccupied = false;
     IsReserved = false;

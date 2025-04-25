@@ -19,15 +19,8 @@ public partial class Table : StaticBody2D, IInteractable
     tableArea.BodyEntered += OnArea2DBodyEntered;
   }
 
-  public bool IsDishServed(int chairIndex)
-  {
-    return DishSprites[chairIndex].Visible;
-  }
-
-  public void ClearDish(int chairIndex)
-  {
-    DishSprites[chairIndex].Visible = false;
-  }
+  public bool IsDishServed(int chairIndex) => DishSprites[chairIndex].Visible;
+  public void ClearDish(int chairIndex) => DishSprites[chairIndex].Visible = false;
 
   private void SeatNpc(Npc npc, Chair chair)
   {
@@ -82,13 +75,13 @@ public partial class Table : StaticBody2D, IInteractable
     if (node is not Dishes dishes)
       return;
 
+    bool hasOccupiedChairWithoutDish = _chairs
+      .Zip(DishSprites, (chair, dish) => chair.IsOccupied && !dish.Visible)
+      .Any(x => x);
 
-    bool shouldPlaySound = _chairs.Any(chair => chair.IsOccupied) && DishSprites.All(dish => !dish.Visible);
-    if (dishes.DishCount > 0)
+    if (dishes.DishCount > 0 && hasOccupiedChairWithoutDish)
     {
-      if (shouldPlaySound)
-        _audioManager.PlaySound("serveDish", (float)GD.RandRange(1f, 1.1f));
-
+      _audioManager.PlaySound("serveDish", (float)GD.RandRange(1f, 1.1f));
       dishes.RemoveDish(ServeDish(dishes.DishCount));
     }
   }

@@ -83,8 +83,7 @@ public partial class NpcSpawnManager : Node2D
     _activeNpcs.Add(npc);
     npc.AssignToTable(table, chairIndex);
 
-    //TODO: bell sound
-    /* _audioManager.PlaySound("bell"); */
+    _audioManager.PlaySound("doorBell", (float)GD.RandRange(1, 1.1));
   }
 
   private Table GetRandomAvailableTable()
@@ -102,8 +101,6 @@ public partial class NpcSpawnManager : Node2D
 
     _activeNpcs.Remove(npc);
     npc.QueueFree();
-    //TODO: bell sound
-    /* _audioManager.PlaySound("bell"); */
   }
 
   // reset singleton

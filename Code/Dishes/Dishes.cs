@@ -24,6 +24,13 @@ public partial class Dishes : Node2D
   float _deltaTime = 0f;
   bool _allDishesFallen;
   GameManager _gameManager;
+  AudioManager _audioManager;
+
+  public override void _Ready()
+  {
+    _gameManager = GetNode<GameManager>("/root/GameManager");
+    _audioManager = GetNode<AudioManager>("/root/AudioManager");
+  }
 
   public override void _Process(double delta)
   {
@@ -201,9 +208,8 @@ public partial class Dishes : Node2D
     if (Mathf.Abs(_currentTiltAngle) >= 80)
     {
       _breakeParticle.Emitting = true;
-      _gameManager = GetNode<GameManager>("/root/GameManager");
       _gameManager.DecreaseSatisfaction(20);
-      //TODO: GameManager.Instance.PlaySound("breakinDishes");
+      _audioManager.PlaySound("brokenPlates");
       _allDishesFallen = true;
       _currentTiltAngle = 0;
       _angularVelocity = 0f;
