@@ -8,7 +8,7 @@ public partial class NpcSpawnManager : Node2D
 
   [Export] PackedScene npcScene;
   [Export] Node2D spawnPoint;
-  [Export] Vector2I spawnRateRange = new Vector2I(5, 10);
+  [Export] Vector2I spawnRateRange = new Vector2I(1, 5);
   [Export] public Node2D ExitPoint { get; private set; }
 
   List<Table> _tables = new();

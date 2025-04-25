@@ -9,7 +9,11 @@ public partial class AudioManager : Node
   {
     _sounds = GetChildren().OfType<AudioStreamPlayer>()
       .ToDictionary(player => player.Name.ToString(), player => player);
+
+    PlaySound("Music", 1f);
+
   }
+
 
   public void PlaySound(string soundName, float pitchScale = 1f)
   {
@@ -17,6 +21,13 @@ public partial class AudioManager : Node
     {
       player.Stop();
       player.PitchScale = pitchScale;
+
+      if (soundName.ToLower().Contains("music"))
+      {
+        player.StreamPaused = false;
+        player.Stream = player.Stream.Duplicate() as AudioStream;
+      }
+
       player.Play();
     }
     else

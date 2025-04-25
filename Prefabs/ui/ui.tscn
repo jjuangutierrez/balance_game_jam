@@ -212,9 +212,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -127.0
-offset_top = 4.0
+offset_top = 11.0
 offset_right = -127.0
-offset_bottom = 4.0
+offset_bottom = 11.0
 grow_horizontal = 2
 
 [node name="BoxContainer" type="BoxContainer" parent="SatisfaccionBar"]
