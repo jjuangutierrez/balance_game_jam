@@ -1,17 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbyav7dismce4"]
+[gd_scene load_steps=2 format=3 uid="uid://dbyav7dismce4"]
 
 [ext_resource type="Texture2D" uid="uid://vdei1y3mrr22" path="res://Art/Objects/plants.png" id="1_hkkjy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohe8r"]
-size = Vector2(11, 10)
-
-[node name="Plant" type="StaticBody2D"]
+[node name="Plant" type="Node2D"]
 y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_hkkjy")
 hframes = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_ohe8r")

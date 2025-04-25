@@ -4,7 +4,6 @@ using System;
 public partial class UIManager : CanvasLayer
 {
   [Export] private Label timer;
-  [Export] private Label score;
   [Export] private TextureProgressBar progressBar;
   [Export] private AnimationPlayer animationPlayer;
 

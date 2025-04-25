@@ -37,7 +37,7 @@ public partial class PlayerController : CharacterBody2D
   {
     inputDirection = Input.GetVector("left", "right", "up", "down");
 
-    // Step sound
+    // Footstep sound
     if (inputDirection != Vector2.Zero)
     {
       _stepTimer -= (float)delta;

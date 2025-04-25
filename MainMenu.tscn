@@ -1,13 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7uk0801xiwkp"]
+[gd_scene load_steps=10 format=3 uid="uid://b7uk0801xiwkp"]
 
-[ext_resource type="Shader" uid="uid://baffvbi2a6vg5" path="res://Shaders/ScrollBackground.gdshader" id="1_h7a2f"]
 [ext_resource type="Script" uid="uid://bml6qy77unlor" path="res://Code/UI/MainMenu.cs" id="1_qoqlk"]
-[ext_resource type="Texture2D" uid="uid://b4r10vtu5b5he" path="res://Art/UI/main_menu_background.png" id="2_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://p8jmnx5ndyp3" path="res://Art/bg.png" id="2_qoqlk"]
+[ext_resource type="Texture2D" uid="uid://cuj7oorj5jr0d" path="res://Art/UI/button01.png" id="5_7r1g0"]
 [ext_resource type="FontFile" uid="uid://c0yo3lty7v0ue" path="res://Art/Fonts/Pixica-Bold.ttf" id="5_iwfq2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r1g0"]
-shader = ExtResource("1_h7a2f")
-shader_parameter/speed = 0.1
+[sub_resource type="Theme" id="Theme_e2xy7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iwfq2"]
 font = ExtResource("5_iwfq2")
@@ -15,30 +13,24 @@ font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_qoqlk"]
 font = ExtResource("5_iwfq2")
-font_color = Color(1, 0.803922, 0, 1)
+font_color = Color(0.904211, 0.640706, 7.70092e-07, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i26rj"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 0.764252, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fimr5"]
+texture = ExtResource("5_7r1g0")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 4.0
+expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjwba"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="InputEventKey" id="InputEventKey_7r1g0"]
-device = -1
-keycode = 4194309
-
-[sub_resource type="Shortcut" id="Shortcut_cqjrg"]
-events = [SubResource("InputEventKey_7r1g0")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qoqlk"]
+texture = ExtResource("5_7r1g0")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 4.0
+expand_margin_bottom = 4.0
+modulate_color = Color(0.741385, 0.741385, 0.741385, 1)
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("continueButton", "recordLabel")]
 layout_mode = 3
@@ -48,38 +40,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qoqlk")
-continueButton = NodePath("BoxContainer/VBoxContainer/PlayButton")
-recordLabel = NodePath("BoxContainer/VBoxContainer/RecordTimeLabel")
+continueButton = NodePath("BoxContainer/VBoxContainer2/VBoxContainer/Button")
+recordLabel = NodePath("BoxContainer/VBoxContainer2/VBoxContainer/RecordTimeLabel")
 
 [node name="Background" type="TextureRect" parent="."]
-texture_repeat = 2
-material = SubResource("ShaderMaterial_7r1g0")
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 270.0
 texture = ExtResource("2_qoqlk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.835294)
+modulate = Color(0, 0, 0, 0.792157)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -81.0
-offset_top = 63.0
-offset_right = 81.0
-offset_bottom = 89.0
-grow_horizontal = 2
-text = "WAITER WALTER"
-label_settings = SubResource("LabelSettings_iwfq2")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
 layout_mode = 1
@@ -94,21 +71,50 @@ offset_right = 36.0
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_e2xy7")
+vertical = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="BoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "WAITER WALTER"
+label_settings = SubResource("LabelSettings_iwfq2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="RecordTimeLabel" type="Label" parent="BoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RecordTimeLabel" type="Label" parent="BoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Record: 0"
 label_settings = SubResource("LabelSettings_qoqlk")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PlayButton" type="Button" parent="BoxContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="BoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_iwfq2")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/hover = SubResource("StyleBoxFlat_i26rj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
-shortcut = SubResource("Shortcut_cqjrg")
-text = "Continue
-"
+theme_override_styles/focus = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_qoqlk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qoqlk")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fimr5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fimr5")
+text = "Play"

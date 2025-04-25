@@ -13,8 +13,5 @@ public partial class TutorialScreen : Control
         playButton.Pressed += OnPlayPressed;
     }
 
-    private void OnPlayPressed()
-    {
-        _gameManager.ChangeScene("res://TestScene.tscn");
-    }
+    private void OnPlayPressed() => _gameManager.ChangeScene("res://MainScene.tscn");
 }

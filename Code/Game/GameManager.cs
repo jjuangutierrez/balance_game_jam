@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 public partial class GameManager : Node
 {
@@ -12,7 +9,7 @@ public partial class GameManager : Node
     [Export] public float RecordTime;
     [Export] public float CurrentSatisfaction { get; private set; } = 50;
     [Export] AnimationPlayer transitionAnimation;
-    [Export] UIManager _UiManager;
+    UIManager _UiManager;
 
     private string nextScene = "";
 
@@ -48,7 +45,7 @@ public partial class GameManager : Node
             case "res://GameOver.tscn":
                 _UiManager.Hide();
                 break;
-            case "res://TestScene.tscn":
+            case "res://MainScene.tscn":
                 _UiManager.Show();
                 _UiManager.UpdateTimer(delta);
                 _UiManager.UpdateProgressBar();
@@ -78,11 +75,8 @@ public partial class GameManager : Node
         else
         {
             GetTree().ChangeSceneToFile(scenePath);
-
-            if (scenePath == "res://TestScene.tscn")
-            {
+            if (scenePath == "res://MainScene.tscn")
                 ResetGameValues();
-            }
         }
     }
 
@@ -96,10 +90,8 @@ public partial class GameManager : Node
             if (transitionAnimation != null)
                 transitionAnimation.Play("up");
 
-            if (nextScene == "res://TestScene.tscn")
-            {
+            if (nextScene == "res://MainScene.tscn")
                 ResetGameValues();
-            }
 
             nextScene = "";
         }

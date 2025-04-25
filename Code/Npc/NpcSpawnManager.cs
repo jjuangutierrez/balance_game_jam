@@ -44,8 +44,8 @@ public partial class NpcSpawnManager : Node2D
 
   private void InitializeTimer()
   {
-    _spawnTimer = GetNode<Timer>("Timer");
-
+    _spawnTimer = new Timer();
+    AddChild(_spawnTimer);
     _spawnTimer.Timeout += OnTimerTimeout;
     int spawnTime = GD.RandRange(spawnRateRange.X, spawnRateRange.Y);
     _spawnTimer.Start(spawnTime);
@@ -64,8 +64,13 @@ public partial class NpcSpawnManager : Node2D
   private void OnTimerTimeout()
   {
     Table availableTable = GetRandomAvailableTable();
-    if (_activeNpcs.Count < _maxNpcs && !availableTable.IsOccupied)
+    if (_activeNpcs.Count < _maxNpcs && !availableTable.IsOccupied){
+      // Set a new random spawn time for the next NPC
+      int newSpawnTime = GD.RandRange(spawnRateRange.X, spawnRateRange.Y);
+      _spawnTimer.Start(newSpawnTime);
+
       SpawnNpc(availableTable);
+    }
   }
 
   private void SpawnNpc(Table table)

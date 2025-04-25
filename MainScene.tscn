@@ -1,13 +1,13 @@
 [gd_scene load_steps=32 format=4 uid="uid://cfn8rvipdqweb"]
 
-[ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="1_mncer"]
-[ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="2_cguwc"]
-[ext_resource type="PackedScene" uid="uid://cgqlddgg6s1wt" path="res://Prefabs/Objects/counter.tscn" id="3_12c36"]
-[ext_resource type="PackedScene" uid="uid://dbyav7dismce4" path="res://Prefabs/Objects/plant.tscn" id="6_5uqhi"]
-[ext_resource type="PackedScene" uid="uid://wxe8omedx456" path="res://Prefabs/Tables/WoodenTable.tscn" id="6_tq6uv"]
-[ext_resource type="PackedScene" uid="uid://diln8qb1uofp1" path="res://Prefabs/NPCSpawnManger.tscn" id="7_12c36"]
-[ext_resource type="PackedScene" uid="uid://bax8cnjmowdu6" path="res://Prefabs/Tables/KitchenTable.tscn" id="8_5uqhi"]
-[ext_resource type="PackedScene" uid="uid://die0tol2xd5q0" path="res://PauseMenu.tscn" id="8_b3dy1"]
+[ext_resource type="Texture2D" uid="uid://4qfmum8s6dha" path="res://Art/Tilemaps/tilemap_restaurant.png" id="1_hbc2u"]
+[ext_resource type="PackedScene" uid="uid://h5uybdncsqui" path="res://Prefabs/Player.tscn" id="2_torvr"]
+[ext_resource type="PackedScene" uid="uid://cgqlddgg6s1wt" path="res://Prefabs/Objects/counter.tscn" id="3_8xkvn"]
+[ext_resource type="PackedScene" uid="uid://wxe8omedx456" path="res://Prefabs/Tables/WoodenTable.tscn" id="4_p5x2j"]
+[ext_resource type="PackedScene" uid="uid://dbyav7dismce4" path="res://Prefabs/Objects/plant.tscn" id="5_yvb8b"]
+[ext_resource type="PackedScene" uid="uid://bax8cnjmowdu6" path="res://Prefabs/Tables/KitchenTable.tscn" id="6_3hf6u"]
+[ext_resource type="PackedScene" uid="uid://diln8qb1uofp1" path="res://Prefabs/NPCSpawnManger.tscn" id="7_4mcbk"]
+[ext_resource type="PackedScene" uid="uid://suyrpsf4t3fo" path="res://PauseMenu.tscn" id="8_mctxq"]
 
 [sub_resource type="Gradient" id="Gradient_12c36"]
 offsets = PackedFloat32Array(0, 0.584416)
@@ -19,7 +19,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wicfy"]
-texture = ExtResource("2_cguwc")
+texture = ExtResource("1_hbc2u")
 texture_region_size = Vector2i(32, 32)
 0:1/0 = 0
 1:0/0 = 0
@@ -34,7 +34,7 @@ tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_wicfy")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sreuk"]
-texture = ExtResource("2_cguwc")
+texture = ExtResource("1_hbc2u")
 texture_region_size = Vector2i(32, 32)
 6:1/0 = 0
 6:0/0 = 0
@@ -90,7 +90,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_sreuk")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cguwc"]
-texture = ExtResource("2_cguwc")
+texture = ExtResource("1_hbc2u")
 texture_region_size = Vector2i(32, 32)
 8:5/0 = 0
 3:3/0 = 0
@@ -142,7 +142,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_cguwc")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_go42g"]
-texture = ExtResource("2_cguwc")
+texture = ExtResource("1_hbc2u")
 texture_region_size = Vector2i(32, 32)
 8:6/0 = 0
 8:6/0/y_sort_origin = 16
@@ -205,9 +205,9 @@ size = Vector2(32, 38)
 size = Vector2(131, 12)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_12c36"]
-vertices = PackedVector2Array(495.5, 488.5, 500.039, 403.969, 501.953, 559, 495.5, 517, 495.5, 460, 495.5, 433.5, 495.5, 405, 417.5, 403.539, 424.5, 405, 424.5, 545.5, 495.5, 545.5, 437.93, 559, 316.031, 556, 417.5, 412, 424.5, 433.5, 424.5, 460, 396.5, 433.5, 398.5, 412, 396.5, 405, 398.5, 403.43, 316.867, 403.023, 325.5, 405, 314.867, 467.133, 325.5, 433.5, 304.5, 476, 304.5, 466.781, 424.5, 517, 438.703, 605, 423.5, 605, 439, 623, 439, 706.961, 315.023, 706.031, 423.5, 623, 257.5, 544.5, 257.5, 516, 285.5, 476, 28, 556, 186.5, 544.5, 143.5, 544.5, 72.5, 544.5, 72.5, 516, 28, 497, 38.5, 497, 274.5, 385, 274.5, 372, 275.078, 372, 277.078, 465.867, 257.5, 429.5, 257.5, 401, 255.5, 385, 186.5, 401, 186.5, 516, 143.5, 516, 38.5, 479, 28, 479, 28, 372, 186.5, 429.5, 255.5, 372, 285.5, 466.148, 424.5, 488.5)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(1, 0, 4), PackedInt32Array(5, 1, 4), PackedInt32Array(1, 5, 6), PackedInt32Array(7, 1, 6, 8), PackedInt32Array(9, 10, 2, 11, 12), PackedInt32Array(13, 7, 8, 14), PackedInt32Array(13, 14, 15, 16, 17), PackedInt32Array(17, 16, 18, 19), PackedInt32Array(20, 19, 18, 21), PackedInt32Array(22, 20, 21, 23), PackedInt32Array(24, 25, 22, 26), PackedInt32Array(11, 27, 28, 12), PackedInt32Array(29, 30, 31, 32), PackedInt32Array(32, 31, 12, 28), PackedInt32Array(26, 9, 12, 33, 34, 35, 24), PackedInt32Array(33, 12, 36, 37), PackedInt32Array(38, 37, 36), PackedInt32Array(39, 38, 36), PackedInt32Array(40, 39, 36, 41, 42), PackedInt32Array(43, 44, 45, 46), PackedInt32Array(47, 43, 46, 34), PackedInt32Array(43, 47, 48), PackedInt32Array(49, 43, 48, 50), PackedInt32Array(14, 5, 4, 15), PackedInt32Array(51, 37, 38, 52), PackedInt32Array(53, 54, 55, 50, 56), PackedInt32Array(55, 57, 49, 50), PackedInt32Array(46, 58, 35, 34), PackedInt32Array(26, 22, 23, 16, 59), PackedInt32Array(40, 42, 53, 56, 52), PackedInt32Array(51, 52, 56, 47), PackedInt32Array(34, 51, 47), PackedInt32Array(16, 15, 59), PackedInt32Array(26, 59, 0, 3), PackedInt32Array(3, 2, 10)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(24, 368, 279, 368, 281, 462, 311, 463, 313, 399, 504, 400, 506, 563, 442, 563, 443, 623, 443, 711, 311, 710, 312, 560, 24, 560)])
+vertices = PackedVector2Array(495.5, 488.5, 500.039, 403.969, 501.953, 559, 495.5, 517, 495.5, 460, 495.5, 433.5, 495.5, 405, 316.867, 403.023, 424.5, 405, 257.5, 429.5, 275.078, 372, 277.078, 465.867, 257.5, 516, 257.5, 401, 28, 372, 186.5, 401, 424.5, 545.5, 495.5, 545.5, 437.93, 559, 316, 556, 28, 556, 72.5, 516, 424.5, 517, 257.5, 544.5, 314.867, 467.133, 424.5, 433.5, 396.5, 433.5, 396.5, 405, 325.5, 405, 325.5, 433.5, 424.5, 460, 186.5, 516, 186.5, 544.5, 143.5, 544.5, 143.5, 516, 439, 623.07, 439, 794, 316, 794, 72.5, 544.5, 186.5, 429.5, 424.5, 488.5)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(1, 0, 4), PackedInt32Array(5, 1, 4), PackedInt32Array(1, 5, 6), PackedInt32Array(7, 1, 6, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(10, 9, 13), PackedInt32Array(14, 10, 13, 15), PackedInt32Array(16, 17, 2, 18, 19), PackedInt32Array(20, 14, 15, 21), PackedInt32Array(22, 16, 19, 23, 12, 11, 24), PackedInt32Array(8, 25, 26, 27), PackedInt32Array(7, 8, 27), PackedInt32Array(7, 27, 28), PackedInt32Array(24, 7, 28, 29), PackedInt32Array(25, 5, 4, 30), PackedInt32Array(26, 25, 30), PackedInt32Array(31, 32, 33, 34), PackedInt32Array(35, 36, 37, 19, 18), PackedInt32Array(23, 19, 20, 32), PackedInt32Array(33, 32, 20), PackedInt32Array(38, 33, 20), PackedInt32Array(21, 38, 20), PackedInt32Array(21, 15, 39, 34), PackedInt32Array(31, 34, 39, 9), PackedInt32Array(12, 31, 9), PackedInt32Array(22, 24, 29, 26, 40), PackedInt32Array(26, 30, 40), PackedInt32Array(22, 40, 0, 3), PackedInt32Array(3, 2, 17)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(24, 368, 279, 368, 281, 462, 311, 463, 313, 399, 504, 400, 506, 563, 442, 563, 443, 623, 443, 798, 312, 798, 312, 560, 24, 560)])
 agent_radius = 4.0
 
 [node name="Node2D" type="Node2D"]
@@ -291,7 +291,7 @@ tile_set = SubResource("TileSet_wicfy")
 tile_map_data = PackedByteArray("AAAGAAoAAAAMAAQAAAADAAoAAAAMAAUAAAAFAAkAAAAHAAYAAAAEAAEAAAAJAAYAAAAEAAkAAAAIAAYAAAAJAAwAAAAJAAYAAAAKAAoAAAAKAAQAAAAHAAkAAAAHAAUAAAABAAoAAAAJAAUAAAAOAAoAAAAHAAUAAAAPAA8AAAAIAAUAAAABAA8AAAAJAAUAAAAKABEAAAAJAAUAAAABAAEAAAAHAAUAAAAGAAYAAAAIAAUAAAALABIAAAAHAAIAAAAMABIAAAAIAAIAAAA=")
 tile_set = SubResource("TileSet_sreuk")
 
-[node name="Player" parent="." instance=ExtResource("1_mncer")]
+[node name="Player" parent="." instance=ExtResource("2_torvr")]
 position = Vector2(95, 176)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -301,7 +301,7 @@ limit_right = 576
 limit_bottom = 640
 editor_draw_limits = true
 
-[node name="Counter" parent="." instance=ExtResource("3_12c36")]
+[node name="Counter" parent="." instance=ExtResource("3_8xkvn")]
 position = Vector2(113, 398)
 
 [node name="MapCollsisions" type="StaticBody2D" parent="."]
@@ -359,63 +359,63 @@ y_sort_enabled = true
 position = Vector2(8, -16)
 navigation_polygon = SubResource("NavigationPolygon_12c36")
 
-[node name="WoodenTable" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WoodenTable" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(108, 533)
 
-[node name="WoodenTable2" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WoodenTable2" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(460, 477)
 
-[node name="WhiteTable" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WhiteTable" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(222, 418)
 
-[node name="WhiteTable2" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WhiteTable2" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(222, 533)
 
-[node name="WhiteTable3" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WhiteTable3" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(361, 422)
 
-[node name="WhiteTable4" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WhiteTable4" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(460, 422)
 
-[node name="WhiteTable5" parent="NavigationRegion2D" instance=ExtResource("6_tq6uv")]
+[node name="WhiteTable5" parent="NavigationRegion2D" instance=ExtResource("4_p5x2j")]
 position = Vector2(460, 534)
 
-[node name="Plant" parent="NavigationRegion2D" instance=ExtResource("6_5uqhi")]
+[node name="Plant" parent="NavigationRegion2D" instance=ExtResource("5_yvb8b")]
 position = Vector2(295, 461)
 
-[node name="Plant2" parent="NavigationRegion2D" instance=ExtResource("6_5uqhi")]
+[node name="Plant2" parent="NavigationRegion2D" instance=ExtResource("5_yvb8b")]
 position = Vector2(29, 482)
 
 [node name="Sprite2D" parent="NavigationRegion2D/Plant2" index="0"]
 frame = 1
 
-[node name="Plant3" parent="NavigationRegion2D" instance=ExtResource("6_5uqhi")]
+[node name="Plant3" parent="NavigationRegion2D" instance=ExtResource("5_yvb8b")]
 position = Vector2(265, 370)
 
 [node name="Sprite2D" parent="NavigationRegion2D/Plant3" index="0"]
 frame = 2
 
-[node name="Plant4" parent="NavigationRegion2D" instance=ExtResource("6_5uqhi")]
+[node name="Plant4" parent="NavigationRegion2D" instance=ExtResource("5_yvb8b")]
 position = Vector2(408, 397)
 
 [node name="Sprite2D" parent="NavigationRegion2D/Plant4" index="0"]
 frame = 3
 
-[node name="Plant5" parent="NavigationRegion2D" instance=ExtResource("6_5uqhi")]
+[node name="Plant5" parent="NavigationRegion2D" instance=ExtResource("5_yvb8b")]
 position = Vector2(433, 608)
 
 [node name="Sprite2D" parent="NavigationRegion2D/Plant5" index="0"]
 frame = 2
 
-[node name="KitchenTable" parent="." instance=ExtResource("8_5uqhi")]
+[node name="KitchenTable" parent="." instance=ExtResource("6_3hf6u")]
 position = Vector2(142, 176)
 
-[node name="NPCSpawnManger" parent="." instance=ExtResource("7_12c36")]
-position = Vector2(384, 592)
+[node name="NPCSpawnManger" parent="." instance=ExtResource("7_4mcbk")]
+position = Vector2(388, 674)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_b3dy1")]
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_mctxq")]
 
 [editable path="NavigationRegion2D/Plant2"]
 [editable path="NavigationRegion2D/Plant3"]

@@ -3,9 +3,6 @@ using System;
 
 public partial class PauseMenu : Control
 {
-    [Export] private Button ContinueButton;
-    [Export] private Button RestartButton;
-    [Export] private Button QuitButton;
     [Export] private HSlider Master;
     [Export] private HSlider Effects;
     [Export] private HSlider Music;
@@ -20,20 +17,8 @@ public partial class PauseMenu : Control
     public override void _Ready()
     {
         _gameManager = GetNode<GameManager>("/root/GameManager");
-
         ProcessMode = ProcessModeEnum.Always;
-
         Visible = false;
-
-        if (ContinueButton != null)
-            ContinueButton.Pressed += OnContinuePressed;
-
-        if (RestartButton != null)
-            RestartButton.Pressed += OnRestartPressed;
-
-        if (QuitButton != null)
-            QuitButton.Pressed += OnQuitPressed;
-
 
         // Sound settings
         SetupSlider(Master, "Master", 0);
@@ -70,24 +55,6 @@ public partial class PauseMenu : Control
         TogglePause();
     }
 
-    private void OnRestartPressed()
-    {
-        GetTree().Paused = false;
-        _isPaused = false;
-        _gameManager.ResetGameValues();
-        GetTree().ReloadCurrentScene();
-
-
-    }
-
-    private void OnQuitPressed()
-    {
-        GetTree().Paused = false;
-        _isPaused = false;
-
-        _gameManager.ChangeScene("res://MainMenu.tscn");
-
-    }
 
     private void SetupSlider(HSlider slider, string bus, float defaultDb)
     {
