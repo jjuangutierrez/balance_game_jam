@@ -29,9 +29,9 @@ script = ExtResource("1_etnfi")
 ContinueButton = NodePath("")
 RestartButton = NodePath("")
 QuitButton = NodePath("")
-Master = NodePath("VBoxContainer/HSliderMaster")
-Effects = NodePath("VBoxContainer/HSliderEffets")
-Music = NodePath("VBoxContainer/HSliderMusic")
+Master = NodePath("Container/VBoxContainer/HSliderMaster")
+Effects = NodePath("Container/VBoxContainer/HSliderEffets")
+Music = NodePath("Container/VBoxContainer/HSliderMusic")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -43,45 +43,50 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.380392)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-offset_left = 179.5
-offset_top = 66.0
-offset_right = 300.5
-offset_bottom = 204.0
-mouse_filter = 2
+[node name="Container" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PauseTitle" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="Container/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "PAUSE MENU"
 label_settings = SubResource("LabelSettings_qg8xq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer"]
 custom_minimum_size = Vector2(0, 18.99)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Master"
 label_settings = SubResource("LabelSettings_sev4g")
 
-[node name="HSliderMaster" type="HSlider" parent="VBoxContainer"]
+[node name="HSliderMaster" type="HSlider" parent="Container/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="Label2" type="Label" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Effects"
 label_settings = SubResource("LabelSettings_04dm0")
 
-[node name="HSliderEffets" type="HSlider" parent="VBoxContainer"]
+[node name="HSliderEffets" type="HSlider" parent="Container/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="VBoxContainer"]
+[node name="Label3" type="Label" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Music"
 label_settings = SubResource("LabelSettings_idhon")
 
-[node name="HSliderMusic" type="HSlider" parent="VBoxContainer"]
+[node name="HSliderMusic" type="HSlider" parent="Container/VBoxContainer"]
 layout_mode = 2
