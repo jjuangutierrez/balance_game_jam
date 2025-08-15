@@ -5,3 +5,9 @@ Implementé buenas prácticas de ingeniería de software, un flujo de control de
 El resultado es una experiencia de juego fluida, inmersiva y robusta, que demuestra mi capacidad para fusionar creatividad, arquitectura de software y tecnologías modernas en un solo producto.
 
 🎯 Pruébalo aquí: https://naujj.itch.io/waiter-walter
+
+<p align="center">
+  <img src="screenshots/screenshot1.png" width="300">
+  <img src="screenshots/screenshot2.png" width="300">
+  <img src="screenshots/screenshot3.png" width="300">
+</p>
