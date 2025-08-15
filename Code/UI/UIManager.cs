@@ -1,26 +1,46 @@
 using Godot;
-using System;
 
 public partial class UIManager : CanvasLayer
 {
-  [Export] private Label timer;
-  [Export] private TextureProgressBar progressBar;
-  [Export] private AnimationPlayer animationPlayer;
+    [Export] private Label timer;
+    [Export] private TextureProgressBar progressBar;
+    [Export] private AnimationPlayer animationPlayer;
 
-  GameManager _gameManager;
+    GameManager _gameManager;
 
-  public override void _Ready()
-  {
-    _gameManager = GetNode<GameManager>("/root/GameManager");
-  }
+    public override void _Ready()
+    {
+        if (GetTree().Root.HasNode("GameManager"))
+        {
+            _gameManager = GetNode<GameManager>("/root/GameManager");
+        }
 
-  public void UpdateTimer(double delta)
-  {
-    timer.Text = _gameManager.CurrentTime.ToString("0");
-  }
+        ValidateUINodes();
+    }
 
-  public void UpdateProgressBar()
-  {
-    progressBar.Value = _gameManager.CurrentSatisfaction;
-  }
+    private void ValidateUINodes()
+    {
+        if (timer == null)
+            GD.PrintErr("Error: Timer Label not found");
+        if (progressBar == null)
+            GD.PrintErr("Error: ProgressBar not found");
+        if (animationPlayer == null)
+            GD.PrintErr("Warning: AnimationPlayer not found");
+    }
+
+    public void UpdateTimer(double delta)
+    {
+        if (timer != null && _gameManager != null)
+        {
+            timer.Text = _gameManager.CurrentTime.ToString("0");
+        }
+    }
+
+    public void UpdateProgressBar()
+    {
+        if (progressBar != null && _gameManager != null)
+        {
+            progressBar.Value = _gameManager.CurrentSatisfaction;
+        }
+    }
 }

@@ -9,8 +9,8 @@ public partial class GameManager : Node
     [Export] public float RecordTime;
     [Export] public float CurrentSatisfaction { get; private set; } = 50;
     [Export] AnimationPlayer transitionAnimation;
-    UIManager _UiManager;
 
+    UIManager _UiManager;
     private string nextScene = "";
 
     public override void _Ready()
@@ -21,14 +21,26 @@ public partial class GameManager : Node
             transitionAnimation.AnimationFinished += OnAnimationFinished;
         }
 
-        _UiManager = GetNode<UIManager>("/root/UI");
+        TryGetUIManager();
+    }
+
+    private void TryGetUIManager()
+    {
+        if (GetTree().Root.HasNode("UI"))
+        {
+            _UiManager = GetNode<UIManager>("/root/UI");
+        }
+        else
+        {
+            _UiManager = GetTree().CurrentScene?.GetNodeOrNull<UIManager>("UIManager");
+        }
     }
 
     public override void _Process(double delta)
     {
         if (_UiManager == null)
         {
-            _UiManager = GetNode<UIManager>("/root/UI");
+            TryGetUIManager();
             if (_UiManager == null) return;
         }
 
@@ -47,14 +59,11 @@ public partial class GameManager : Node
                 _UiManager.Show();
                 _UiManager.UpdateTimer(delta);
                 _UiManager.UpdateProgressBar();
-
                 CurrentTime += (float)delta;
-
                 if (CurrentSatisfaction <= 0)
                 {
                     if (CurrentTime > RecordTime)
                         RecordTime = CurrentTime;
-
                     ChangeScene("res://GameOver.tscn");
                 }
                 break;
@@ -66,7 +75,6 @@ public partial class GameManager : Node
     public void ChangeScene(string scenePath)
     {
         nextScene = scenePath;
-
         if (transitionAnimation != null)
         {
             transitionAnimation.Play("down");
@@ -84,13 +92,10 @@ public partial class GameManager : Node
         if (animName == "down" && !string.IsNullOrEmpty(nextScene))
         {
             GetTree().ChangeSceneToFile(nextScene);
-
             if (transitionAnimation != null)
                 transitionAnimation.Play("up");
-
             if (nextScene == "res://MainScene.tscn")
                 ResetGameValues();
-
             nextScene = "";
         }
     }

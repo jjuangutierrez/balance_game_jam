@@ -31,9 +31,11 @@ public partial class Npc : CharacterBody2D
   public override void _PhysicsProcess(double delta)
   {
     UpdateMovement();
-  }
+        agent.DebugEnabled = false;
 
-  private void UpdateMovement()
+    }
+
+    private void UpdateMovement()
   {
     if (agent.IsNavigationFinished())
       return;
